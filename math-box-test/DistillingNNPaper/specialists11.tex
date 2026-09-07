@@ -78,7 +78,7 @@ clusters, we opted for a simpler approach that does not require the true labels 
 
 
 In particular, we apply a clustering algorithm to the covariance matrix of the predictions of our generalist model, so that
-a set of classes $S^m$ that are often predicted together will be used as targets for one of our specialist models, $m$. We applied an on-line
+a set of classes \recordmath{S^m} that are often predicted together will be used as targets for one of our specialist models, \recordmath{m}. We applied an on-line
 version of the K-means algorithm to the columns of the covariance matrix, and obtained reasonable clusters (shown in
 Table \ref{tab:example_clusters}). We tried several clustering algorithms which produced similar results.
 
@@ -89,35 +89,35 @@ distilled, we wanted to see how well ensembles containing specialists
 performed. In addition to the specialist models, we always have a
 generalist model so that we can deal with classes for which we
 have no specialists and so that we can decide which specialists to
-use. Given an input image $\bx$, we do top-one classification in two steps:
+use. Given an input image \recordmath{\bx}, we do top-one classification in two steps:
 
 Step 1: For each test case, we find
-  the $n$ most probable classes according to the generalist model. Call this set of classes $k$. In our
-  experiments, we used $n=1$.
+  the \recordmath{n} most probable classes according to the generalist model. Call this set of classes \recordmath{k}. In our
+  experiments, we used \recordmath{n=1}.
 
-Step 2: We then take all the specialist models, $m$, whose special
+Step 2: We then take all the specialist models, \recordmath{m}, whose special
 subset of confusable classes,
-  $S^m$, has a non-empty intersection with $k$ and call this the active
-  set of specialists $A_k$ (note that this set may be empty). We then
-  find the full probability distribution $\bq$ over all the classes
+  \recordmath{S^m}, has a non-empty intersection with \recordmath{k} and call this the active
+  set of specialists \recordmath{A_k} (note that this set may be empty). We then
+  find the full probability distribution \recordmath{\bq} over all the classes
   that minimizes:
 \begin{equation}
-KL (\bp^g, \bq) + \sum_{m \in A_k} KL (\bp^m , \bq)  
+\recorddisplay{KL (\bp^g, \bq) + \sum_{m \in A_k} KL (\bp^m , \bq)}
 \label{eq:kl}
 \end{equation}
-where $KL$ denotes the KL divergence, and $\bp^m$ $\bp^g$ denote the
+where \recordmath{KL} denotes the KL divergence, and \recordmath{\bp^m} \recordmath{\bp^g} denote the
 probability distribution of a specialist model or the generalist full
-model. The distribution $\bp^m$ is a distribution over all the
-specialist classes of $m$ plus a single dustbin class, so when
-computing its KL divergence from the full $\bq$ distribution we sum
-all of the probabilities that the full $\bq$ distribution assigns to
-all the classes in $m$'s dustbin.
+model. The distribution \recordmath{\bp^m} is a distribution over all the
+specialist classes of \recordmath{m} plus a single dustbin class, so when
+computing its KL divergence from the full \recordmath{\bq} distribution we sum
+all of the probabilities that the full \recordmath{\bq} distribution assigns to
+all the classes in \recordmath{m}'s dustbin.
 
 
 Eq.~\ref{eq:kl} does not have a general closed form solution, though when all the models produce a single probability for
-each class the solution is either the arithmetic or geometric mean, depending on whether we use $KL(\bp,\bq)$
-or $KL(\bq,\bp)$). We parameterize $\bq =
-softmax(\bz)$ (with $T=1$) and we use gradient descent to optimize the logits $\bz$ w.r.t. eq.~\ref{eq:kl}. Note that this
+each class the solution is either the arithmetic or geometric mean, depending on whether we use \recordmath{KL(\bp,\bq)}
+or \recordmath{KL(\bq,\bp)}). We parameterize \recordmath{\bq =
+softmax(\bz)} (with \recordmath{T=1}) and we use gradient descent to optimize the logits \recordmath{\bz} w.r.t. eq.~\ref{eq:kl}. Note that this
 optimization must be carried out for each image.  
 
 \subsection{Results}
@@ -177,4 +177,3 @@ the number of examples correct at position 1 when using the specialist(s), and t
 top1 accuracy for the JFT dataset broken down by the number of specialists covering the class.  We are encouraged by the
 general trend that accuracy improvements are larger when we have more specialists covering a particular class, since
 training independent specialist models is very easy to parallelize.
-

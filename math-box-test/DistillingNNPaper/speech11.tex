@@ -15,15 +15,15 @@ Although it is possible (and desirable) to train the DNN in such a way that the 
 is taken into account by marginalizing over all possible paths, it is common to train the DNN to perform frame-by-frame
 classification by (locally) minimizing the cross entropy between the predictions made by the net and the labels given
 by a forced alignment with the ground truth sequence of states for each observation:
-$$\btheta = \arg\max_{\btheta'} P(h_t | \bs_t;\btheta')$$
-where $\btheta$ are the parameters of our acoustic model $P$
-which maps acoustic observations at time $t$, $\bs_t$, to a probability, $P(h_t | \bs_t;\btheta')$ , of the ``correct''
-HMM state $h_t$, which is determined by a forced alignment with the correct sequence of words. The model is trained with
+\[\recorddisplay{\btheta = \arg\max_{\btheta'} P(h_t | \bs_t;\btheta')}\]
+where \recordmath{\btheta} are the parameters of our acoustic model \recordmath{P}
+which maps acoustic observations at time \recordmath{t}, \recordmath{\bs_t}, to a probability, \recordmath{P(h_t | \bs_t;\btheta')} , of the ``correct''
+HMM state \recordmath{h_t}, which is determined by a forced alignment with the correct sequence of words. The model is trained with
 a distributed stochastic gradient descent approach. 
 
 We use an architecture with 8 hidden layers each containing 2560 rectified linear units and a final softmax layer with
-14,000 labels (HMM targets $h_t$).  The input is 26 frames of 40 Mel-scaled filterbank coefficients with a 10ms advance
-per frame and we predict the HMM state of 21$^{st}$ frame.  The total number of parameters is about 85M. This is a
+14,000 labels (HMM targets \recordmath{h_t}).  The input is 26 frames of 40 Mel-scaled filterbank coefficients with a 10ms advance
+per frame and we predict the HMM state of 21\recordmath{^{st}} frame.  The total number of parameters is about 85M. This is a
 slightly outdated version of the acoustic model used by Android voice search, and should be considered as a very strong
 baseline. To train the DNN acoustic model we use about 2000 hours of spoken English data, which yields about 700M
 training examples. This system achieves a frame accuracy of 58.9\%, and a Word Error Rate (WER) of 10.9\% on our development set.
@@ -31,12 +31,12 @@ training examples. This system achieves a frame accuracy of 58.9\%, and a Word E
 
 \subsection{Results}
 
-We trained 10 separate models to predict $P(h_t | \bs_t;\btheta)$, using exactly the same architecture and training
+We trained 10 separate models to predict \recordmath{P(h_t | \bs_t;\btheta)}, using exactly the same architecture and training
 procedure as the baseline. The models are randomly initialized with different initial parameter values and we find that
 this creates sufficient diversity in the trained models to allow the averaged predictions of the ensemble to
 significantly outperform the individual models.  We have explored adding diversity to the models by varying the sets of
 data that each model sees, but we found this to not significantly change our results, so we opted for the simpler
-approach. For the distillation we tried temperatures of $[1, {\bf 2}, 5, 10]$ and used a relative weight of 0.5 on the
+approach. For the distillation we tried temperatures of \recordmath{[1, {\bf 2}, 5, 10]} and used a relative weight of 0.5 on the
 cross-entropy for the hard targets, where bold font indicates the best value that was used for
 table~\ref{tab:speech_results} .
 

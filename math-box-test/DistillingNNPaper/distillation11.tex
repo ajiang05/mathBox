@@ -1,11 +1,11 @@
 \section{Distillation}\label{sec:distillation}
 
 Neural networks typically produce class probabilities by using a ``softmax'' output layer that converts the logit,
-\recordmath{z_i}, computed for each class into a probability, \recordmath{q_i}, by comparing $z_i$ with the other logits.
+\recordmath{z_i}, computed for each class into a probability, \recordmath{q_i}, by comparing \recordmath{z_i} with the other logits.
 \begin{equation}
 \recorddisplay{q_i = \frac{exp(z_i/T)}{\sum_j exp(z_j/T)}}
 \end{equation}
-where \recordmath{T} is a temperature that is normally set to \recordmath{1}.  Using a higher value for $T$ produces a softer probability
+where \recordmath{T} is a temperature that is normally set to \recordmath{1}.  Using a higher value for \recordmath{T} produces a softer probability
 distribution over classes.
 
 In the simplest form of distillation, knowledge is transferred to the distilled model by training it on a transfer set
@@ -28,15 +28,15 @@ the distilled model but at a temperature of 1.  We found that the best
 results were generally obtained by using a condiderably lower weight
 on the second objective function. Since the magnitudes of the
 gradients produced by the soft targets scale as \recordmath{1/T^2} it is
-important to multiply them by $T^2$ when using both hard and soft
+important to multiply them by \recordmath{T^2} when using both hard and soft
 targets. This ensures that the relative contributions of the hard and
 soft targets remain roughly unchanged if the temperature used for
 distillation is changed while experimenting with meta-parameters.
 
 \subsection{Matching logits is a special case of distillation}
 
-Each case in the transfer set contributes a cross-entropy gradient, $dC/dz_i$, with respect to each logit, $z_i$ of the
-distilled model.  If the cumbersome model has logits $v_i$ which produce soft target probabilities $p_i$ and the transfer training is done at a temperature of $T$,
+Each case in the transfer set contributes a cross-entropy gradient, \recordmath{dC/dz_i}, with respect to each logit, \recordmath{z_i} of the
+distilled model.  If the cumbersome model has logits \recordmath{v_i} which produce soft target probabilities \recordmath{p_i} and the transfer training is done at a temperature of \recordmath{T},
 this gradient is given by:
 \begin{equation}
 \recorddisplay{\frac{\partial C}{\partial z_i} = \frac{1}{T}\left(q_i - p_i\right) = \frac{1}{T}\left(\frac{e^{z_i/T}}{\sum_j e^{z_j/T}} -\frac{e^{v_i/T}}{\sum_j e^{v_j/T}}\right)}
@@ -49,13 +49,13 @@ If the temperature is high compared with the magnitude of the logits, we can app
 \label{mess}
 \end{equation}
 
-If we now assume that the logits have been zero-meaned separately for each transfer case so that $\sum_j z_j = \sum_j v_j = 0$ Eq. \ref{mess} simplifies to:
+If we now assume that the logits have been zero-meaned separately for each transfer case so that \recordmath{\sum_j z_j = \sum_j v_j = 0} Eq. \ref{mess} simplifies to:
 \begin{equation}
-\frac{\partial C}{\partial z_i} \approx \frac{1}{NT^2}\left( z_i - v_i \right)
+\recorddisplay{\frac{\partial C}{\partial z_i} \approx \frac{1}{NT^2}\left( z_i - v_i \right)}
 \label{nice}
 \end{equation}
 So in the high temperature limit, distillation is equivalent to
-minimizing ${1/2}(z_i-v_i)^2$, provided the logits are zero-meaned
+minimizing \recordmath{{1/2}(z_i-v_i)^2}, provided the logits are zero-meaned
 separately for each transfer case. At lower temperatures, distillation
 pays much less attention to matching logits that are much more
 negative than the average. This is potentially advantageous because
@@ -68,4 +68,3 @@ show that when the distilled model is much too small to capture all of
 the knowledege in the cumbersome model, intermediate temperatures work
 best which strongly suggests that ignoring the large negative logits
 can be helpful.
-

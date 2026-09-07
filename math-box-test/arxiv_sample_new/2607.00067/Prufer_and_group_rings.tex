@@ -1,0 +1,509 @@
+\documentclass{amsart}
+
+
+\usepackage{color,latexsym,amsmath,amssymb,amsfonts,amsthm}
+
+
+\usepackage{color,latexsym,amsmath,amssymb,amsfonts,amsthm,bm}
+\usepackage{amscd}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{bm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{theorem}[lemma]{Theorem}
+\newtheorem{proposition}[lemma]{Proposition}
+\newtheorem{corollary}[lemma]{Corollary}
+\newtheorem{first argument}[lemma]{First Argument}
+
+
+
+\theoremstyle{definition}
+\newtheorem{definition}[lemma]{Definition}
+\theoremstyle{definitions}
+\newtheorem{definitions}[lemma]{Definitions}
+
+\theoremstyle{remark}
+\newtheorem{example}[lemma]{Example}
+\newtheorem{examples}[lemma]{Examples}
+\newtheorem{remark}[lemma]{Remark}
+\newtheorem{remarks}[lemma]{Remarks}
+\newtheorem{question}[lemma]{Question}
+\newtheorem{exercise}[lemma]{Exercise}
+%%%%%%%%%%%%%%%%
+
+\newtheorem{questions}[lemma]{Open Question}
+\newtheorem{conjecture}[lemma]{Conjecture}
+\newtheorem{construction}[lemma]{\bf Construction}
+
+\newtheorem{notation}[lemma]{Notation}
+\newtheorem{hypotation}[lemma]{Hypotheses and Notations}
+\newtheorem{hypothesis}[lemma]{Hypothesis}
+
+\newtheorem{convention}[lemma]{Convention}
+
+\theoremstyle{remark}
+
+
+%\numberwithin{section}
+%\numberwithin{equation}
+%\numberwithin{exercise}%\numberwithin{notation}{chapter}
+
+
+%%%% sets
+
+\def\SA{\mathbb A}    %%% A
+\def\SB{\mathbb B}    %%% B
+\def\SC{\mathbb C}    %%% C
+\def\SD{\mathbb D}    %%% D
+\def\SF{\mathbb F}    %%% F
+\def\SG{\mathbb G}    %%% G
+\def\SH{\mathbb H}    %%% H
+\def\SN{\mathbb N}    %%% N
+\def\SP{\mathbb P}    %%% P
+\def\SQ{\mathbb Q}    %%% Q
+\def\SR{\mathbb R}    %%% R
+\def\SS{\mathbb S}    %%% S
+\def\SZ{\mathbb Z}    %%% Z
+
+\def\Fq{\SF_q}
+
+
+%%%% gothic (for ideals)
+
+\def\aa{\mathfrak a}    %%% a
+\def\bb{\mathfrak b}    %%% b
+\def\dd{\mathfrak d}    %%% d
+\def\cc{\mathfrak c}    %%% c
+\def\ff{\mathfrak f}    %%% f
+\def\gg{\mathfrak g}    %%% f
+\def\mm{\mathfrak m}    %%% m
+\def\nn{\mathfrak n}    %%% n
+\def\pp{\mathfrak p}    %%% p
+\def\qq{\mathfrak q}    %%% q
+\def\rr{\mathfrak r}    %%% r
+\def\II{\mathfrak I}    %%% I
+\def\FF{\mathfrak F}    %%% F
+\def\JJ{\mathfrak J}    %%% J
+\def\KK{\mathfrak K}    %%% K
+\def\AA{\mathfrak A}
+\def\BB{\mathfrak B}
+\def\CC{\mathfrak C}
+\def\EE{\mathfrak E}
+
+\def\MM{\mathfrak M}
+\def\NN{\mathfrak N}
+\def\PP{\mathfrak P}
+\def\VV{\mathfrak V}
+
+%%%% Calligraphic letters
+
+\def\Aa{{\mathcal A}}           %%% Cal A
+\def\Bb{{\mathcal B}}           %%% Cal B
+\def\Cc{{\mathcal C}}           %%% Cal C
+\def\Dd{{\mathcal D}} 
+\def\Ee{{\mathcal E}}            %%% Cal D
+\def\Ff{{\mathcal F}}           %%% Cal F
+\def\Gg{{\mathcal G}}           %%% Cal G
+\def\Ii{{\mathcal I}} 
+\def\Jj{{\mathcal J}}
+\def\Ll{{\mathcal L}} 
+\def\Mm{{\mathcal M}}
+\def\Nn{{\mathcal N}}
+\def\Oo{{\mathcal O}}           %%% Cal O
+\def\Pp{{\mathcal P}}           %%% Cal P
+\def\cp{{\mathcal p}}           %%% Cal p
+\def\Qq{{\mathcal Q}}
+\def\Po{{\mathcal P}o}          %%% Cal Po
+\def\Rr{{\mathcal R}}
+\def\Ss{{\mathcal S}}
+\def\Tt{{\mathcal T}}
+\def\Uu{\mathcal U}
+\def\Vv{\mathcal V}
+\def\Zz{\mathcal Z}
+\def\Am{\Aa m}
+
+\def\a{\alpha}
+\def\b{\beta}
+%\def\c{\gamma}
+\def\d{\delta}
+\def\e{\varepsilon}
+
+\def\ua{\underline{a}}
+\def\uaa{\underline{\aa}}
+\def\ub{\underline{b}}
+\def\uc{\underline{c}}
+\def\ud{\underline{d}}
+\def\ue{\underline{e}}
+\def\ul{\underline{l}}
+\def\uy{\underline{y}}
+\def\uu{\underline{u}}
+
+
+\def\uq{\underline{q}}
+\def\u2{\underline{2}}
+
+\def\ui{\underline{i}}
+\def\uv{\underline{v}}
+\def\upp{\underline{\pp}}
+\def\uz{\underline{z}}
+
+
+\def\ualpha{\underline{\alpha}}
+\def\uE{\underline{E}}
+\def\uX{\underline{X}}
+\def\uY{\underline{Y}}
+\def\ux{\underline{x}}
+\def\uF{\underline{F}}
+\def\uS{\underline{S}}
+\def\uV{\underline{V}}
+\def\um{\underline{\mm}}
+\def\ug{\underline{g}}
+\def\uk{\underline{k}}
+\def\uh{\underline{h}}
+
+
+\def\ucc{\underline{\gamma}}
+\def\uaa{\underline{\alpha}}
+\def\uuaa{\underline{\underline{\alpha}}}
+
+
+\def\oa{\overline{a}}
+\def\ob{\overline{b}}
+\def\oS{\overline{S}}
+\def\oE{\overline{E}}
+\def\oK{\overline{K}}
+\def\ow{\overline{w}}
+
+\def\hE{\widehat{E}}
+\def\hV{\widehat{V}}
+\def\hZ{\widehat{\SZ}}
+\def\hm{\widehat{\mm}}
+\def\hp{\widehat{\pp}}
+
+\def\hD{\widehat{D}}
+\def\hP{\widehat{\PP}}
+\def\hK{\widehat{K}}
+
+
+\def\si{\underline{i}}
+
+%%%%%%%%%%%%%%%%% Various int
+
+\def\int{\mathrm{Int}}         %%% Int
+\def\intd{\int(D)}             %%% Int(D)
+\def\intz{\int(\SZ)}           %%% Int(Z)
+\def\intv{\int(V)}             %%% Int(V)
+\def\inted{\int(E,D)} 
+
+\def\Spec{\mathrm{Spec}}  
+\def\spec1{\mathrm{Spec}^1}
+\def\cont{\mathrm{cont}} 
+\def\Card{\mathrm{Card}} 
+\def\card{\mathrm{Card}} 
+\def\lcm{\mathrm{lcm}} 
+\def\prob{\mathrm{Prob}}
+\def\Prob{\mathrm{"Prob"}}
+
+\def\Vol{\mathrm{Vol}}
+\def\Max{\mathrm{Max}}
+\def\Gal{\mathrm{Gal}} 
+\def\Ker{\mathrm{Ker}}
+\def\Coker{\mathrm{Coker}}
+\def\Tr{\mathrm{Tr}}
+\def\Pic{\mathrm{Pic}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\Xn{\binom{X}{n}}
+\def\Xk{\binom{X}{k}}
+
+\def\tq{{\tilde{q}}}          %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\hE{{\widehat{E}}}
+\def\hV{{\widehat{V}}}
+\def\hS{{\widehat{S}}}
+\def\hG{{\widehat{G}}}
+
+\def\tS{{\widetilde{S}}}
+\def\tT{{\widetilde{T}}}
+
+\def\g{\gamma}
+\def\gs{\Gamma_{S}}
+
+\def\bi{{\bf i}}
+\def\bj{{\bf j}}
+\def\bk{{\bf k}}
+\def\bh{{\bf h}}
+
+
+\def\mdeg{\textrm{multi-deg}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\mod{\mathrm{\,mod\,}}
+
+\def\wr{w^{\{r\}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+
+\def\Exp{\mathrm{Exp}}
+	
+\def\CR{\color{red}}
+\def\NC{\normalcolor}
+\def\CB{\color{blue}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title[Group rings and Pr\"ufer]{When is the ring of integer-valued polynomials over a group ring a Pr\"ufer domain?}
+
+\begin{abstract}
+In their study of the ring of integer-valued polynomials in noncommutative algebra, Peruginelli and Werner characterized the algebras for which this ring is a Pr\"ufer domain. Here, we apply their results to the case of group algebras.
+\end{abstract}	
+
+
+\author{Jean-Luc Chabert}
+\address{Facult\'e des Sciences\\
+Universit\'e de Picardie\\
+80039 Amiens, France\\
+LAMFA CNRS-UMR 7352}
+
+\email{jean-luc.chabert@u-picardie.fr}
+
+\keywords{Integer-valued polynomial, group ring, Pr\"ufer domain}
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+In all the paper, $D$ denotes a commutative integral domain distinct from its quotient field $K$.
+
+\begin{definition}[only for this paper]
+A $D$-algebra $\Aa$ is said to be a {\em nice $D$-algebra} if it is unitary, is finitely generated and torsion-free as a $D$-module and is such that $\Aa\cap K=D$.
+\end{definition}
+
+In the sequel, $\Aa$ always denotes a nice $D$-algebra. Let $\Bb=K\otimes_D\Aa$ and $m=\dim_K \Bb$. With these hypotheses, we may assume that $\Bb$ contains $K$ and $\Aa$.
+
+\begin{examples} The following rings are nice $D$-algebras.
+
+a) $\Mm_n(D)$ the ring of square matrices of size $n$ with entries in $D$.
+
+b) $\SH_D$ the ring of Hamilton quaternions with coefficients in $D$.
+
+c) $D[G]$ the group ring where $G$ is a finite group.	
+\end{examples}
+
+In a recent paper, Peruginelli and Werner characterized the case where the following ring
+ of {\em integer-valued polynomials on} $\Aa$ is a Pr\"ufer domain:
+ $$\int_K(\Aa)=\{f(X)\in K[X]\mid f(\Aa)\subseteq\Aa\}.$$
+
+\begin{theorem}\cite[Theorem 1.7\,(1)] {bib:PW2026}\label{th:B}
+Assume that $\Aa$ is a nice $D$-algebra. Then, the ring $\int_K(\Aa)$ is a Pr\"ufer domain if and only if $D$ itself is a Pr\"ufer domain and $\Aa=\Aa'$ where $\Aa'$ is the set formed by the elements of $\Bb$ which are integral over $D$.
+\end{theorem}
+
+Applying their results to the first two examples of nice algebras, they show that a matrix algebra $\Mm_n(D)$ where $n\geq 2$ never leads to a Pr\"ufer domain (\cite[\S\,4]{bib:LW2012} or \cite[Corollary 3.4]{bib:PW2016}), whereas the ring $\int_{\SQ}(\SH_{\SZ_{(2)}})$ is a Pr\"ufer domain where $\SH_{\SZ_{(2)}}$ denotes the Hurwitz quaternion ring on $\SZ_{(2)}$ \cite[Theorem 5.4]{bib:PW2026}, that is,
+$$\SH_{\SZ_{(2)}}=\left\{a_0+a_1{\bf i}+a_2{\bf j}+a_3{\bf k}\mid a_i\in \SZ_{(2)}\;\forall i \textrm{ or } a_i\in \SZ_{(2)}+\frac{1}{2}\;\forall i\right\}.$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+
+When the Jacobson radical $J(D)$ of $D$ is equal to $(0)$ and $\int_K(\Aa)$ is a Pr\"ufer domain, then the $D$-algebra $\Aa$ is necessarily commutative and we have a more precise result:
+
+\begin{theorem}\cite[Theorem 1.7\,(2)]{bib:PW2026}\label{th:14}
+Assume that that the Jacobson radical $J(D)$ of $D$ is $(0)$ and that $\int(D)$ is a Pr\"ufer domain. Then, $\int_K(\Aa)$ is a Pr\"ufer domain if and only if 
+
+\centerline{$\Aa\simeq \prod_{i=1}^t \Aa_i$} 
+
+\smallskip
+
+\noindent where $\Aa_i$ is the integral closure of $D$ in a finite extension $F_i$ of $K$. In this case, each $\Aa_i$ is a commutative integral domain such that $\int_{F_i}(\Aa_i)$ is a Pr\"ufer domain.
+\end{theorem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Group rings}
+
+Let $G$ be a group and let $D[G]$ be the $D$-algebra  
+$$D[G]=\{\sum_{g\in G}a_g\,g\;\big\vert \; a_g\in D \textrm{  almost all zero} \}.$$ 
+It is a free $D$-module with basis $\{g\}_{g\in G}$ and a multiplication defined by $$\left(\sum_{h\in G}a_hh\right)\times\left(\sum_{k\in G}b_kk\right)=\sum_{g\in G}\left(\sum_{hk=g}a_hb_k\right)g.$$
+The group ring  $D[G]$ is a nice $D$-algebra if and only if $G$ is a finite group. Thus, from now on we assume that $G$ is a finite group. Of course, if $\Aa=D[G]$, then $\Bb=K[G]$ and 
+
+\centerline{$m=\dim_K K[G]=\mathrm{rk}_D (D[G])=\vert G\vert$.}
+
+\smallskip
+
+\noindent By Theorem~\ref{th:14}, if $J(D)=(0)$ and if $\int_K(D[G])$ is a Pr\"ufer domain, then $D[G]$ is commutative. Clearly, $D[G]$ is commutative if and only if $G$ is abelian.
+
+\medskip
+
+The purpose of this text is to characterise the finite groups $G$ such that 
+$$\int_{K}(\Oo_K[G])=\{f\in K[X]\mid f(\Oo_K[G])\subseteq \Oo_K[G]\}$$
+is a Pr\"ufer domain, where $K$ denotes an algebraic number field and $\Oo_K$ its ring of integers. As previously said, $G$ has to be abelian. We are going to prove that this necessary condition is also sufficient.
+
+\begin{example}
+Let $C_p$ be a cyclic group whose order is a prime number $p$ and let $\zeta_p\in\SC$ be a $p$-th primitive root of unity. We have the following ring isomorphisms:
+$$\SZ[C_p]\simeq \SZ[X]/(X^p-1)\simeq\SZ[X]/(X-1)\times\SZ[X]/(1+X+\ldots+X^{p-1})\simeq\SZ\times\SZ[\zeta_m].$$
+Consequently, 
+$$\int_{\SQ}(\SZ[C_p])=\int_{\SQ}(\SZ)\cap\int_{\SQ}(\SZ[\zeta_m])=\int_{\SQ}(\SZ[\zeta_m]).$$
+But we know that this last ring is a Pr\"ufer domain (cf. \cite{bib:LW2012} or, for instance, see \cite[Corollary VIII.60]{bib:C2}).
+\end{example}
+
+In fact, this example may be easily generalized thanks to the following general result that we recall:
+  
+\begin{theorem}\cite[Theorem 1]{bib:PW1950}\label{thm:2.6}
+If $G$ is a finite abelian group of order $n$ and if the characteristic of the field $K$ does not divides $n$, the group algebra $K[G]$ is iomorphic to a product of rings of the form
+$$K[G]\simeq \prod_{d\vert n}(K(\zeta_d))^{a_d}$$ 
+where $a_d\in\SN$  and $\zeta_d$ is a $d$-th primitive root of unity. More precisely, 
+$$a_d=\frac{\#\{\,g\in G \mid \textrm{ord}(g)=d\,\}}{[\,K(\zeta_d)\,:\,K\,]}.$$
+\end{theorem}
+
+\begin{corollary}
+Assume that $K$ is an algebraic number field, with ring of integers $\Oo_K$, and that $G$ is a finite group with exponent $m$. 
+The ring $\int_K(\Oo_K[G])$ is a Pr\"ufer domain if and only if $G$ is commutative. In that case,  $$\int_{K}(\Oo_K[G])=\int_{K}(\Oo_K[\zeta_m]).$$
+\end{corollary}
+
+\begin{proof}
+By Theorem~\ref{th:14}, if $\int_K(\Oo_K[G])$ is a Pr\"ufer domain, then $G$ has to be commutative. Conversely, assume that $G$ is commutative, then it follows from Theorem~\ref{thm:2.6} that, $\Oo_K[G]=\prod_{d\vert m}(\Oo_K[\zeta_d])^{a_d}$. Consequently:
+$$\int_{K}(\Oo_K[G])=\cap_{d\vert m}\int_{K}(\Oo_K[\zeta_d])=\int_{K}(\Oo_K[\zeta_m])=\int_K(\Oo_{K(\zeta_m)}).$$	
+Finally, (by \cite[Theorem 3.7]{bib:LW2012} or \cite[Corollary VIII.60]{bib:C2}), $\int_K(\Oo_K[G])$ is a Pr\"ufer domain.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{thebibliography}{20}
+
+
+
+\bibitem{bib:C2}
+J.-L. Chabert, {\em Integer-Valued Polynomials, from Combinatorics to Number Theory, $p$-adic Analysis, Commutative and Non-Commutative Algebra}, Colloq. Publ. {\bf 69}, Amer. Math. Soc., 2025.
+
+\bibitem{bib:LW2012}
+K. Loper and N. Werner, Generalized rings of integer-valued polynomials, {\em J. Number Theory} {\bf 132} (2012), 2481--2490.
+
+\bibitem{bib:PW1950}
+S. Perlis and G.L. Walker, Abelian group algebras of finite order, {\em Trans. Amer. Math. Soc.}, {\bf 68} (1950), 420--426.
+
+%\bibitem{bib:PW2014}
+%G. Peruginelli and N. Werner, Integral closure of rings of integer-valued polynomials on algebras, in {\em Commutative Algebra: Recent Advances in Commutative Rings, Integer-Valued Polynomials, and Polynomial Functions}, Springer, 2014, pp. 293--305.
+
+\bibitem{bib:PW2016}
+G. Peruginelli and N. Werner, Properly Integral Polynomials over the Ring of Integer-valued Polynomials on a Matrix Ring, {\em J. Algebra} {\bf 460} (2016) 320--339.
+
+\bibitem{bib:PW2026}
+G. Peruginelli and N. Werner, A classification of Pr\"ufer domains of integer-valued polynomials on algebras, {\em Bull. London Math. Soc.}, {\bf 58} (4) (2026).
+\end{thebibliography}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ %%%%%%%%%%%%%%%%%
+
+\begin{proposition}[Maschkle]
+Si $G$ est un groupe ab\'elien fini, alors $\SQ[G]\simeq K_1\times \cdots \times K_r$ o\`u les $K_i$ sont des extensions finies de $\SQ$ de degr\'e $n_i$ o\`u $\sum_{i=1}^r n_i=\vert G\vert$. 	
+\end{proposition}
+
+\begin{proposition}
+Si $G$ est un groupe ab\'elien fini, alors $\SQ[G]\simeq \prod_{d\,\mid\,\vert G\vert}\, \SQ(\zeta_d)^{k_d}$ o\`u $k_d$ est le nombre de sous-groupes de $G$ qui sont cycliques d'ordre $d$.
+ \end{proposition}
+ 
+ J'ai des doutes sur l'exposant.
+ 
+ \medskip
+ 
+
+D'apr\`es le th\'eor\`eme~\ref{thm:6.8j} pr\'ec\'edent, 
+
+\begin{theorem}
+Soit $G$ un groupe ab\'elien fini. L'anneau $\int_{\SQ}(\SZ[G])$ est de Pr\"ufer si et seulement si 	$G$ est d'ordre impair.
+\end{theorem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Compl\'ement : $G$ ab\'elien de type fini}
+$G\simeq H\times \SZ^r$ o\`u $G$ est fini d'exposant $m$.
+
+
+%%%%%%%%%%%%%%%%
+
+
+Commen\c cons par rappeller deux th\'eor\`emes importants : 
+
+\begin{theorem}[Th\'eor\`eme de Maschle]
+Si $G$ est un groupe fini et $K$ un corps, alors la $K$-alg\`ebre $K[G]$ est semi-simple si eu seulement si la caract\'eristique de $K$ ne divise pas $\vert G\vert$.	
+\end{theorem}
+
+\begin{corollary}
+La $\SQ$-alg\`ebre $\SQ[G]$ est semi-simple.	
+\end{corollary}
+
+
+\begin{theorem}[Th\'eor\`eme d'Artin-Wedderburn] Un anneau $A$ est
+semi-simple si, et seulement si, il est isomorphe \`a 
+$\Mm_{n_1}(D_1)\times\cdots\times\Mm_{n_s}(D_s)$ o\`u $D_1,\ldots,D_s$ sont des alg\`ebres \`a divisions.
+\end{theorem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Annexe}
+
+Un module $M$ est dit {\em simple} s'il n'est pas r\'eduit \`a $\{0\}$ et ne  contient pas d'autre sous-module que $\{0\}$ et lui-m\^eme.
+
+\smallskip
+
+Si $A$ est un anneau et $\mm$ un id\'eal (\`a gauche) de $A$, le $A$-module $A/\mm$ est simple si et seulement si $\mm$ est un id\'eal (\`a gauche) maximal.
+
+\smallskip
+
+Un module est dit {\em semi-simple} s'il v\'erifie les conditions \'equivalentes suivantes :
+
+\noindent (i) $M$ est somme de sous-modules simples,
+
+\noindent (ii) $M$ est somme directe de sous-modules simples,
+
+\noindent (iii) tout sous-module de $M$ est facteur direct.
+
+\smallskip
+
+Un anneau $A$ est dit {\em semi-simple} si en tant que module sur lui-m\^eme il est semi-simple.
+
+\smallskip
+
+Si l'anneau $A$ est semi-simple, tout $A$-module est semi-simple.
+
+\smallskip
+
+\noindent{\bf Wikipedia}. {\em Un anneau est semi-simple si et seulement s'il est artinien et semi-primitif.}
+
+\smallskip
+
+Un anneau semi-simple $A$ est dit {\em simple} s'il n'est pas r\'eduit \`a $\{0\}$ et s'il v\'erifie les conditions \'equivalentes suivantes :
+
+\noindent (i) il ne contient q'une classe de $A$-module simple,
+
+\noindent (ii) $A$ et $\{0\}$ sont les seuls id\'eaux bilat\`eres de $A$.
+
+\smallskip
+
+\noindent{\bf Thm}. {\em Un anneau simple est isomorphe \`a un anneau de matrices $\Mm_n(D)$ o\`u $D$ est un corps $($commutatif ou non$)$.}
+
+
+

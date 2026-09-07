@@ -44,7 +44,7 @@ cumbersome model and using a much higher learning rate.
 
 For tasks like MNIST in which the cumbersome model almost always produces the correct answer with very high confidence,
 much of the information about the learned function resides in the ratios of very small probabilities in the soft
-targets. For example, one version of a 2 may be given a probability of $10^{-6}$ of being a 3 and $10^{-9}$ of being a 7
+targets. For example, one version of a 2 may be given a probability of \recordmath{10^{-6}} of being a 3 and \recordmath{10^{-9}} of being a 7
 whereas for another version it may be the other way around. This is valuable information that defines a rich similarity
 structure over the data ({\it i. e.} it says which 2's look like 3's and which look like 7's) but it has very little
 influence on the cross-entropy cost function during the transfer stage because the probabilities are so close to zero.
