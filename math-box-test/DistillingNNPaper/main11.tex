@@ -1,0 +1,114 @@
+\documentclass{article} % For LaTeX2e
+\usepackage{nips14submit_e,times}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{zref-savepos}
+\usepackage{zref-abspage}
+%\documentstyle[nips14submit_09,times,art10]{article} % For LaTeX 2.09
+
+\input{common.tex}
+
+% Record the position and TeX dimensions of selected math expressions.
+\newsavebox{\mathbox}
+\newwrite\mathcoords
+\immediate\openout\mathcoords=mathcoords.csv
+\immediate\write\mathcoords{id,page,x,y,width,height,depth}
+\newcounter{mathid}
+
+\makeatletter
+% Save the physical PDF page with the X/Y position at shipout time. Using
+% \thepage here is too early because TeX may move content to the next page.
+\zref@addprop{savepos}{abspage}
+
+\newcommand{\recordmath}[1]{%
+    % amsmath measures aligned equations before typesetting them. During that
+    % pass, render normally without incrementing the ID or writing a CSV row.
+    \ifmeasuring@
+        #1%
+    \else
+        \stepcounter{mathid}%
+        \sbox{\mathbox}{$#1$}%
+        \edef\mathlabel{math-\themathid}%
+        \leavevmode
+        \zsavepos{\mathlabel}%
+        \immediate\write\mathcoords{%
+            \themathid,
+            \zref@extractdefault{\mathlabel}{abspage}{0},
+            \zposx{\mathlabel},
+            \zposy{\mathlabel},
+            \number\wd\mathbox,
+            \number\ht\mathbox,
+            \number\dp\mathbox
+        }%
+        \usebox{\mathbox}%
+    \fi
+}
+\makeatother
+
+\newcommand{\recorddisplay}[1]{%
+    \recordmath{\displaystyle #1}%
+}
+
+\AtEndDocument{%
+    \immediate\closeout\mathcoords
+}
+
+\title{Distilling the Knowledge in a Neural Network}
+
+
+\author{
+Geoffrey Hinton\thanks{Also affiliated with the University of Toronto
+  and the Canadian Institute for Advanced Research.}\ \ \thanks{Equal contribution.} \\
+Google Inc.\\
+Mountain View\\
+\texttt{geoffhinton@google.com} \\
+\And
+Oriol Vinyals$^\dagger$\\
+Google Inc.\\
+Mountain View\\
+\texttt{vinyals@google.com} \\
+\And
+Jeff Dean\\
+Google Inc.\\
+Mountain View\\
+\texttt{jeff@google.com} \\
+}
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+\nipsfinalcopy % Uncomment for camera-ready version
+
+\begin{document}
+
+
+\maketitle
+
+\input{abstract11.tex}
+
+\input{introduction11.tex}
+
+\input{distillation11.tex}
+ 
+\input{prelim_mnist11.tex}
+
+\input{speech11.tex}
+
+\input{specialists11.tex}
+
+\input{regularizer11.tex}
+
+\input{experts11.tex}
+
+\input{discussion11.tex}
+
+
+\subsubsection*{Acknowledgments}
+
+We thank Yangqing Jia for assistance with training models on ImageNet and Ilya
+Sutskever and Yoram Singer for helpful discussions. 
+
+% The arXiv source bundle supplies the generated bibliography but not refs10.bib.
+\input{main11.bbl}
+
+\end{document}

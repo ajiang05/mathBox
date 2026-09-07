@@ -1,4 +1,5 @@
 import csv
+from pathlib import Path
 
 #opencv
 import cv2
@@ -7,8 +8,9 @@ import cv2
 import fitz
 
 
-PDF_FILE = "output.pdf"
-CSV_FILE = "mathcoords.csv"
+PDF_FILE = "DistillingNNPaper/main11.pdf"
+CSV_FILE = "DistillingNNPaper/mathcoords.csv"
+OUTPUT_DIR = Path("DistillingNNPaper")
 
 # Render resolution
 DPI = 150
@@ -53,6 +55,7 @@ for annotation in annotations:
 #This is reading the pdf. The DPI is how much pixels are in a 1x1 inch box, and basically controls resolution
 #
 pdf = fitz.open(PDF_FILE)
+OUTPUT_DIR.mkdir(exist_ok=True)
 
 
 for page_index in range(len(pdf)):
@@ -62,12 +65,12 @@ for page_index in range(len(pdf)):
     # Render PDF page
     pix = page.get_pixmap(dpi=DPI)
 
-    original_path = f"page_{page_index + 1}.png"
+    original_path = OUTPUT_DIR / f"page_{page_index + 1}.png"
 
     #T
     pix.save(original_path)
 
-    image = cv2.imread(original_path)
+    image = cv2.imread(str(original_path))
 
     image_height, image_width = image.shape[:2]
 
@@ -89,8 +92,8 @@ for page_index in range(len(pdf)):
 
 
         # Convert scaled points -> TeX points
-        x_pt = annotation["x"] / SP_PER_PT +15
-        y_pt = annotation["y"] / SP_PER_PT -12
+        x_pt = annotation["x"] / SP_PER_PT
+        y_pt = annotation["y"] / SP_PER_PT
 
         width_pt = annotation["width"] / SP_PER_PT
         height_pt = annotation["height"] / SP_PER_PT
@@ -155,9 +158,9 @@ for page_index in range(len(pdf)):
     # --------------------------------
 
     output_path = (
-        f"page_{page_index + 1}_boxed.png"
+        OUTPUT_DIR / f"page_{page_index + 1}_boxed.png"
     )
 
-    cv2.imwrite(output_path, image)
+    cv2.imwrite(str(output_path), image)
 
     print(f"Saved: {output_path}")
