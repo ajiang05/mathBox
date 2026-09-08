@@ -18,6 +18,9 @@ import shutil
 from pathlib import Path
 
 
+# LaTeX definitions inserted into the preamble of every instrumented paper.
+# They measure a math box in TeX scaled points and write its final physical
+# page and position to mathcoords.csv.
 RECORDER = r"""
 % mathBox automatic coordinate recorder
 \usepackage{zref-savepos}
@@ -50,16 +53,31 @@ RECORDER = r"""
 % end mathBox automatic coordinate recorder
 """
 
+# Content inside these environments must be copied literally. Symbols such as
+# "$" are examples/code there, not LaTeX math delimiters.
 VERBATIM_ENVIRONMENTS = ("verbatim", "verbatim*", "lstlisting", "minted")
+
+# Phase one recognizes these environments but deliberately leaves them alone.
+# They need row-aware measurement because &, \\, and equation alignment cannot
+# safely be placed inside the current single save box.
 DEFERRED_ENVIRONMENTS = (
     "align", "align*", "alignat", "alignat*", "flalign", "flalign*",
     "gather", "gather*", "multline", "multline*", "eqnarray", "eqnarray*",
 )
 EQUATION_ENVIRONMENTS = ("equation", "equation*", "displaymath")
+
+# These commands have special expansion rules. Inserting \recordmath into their
+# arguments can break packages such as hyperref.
 PROTECTED_COMMANDS = (r"\texorpdfstring",)
 
 
 def escaped(text: str, index: int) -> bool:
+    r"""Return whether the character at index has an odd backslash prefix.
+
+    This distinguishes a real math delimiter, ``$``, from a literal escaped
+    dollar sign, ``\$``. Counting consecutive backslashes also handles cases
+    where a backslash is itself escaped.
+    """
     backslashes = 0
     index -= 1
     while index >= 0 and text[index] == "\\":
@@ -69,6 +87,11 @@ def escaped(text: str, index: int) -> bool:
 
 
 def find_unescaped(text: str, token: str, start: int) -> int:
+    """Find the next occurrence of token that is not backslash-escaped.
+
+    The return value follows ``str.find`` and is -1 when no closing token can
+    be found.
+    """
     position = text.find(token, start)
     while position >= 0 and escaped(text, position):
         position = text.find(token, position + len(token))
@@ -76,12 +99,22 @@ def find_unescaped(text: str, token: str, start: int) -> int:
 
 
 def has_alignment_tokens(body: str) -> bool:
+    r"""Detect alignment markers or row breaks outside simple comments.
+
+    A body containing ``&`` or ``\\`` cannot be measured with the phase-one
+    single-expression save box, so it is deferred unchanged.
+    """
     uncommented = re.sub(r"(?<!\\)%[^\n]*", "", body)
     return "&" in uncommented or re.search(r"(?<!\\)\\\\", uncommented) is not None
 
 
 def braced_command_end(source: str, start: int, arguments: int) -> int | None:
-    """Return the end of a command with balanced braced arguments."""
+    """Return the end offset of balanced braced command arguments.
+
+    ``start`` points immediately after the command name. Whitespace between
+    arguments is accepted. ``None`` means the expected arguments were absent
+    or unbalanced, in which case the caller leaves the source untouched.
+    """
     position = start
     for _ in range(arguments):
         while position < len(source) and source[position].isspace():
@@ -102,6 +135,12 @@ def braced_command_end(source: str, start: int, arguments: int) -> int | None:
 
 
 def wrap_math(source: str) -> tuple[str, dict[str, int]]:
+    """Instrument supported math found in a LaTeX document-body fragment.
+
+    The function scans without changing comments, verbatim environments,
+    protected commands, or deferred multi-line environments. It returns both
+    transformed source and counters used in the instrumentation report.
+    """
     counts = {
         "inline": 0, "display": 0, "equation": 0,
         "deferred": 0, "protected": 0,
@@ -208,18 +247,55 @@ def wrap_math(source: str) -> tuple[str, dict[str, int]]:
 
 
 def instrument_document(source: str) -> tuple[str, dict[str, int]]:
+    r"""Insert the recorder preamble and instrument one complete main file.
+
+    If ``\maketitle`` exists, title and abstract material collected before it
+    is preserved exactly. Some document classes typeset this material later,
+    and position markers inside it can otherwise corrupt the first page.
+    """
     document_start = source.find(r"\begin{document}")
     if document_start < 0:
         raise ValueError("main file has no \\begin{document}")
     insertion = document_start
     body_start = document_start + len(r"\begin{document}")
     before = source[:insertion]
-    body = source[body_start:]
+    document_body = source[body_start:]
+
+    # Classes such as REVTeX collect title and abstract material before
+    # \maketitle and typeset it later. Position whatsits inserted into that
+    # collected material can corrupt the page layout, so phase one leaves the
+    # complete front matter unchanged.
+    maketitle = document_body.find(r"\maketitle")
+    if maketitle >= 0:
+        instrument_start = maketitle + len(r"\maketitle")
+        frontmatter = document_body[:instrument_start]
+        body = document_body[instrument_start:]
+        _, skipped_counts = wrap_math(frontmatter)
+        frontmatter_skipped = (
+            skipped_counts["inline"]
+            + skipped_counts["display"]
+            + skipped_counts["equation"]
+        )
+    else:
+        frontmatter = ""
+        body = document_body
+        frontmatter_skipped = 0
+
     instrumented_body, counts = wrap_math(body)
-    return before + RECORDER + "\n\\begin{document}" + instrumented_body, counts
+    counts["frontmatter_skipped"] = frontmatter_skipped
+    return (
+        before + RECORDER + "\n\\begin{document}"
+        + frontmatter + instrumented_body,
+        counts,
+    )
 
 
 def main() -> None:
+    """Parse CLI arguments, copy a clean paper, instrument it, and report.
+
+    Existing destination directories are refused so an original or previous
+    result cannot be overwritten accidentally.
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument("source", type=Path)
     parser.add_argument("destination", type=Path)
