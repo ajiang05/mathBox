@@ -1,0 +1,2229 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%2345678901234567890123456789012345678901234567890123456789012345678901234567890
+%        1         2         3         4         5         6         7         8
+
+\documentclass[11pt]{article}       
+\usepackage{geometry}               
+\geometry{letterpaper}          
+\geometry{margin=1in}    
+
+% The following packages can be found on http:\\www.ctan.org
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathrsfs}
+\usepackage{comment}
+%\usepackage{epsfig} % for postscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+%\usepackage{times} % assumes new font selection scheme installed
+\usepackage{amsmath,esint} % assumes amsmath package installed
+\usepackage{amssymb}  % assumes amsmath package installed
+\usepackage{amsthm}  % assumes amsmath package installed
+\usepackage{bm}
+%\usepackage{lipsum}
+%\usepackage[linesnumbered, ruled]{algorithm2e}
+\usepackage{color}
+%\usepackage{multirow}
+\usepackage{array}
+\usepackage{cite}
+\usepackage{hyperref}
+\usepackage{comment}
+\usepackage{enumitem}
+
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{defn}[theorem]{Definition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{example}[theorem]{Example}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{proposition*}{Proposition}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\M}{\mathbb{M}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\bS}{\mathbb{S}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\bfS}{\mathbf{S}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\I}{\mathrm{I}}
+\newcommand{\de}{\mathrm{d}}
+\newcommand{\x}{\bm{x}}
+\newcommand{\Conv}{\mathrm{Conv}}
+\newcommand{\pOmega}[0]{\partial\Omega}
+\newcommand{\sgrad}[0]{\nabla_{\pOmega}}
+\newcommand{\closure}[1]{\overline{#1}}
+\newcommand{\fix}[1]{\textcolor{red}{#1}}
+\newcommand{\todo}[1]{\textbf{TODO:} \emph{#1}}
+\newcommand{\relaxlimitSup}[0]{{\limsup_{h\to 0}}^*}
+\newcommand{\relaxlimitInf}[0]{{\liminf_{h\to 0}}_*}
+\newcommand{\dL}[0]{\,\mathrm{d}\mathcal L^d}
+\newcommand{\dH}[0]{\,\mathrm{d}\mathcal H^{d-1}}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\esssup}{ess\,sup}
+\DeclareMathOperator*{\essinf}{ess\,inf}
+
+
+\def\le{\leqslant}
+\def\leq{\leqslant}
+\def\ge{\geqslant}
+\def\geq{\geqslant}
+
+
+% \title{A convergence of a minimizing movement scheme to the level-set mean curvature flow with general contact angle condition} 
+\title{Convergence of a minimizing movement scheme for contact-angle mean curvature flow in a smooth bounded domain}
+
+%\begin{comment}
+%\author{Jiwoong Jang}
+%\address[Jiwoong Jang]
+%{
+%	Department of Mathematics, 
+%	University of Wisconsin Madison, Van Vleck hall, 480 Lincoln drive, Madison, WI %53706, USA} 
+%\end{comment}
+
+%\author{
+%Jiwoong Jang \and
+% Yeoneung Kim%\textsuperscript{\IEEEauthorrefmark{2}}
+%}
+
+%\author{}
+%\affil{dfdf}
+%\address[]
+%{%
+%	Department of Mathematics, 
+%	University of Wisconsin Madison, Van Vleck hall, 480 Lincoln drive, Madison, WI 53706, USA}
+%\email{}
+
+%\author{Jiwoong Jang$^1$ \and Yeoneung Kim$^2$}
+%\date{%
+%    $^1$Department of Mathematics, University of Wisconsin Madison\\%
+%    $^2$Department of Applied Artificial Intelligence, Seoul National University of Science and Technology\\[2ex]%
+%    \today
+%}
+
+
+\newcommand{\footremember}[2]{%
+    \footnote{#2}
+    \newcounter{#1}
+    \setcounter{#1}{\value{footnote}}%
+}
+\newcommand{\footrecall}[1]{%
+    \footnotemark[\value{#1}]%
+} 
+
+
+
+\author{
+  Tokuhiro Eto \footremember{trailer}{Universit\'{e} Claude Bernard Lyon 1, CNRS, Centrale Lyon, INSA Lyon, Universit\'{e} Jean Monnet, ICJ UMR5208, 69622 Villeurbanne, France (eto@math.univ-lyon1.fr),},
+  Jiwoong Jang \footremember{alley}{Department of Mathematics, University of Maryland-College Park (jjang124@umd.edu).
+  }
+}
+
+%\author{%
+%  Jiwoong Jang \thanks{Department of Mathematics, University of Wisconsin-Madison.}%
+%  }
+
+\date{}
+\providecommand{\keywords}[1]{\textbf{Key words.} #1}
+\providecommand{\MSC}[1]{\textbf{MSC codes.} #1}
+
+
+% mathBox automatic coordinate recorder
+\usepackage{zref-savepos}
+\usepackage{zref-abspage}
+\newsavebox{\mathboxrecordbox}
+\newwrite\mathcoords
+\immediate\openout\mathcoords=mathcoords.csv
+\immediate\write\mathcoords{id,page,x,y,width,height,depth}
+\newcounter{mathrecordid}
+\makeatletter
+\zref@addprop{savepos}{abspage}
+\newcommand{\recordmath}[1]{%
+  \ifmeasuring@ #1%
+  \else
+    \stepcounter{mathrecordid}%
+    \sbox{\mathboxrecordbox}{$#1$}%
+    \edef\mathrecordlabel{math-record-\themathrecordid}%
+    \leavevmode\zsavepos{\mathrecordlabel}%
+    \immediate\write\mathcoords{%
+      \themathrecordid,
+      \zref@extractdefault{\mathrecordlabel}{abspage}{0},
+      \zposx{\mathrecordlabel},\zposy{\mathrecordlabel},
+      \number\wd\mathboxrecordbox,\number\ht\mathboxrecordbox,
+      \number\dp\mathboxrecordbox}%
+    \usebox{\mathboxrecordbox}%
+  \fi}
+\makeatother
+\newcommand{\recorddisplay}[1]{\recordmath{\displaystyle #1}}
+\AtEndDocument{\immediate\closeout\mathcoords}
+% end mathBox automatic coordinate recorder
+
+\begin{document}
+\maketitle
+%\footnotetext{Corresponding author}
+
+\pagestyle{myheadings}
+\thispagestyle{plain}
+
+\begin{abstract}
+This paper studies a Chambolle-type minimizing movement scheme for mean curvature flow with prescribed contact angle in a smooth bounded domain. The scheme is based on the capillary functional and the geodesic signed distance relative to the container, and yields a time-discrete level-set approximation. The main result asserts that, for every Lipschitz-continuous boundary function prescribing a strictly nondegenerate contact angle, the approximate solutions converge locally uniformly to the unique viscosity solution of the corresponding level-set mean curvature equation with oblique derivative boundary condition. This improves a previous convergence theorem, where the container was assumed to be convex and a curvature-type condition relating the tangential derivative of the prescribed contact-angle function to the principal curvatures of the container boundary was imposed. The main new ingredient is a uniform Lipschitz estimate for the solutions of the variational problems defining the scheme. This estimate is derived by applying a Bernstein-type argument to a suitable gradient function, with additive and multiplicative correctors reflecting the prescribed contact angle, which rules out boundary maxima without relying on the previous curvature-type condition.
+\end{abstract}
+
+
+% \fix{Would you have any suggestion of journals to which this manuscript could be submitted?} \textcolor{blue}{I didn't think specific journals so far, but I thought Prof. Giga would appreciate the value. In case you agree, are there journals that come to your mind in this aspect?}
+
+% \fix{Prof Giga is one of the editorial board menbers of \textit{Advances in Differential Equations} and \textit{Interfaces and Free Boundaries}. In fact, the paper \cite{EGI12-2} was published in the former journal. The paper \cite{EG25} was published in \textit{Advances in Mathematical Sciences and Applications}. Prof Giga also serves as an editor of this journal. These are all journal in my mind, but I am not sure these would be good option or not.}
+
+% \textcolor{blue}{Thank you. I'll also think about specific journals related or not necessarily related to Prof. Giga. May I ask your opinion?}
+
+% \textcolor{blue}{Some options I think (not necessarily related to Prof. Giga) are JGA to C. Evans, Comm PDE to Minh-Bin Tran, JFA to G. De Philippis, and JDE to Enrique Zuazua (in order of my wishes).}
+
+% \fix{Thank you for your suggestion. Shall we try JGA?} 
+% \textcolor{blue}{Yes, thank you for accepting my opinion.}
+
+% \fix{I would suggest a title \textit{Convergence of a minimizing movement scheme for contact-angle mean curvature flow in a smooth bounded domain}. What would you think?}
+
+% \textcolor{blue}{I agree, thank you.}
+
+\keywords{Mean curvature flow, Contact angle condition, Viscosity solutions, Minimizing movement schemes}
+
+% \fix{We could include one more keyword that describes your novel approach very well, namely a keyword should describe a correction of Bernstein's method with the help of some weight function. I am not sure whether a proper keyword exists.}
+
+% \textcolor{blue}{I tried to find but I couldn't. I understood your point, thanks.}
+
+\vspace{0.2cm}
+
+% Primary : 35D40 (Viscosity solutions to PDEs)
+% Secondary : 53E10 (Flows related to mean curvature), 35K93 (Quasilinear parabolic equations with mean curvature operator)
+\MSC{35D40, 53E10, 35K93}
+% \fix{I am not sure whether 49J40 would be appropriate or not. In our problem, what does a variational inequality mean? I would suggest 35K93 (Quasilinear parabolic equations with mean curvature operator).}
+
+%\fix{I am going through whole part of manuscript and editing for finalization of the paper. Would you wish further modification by yourself?}
+
+%\textcolor{blue}{For completeness, I think it would be better to include the definition of viscosity solutions to \eqref{eq:E-L} as it is related to $\mathcal{F}$-solutions.}
+
+%\fix{Thank you for your suggestion. Yes, I agree with this. I will do soon.}
+
+%\textcolor{blue}{Let me appreciate your work not only for this but also the whole work.}
+
+%\fix{Regarding the definition of viscosity solutions to the discrete PDE, I have noticed that this is too involved to define it due to the singularity at $|\nabla w| = 0$. Rigorously speaking, this PDE should be understood as an Euler--Lagrange inclusion. So, in this paper, I think that it would be better to use this PDE as a motivating problem to consider the approximate problem with respect to $\varepsilon$. In contrast to this, the level-set mean curvature flow equation has very mild singularity, and the definition of viscosity solution as in Section~\ref{sec:viscosity-sol} works well.}
+
+%\fix{I have elaborated this point as in Proposition~\ref{prop:gamma-convergence} with the help of the $\Gamma$-convergence of the energy.}
+
+%\textcolor{blue}{Thank you. It looks to me that we can avoid mentioning the Euler-Lagrange inclusion and that having $w$ the minimizer is enough I guess...? Maybe, we can leave a remark that $w$ solves the Euler-Lagrange inclusion but this is not a main logical argument that runs the whole paper. What I'm trying to deliver is:\\
+%(i) Having $w$ as the minimizer is enough, which follows from Proposition~\ref{prop:gamma-convergence},\\
+%(ii) the Euler-Lagrange inclusion is not necessary but maybe left as a remark (or, is the Euler-Lagrange inclusion used in other parts of the paper logically?). (ii-a) If the inclusion stays written as currently, what should come along would be the notion of subgradient for completeness in terms of writing. (ii-b) But if the inclusion is stated as a remark, I think we don't need to explain subgradient notion.\\
+%If you agree with (ii-b), I can edit accordingly, you can let me know your opinion.\\
+%(iii) the viscosity solution notion to the Euler-Lagrange equation is not necessary but maybe left as a remark. Although I think it can be properly defined with $|\nabla w|$ multiplied, I don't think it is necessary logically in our paper.
+%}
+
+%\fix{Thank you for your suggestion. (i) Yes, I agree with this. (ii) In fact, I have not used that $w$ satisfies the Euler--Lagrange inclusion. (ii-a) is too involved for our paper since it is not main topic. I agree with (ii-b). Could you kindly edit accordingly? (iii) This is an interesting topic, but currently I am not sure that the equation multiplied by $|\nabla w|$ is equivalent to the original one in the viscosity sense (if so, it would be a seed for a new research!) Thus, I would recommend that we do not treat the multiplied equation in this paper.}
+
+%\textcolor{blue}{thank you for your opinion. yes, i'll edit following (ii-b) and think about the viscosity solution notion.}
+% \textcolor{blue}{updated, thank you.}
+
+%\textcolor{blue}{I finished editing. Would you do final touch?}
+
+%\fix{Thank you for your editting. I will go through the whole manuscript. Please wait for a moment.}
+%\fix{I have modified several points to emphasize our result. Would you be happy with this version? If so, would you like to submit this manuscript to arXiv and JGA by yourself?}
+
+%\textcolor{blue}{I think Kei's question is very accurate. Do you find a way to fix and answer his question?}
+
+%\fix{
+%    The formula \eqref{eq:tangential-full-boundary} is actually valid only on $\pOmega$, although $\overline{u}^\varepsilon$ is differentiable in $x_d$. Thus, if we elaborate the derivative w.r.t $x_d$ in the Gauss--Weingarten equation by using an exchange operation of the limit $x_d\to 0$ and $\frac{\partial}{\partial x_d}$, it would be possible to fix this.
+%    Would you consider this?
+%    }
+
+%\textcolor{blue}{I don't understand what you mean. Would you elaborate further?}
+
+%\textcolor{blue}{If it can't be fixed, I intend to send reply admitting the logical gap. Do you agree with this?}
+
+%\fix{Yes, could you reply to Kei? Honestly speaking, I do not have a rigorous fixing for this point.}
+
+%\textcolor{blue}{Or, may we suggest the co-authorship to Kei? I think he has shown sufficient interest and pinpointed the essential part already. It would be great if he can fix.}
+
+%\fix{Yes, if he could fix this, we could suggest the co-authorship in my opinion.}
+
+%\textcolor{blue}{sorry, let me clarify my suggestion. We don't know if he can fix it in advance before he works on. Without knowing this, we should decide if we suggest him the co-authorship or not. It can happen that he doesn't/can't contribute after he becomes a coauthor. I'm proposing the suggestion even with this possibility, because in my opinion, he seems likely to work on hard.}
+
+%\fix{Thank you for your opinion. Let us wait for Kei’s response. Then we will see whether he is interested in working with us to resolve this gap.
+%Honestly, I think that if he does not have any concrete idea for a quick fix, offering coauthorship would be too much. His observation is very important, and we should definitely acknowledge it properly, but I would prefer to reserve coauthorship for the case where he substantially contributes to repairing the proof.
+%}
+
+%\textcolor{blue}{I see, thank you.}
+
+\section{Introduction}\label{sec:introduction}
+
+\subsection{Brief background}
+
+In this paper, we consider the mean curvature flow in a smooth bounded domain \recordmath{\Omega\subset\R^d\,(d\ge 2)} with general contact angle condition. Precisely, we aim to find an evolving interface \recordmath{\{\Gamma(t)\}_{t\ge 0}} satisfying the following system of equations:
+
+\begin{equation}
+\label{eq:target_equation}
+    \begin{cases}
+    V = - \operatorname{div}_{\Gamma}\nu_{\Gamma(t)},&\qquad \mbox{on}\quad \Gamma(t),\quad t > 0,\\
+    \nu_\Omega\cdot\nu_{\Gamma(t)} = -\beta & \qquad\mbox{on}\quad \partial\Gamma(t)\cap \partial\Omega,\quad t > 0,\\
+    \Gamma(0) = \Gamma_0,
+    \end{cases}
+\end{equation}
+where \recordmath{\nu_{\Gamma(t)}} denotes the normal vector field on \recordmath{\Gamma(t)}, and \recordmath{V} is the normal velocity of \recordmath{\Gamma(t)} in the direction of \recordmath{\nu_{\Gamma(t)}}; the operator \recordmath{\operatorname{div}_\Gamma} designs the surface divergence. The first equation in \eqref{eq:target_equation} means that \recordmath{\Gamma(t)} should move with the speed being equal to its mean curvature, whereas the second equation stresses that the boundary \recordmath{\partial\Gamma(t)} contacts the boundary \recordmath{\partial\Omega} of the container \recordmath{\Omega} with the angle being equal to \recordmath{\arccos{(-\beta)}}. Here, \recordmath{\nu_\Omega} denotes the outward unit normal vector field on \recordmath{\partial\Omega}, and the function \recordmath{\beta:\partial\Omega\to(-1,1)} is the cosine function which is associated with a prescribed contact angle function \recordmath{\theta:\partial\Omega\to(0,\pi)}. Here, we exclude the case where \recordmath{\Gamma(t)} is tangential to the boundary of the container. Finally, to close the system \eqref{eq:target_equation}, the third equation is imposed as the initial condition.
+
+The first author and Giga \cite{EG24} proposed a minimizing movement scheme (MMS) to approximate the solution to \eqref{eq:target_equation}. We briefly review their idea here. To define a time discrete solution to \eqref{eq:target_equation}, the following iteration was implemented. Given an initial level-set function \recordmath{u_0}:
+
+\begin{equation}
+\recorddisplay{
+\label{eq:mms}
+u_{n+1} := \argmin_{u\in L^2(\Omega)\cap BV(\Omega)} J_\beta(u)
+}
+\end{equation}
+with
+\begin{align*}
+\recorddisplay{J_\beta(u)
+} &\recorddisplay{:= C_\beta(u) + \frac{1}{2h}\int_\Omega(u - d_{\Omega,E_n})^2\,\mathrm{d}\mathcal{L}^d,
+}\\
+\recorddisplay{C_\beta(u)
+} &\recorddisplay{:= \int_\Omega |\nabla u| + \int_{\partial\Omega}\beta\gamma u\,\mathrm{d}\mathcal{H}^{d-1},
+}
+\end{align*}
+where \recordmath{\mathcal{L}^d} and \recordmath{\mathcal{H}^{d-1}} respectively denote the \recordmath{d}-dimensional Lebesgue measure and \recordmath{(d-1)}-dimensional Hausdorff measure; \recordmath{\gamma:BV(\Omega)\to L^1(\pOmega)} is the trace operator; \recordmath{E_n := \{u_n \le 0\}}, and \recordmath{d_{\Omega,E_n}} denotes the geodesic signed distance function to \recordmath{E_n} in \recordmath{\Omega} whose sign is negative interior of \recordmath{E_n};
+\recordmath{C_\beta(u)} is called the \textit{capillary functional}. The target energy in \eqref{eq:mms} was originally motivated by Chambolle's scheme \cite{Chambolle04} to approximate the mean curvature flow without contact boundary. In contrast to his scheme, the target energy of the MMS is replaced with the capillary functional \recordmath{C_\beta(u)} to cope with contact boundary. Moreover, it should be also noted that the data function is replaced with the geodesic signed distance function. In the case when \recordmath{\Omega} is not convex, this replacement of the distance function guarantees the monotonicity of the discrete scheme, that is, we have \recordmath{d_{\Omega,E} \le d_{\Omega,F}} whenever \recordmath{E \supset F} (see \cite[Lemma 3.5]{EG25}). We remark that these discrete schemes are the level-set analogue of Almgren--Taylor--Wang-type variational scheme to construct a flat flow \cite{Almgren93}.
+
+Letting \recordmath{\mathcal{P}(\closure{\Omega})} denote the family of all subsets in \recordmath{\closure{\Omega}}, we define a set operator \recordmath{T_h:\mathcal{P}(\closure{\Omega})\to \mathcal{P}(\closure{\Omega})} by using \eqref{eq:mms}. Namely, we set
+
+\begin{equation}
+\recorddisplay{
+    \label{eq:def-Th}
+T_h(E) := \{x\in\overline{\Omega}\mid u(x)\le 0\},
+}
+\end{equation}
+where \recordmath{u} is a minimizer of \eqref{eq:mms} with \recordmath{E\subset\closure{\Omega}} in place of \recordmath{E_n}. In fact, this set operator \recordmath{T_h} is well defined since the minimizer of \eqref{eq:mms} is unique by strict convexity of the target energy and the lower semi-continuity of the capillary functional \recordmath{C_\beta(u)} (see Modica \cite{Modica87}).
+For the proof of the lower semi-continuity of \recordmath{C_\beta(u)} which works for a uniformly \recordmath{C^2} bounded domain \recordmath{\Omega}, we refer the reader to \cite[Proposition 4]{EG24}.
+
+The geometric evolution equation \eqref{eq:target_equation} can be represented as the following Neumann boundary value problem in the level-set formulation:
+\begin{align}\recorddisplay{\label{eq:level-set}
+\begin{cases}
+    u_t = |\nabla u| \operatorname{div} \nabla \phi(\nabla u) & \text{in} \quad \Omega \times (0,T), \\
+    \nabla u \cdot \nu_{\Omega}  + \beta |\nabla u| = 0 & \text{on} \quad \partial\Omega \times (0,T), \\
+    u(\cdot,0) = u_0 & \text{in} \quad \overline{\Omega},
+\end{cases}
+}
+\end{align}
+where \recordmath{\phi(p) := |p|} for \recordmath{p\in\R^d}, and \recordmath{u_0} is supposed to be a level-set function whose zero-level set corresponds to the interface \recordmath{\Gamma(t)}. We note that the first equation of \eqref{eq:level-set} is singular if \recordmath{\nabla u = 0}, thus we will adapt the notion of viscosity solutions which will be defined later. The interpretation from the geometric form \eqref{eq:target_equation} to \eqref{eq:level-set} is clear on noting that if \recordmath{u(\cdot, t)} is a level-set function of \recordmath{\Gamma(t)}, then \recordmath{u_t(\cdot,t)/|\nabla u(\cdot,t)|} and \recordmath{\nabla u(\cdot,t) / |\nabla u(\cdot,t)|} correspond to the normal velocity and the unit normal vector field \recordmath{\nu_{\Gamma(t)}} of \recordmath{\Gamma(t)}, respectively.
+
+We mention that the solution \recordmath{w} to the variational problem \eqref{eq:mms} solves the discrete variant of the level-set equation \eqref{eq:level-set}: The Euler--Lagrange equation of the variational problem \eqref{eq:mms} can be written as 
+%\begin{equation*}
+%    \frac{w - d_{\Omega,E}}{h} + \partial C_\beta(w) = 0.
+%\end{equation*}
+%where $\partial C_\beta(u)$ denotes the subdifferential of $C_\beta(u)$.
+%The solution $w$ to the above inclusion was characterized in \cite[Theorem 2]{EG24},
+%and we observe that $w$ solves the discrete variant of the level-set equation \eqref{eq:level-set}:
+\begin{equation}
+    \label{eq:intro-discrete-PDE}
+    \begin{cases}
+        w - h\operatorname{div}\nabla\phi(\nabla w) = d_{\Omega,E} & \qquad\mbox{in}\quad\Omega,\\ 
+        \nabla w\cdot\nu_\Omega + \beta|\nabla w| = 0 & \qquad\mbox{on}\quad\pOmega.
+    \end{cases}
+\end{equation}
+
+% \paragraph{Main result.}
+
+\subsection{The previous result on a convex domain} In \cite{EG25}, a discrete-in-time approximate solution to \eqref{eq:level-set} is constructed by using the set operator \recordmath{T_h}. Precisely, given a function \recordmath{u\in C(\closure{\Omega})}, the next-step function \recordmath{S_hu} of \recordmath{u} was defined by
+
+\begin{equation}
+\recorddisplay{
+\label{eq:def-Sh}
+    S_h u(x) := \sup\left\{\lambda\in\R \mid x\in T_h(\{u \ge \lambda\})\right\}\qquad\mbox{for}\quad x\in\overline{\Omega}.
+}
+\end{equation}
+
+The definition of \recordmath{S_h} in \eqref{eq:def-Sh} is given in \cite{EG25} (see also \cite{EGI12-1,EGI12-2} for no contact boundary case). The iteration of \recordmath{S_h} leads to the construction of approximate solution (discrete in time) to the level-set equation \eqref{eq:level-set}:
+
+\begin{equation}
+\recorddisplay{
+    \label{eq:approx-sol}
+    u^h(t, x) := S_h^{\lfloor \frac{t}{h} \rfloor} u(x),
+}
+\end{equation}
+where for \recordmath{r\in\R}, \recordmath{\lfloor r\rfloor} denotes the largest integer which does not exceed \recordmath{r}.
+The main result of \cite{EG25} shows:
+
+\begin{proposition}
+    \label{prop:previous}
+    Assume that \recordmath{\Omega} is a bounded convex domain in \recordmath{\R^d} with smooth boundary.
+    Assume that \recordmath{\beta\in C^{2,\alpha}(\pOmega)} for some \recordmath{\alpha\in(0,1)}, \recordmath{\|\beta\|_{C^0(\pOmega)} < 1}, and \begin{align}\recorddisplay{\label{assumption:convexity}
+    |\nabla_{\partial\Omega}\beta|\leq \kappa(x)\qquad\text{for all }x\in\partial\Omega,
+}
+    \end{align}
+    where \recordmath{\kappa(x)} denotes the minimum positive principal curvature of \recordmath{\pOmega} at \recordmath{x}.
+    Then, \recordmath{u^h} uniformly converges to the unique viscosity solution to \eqref{eq:level-set} as \recordmath{h\to 0}.
+\end{proposition}
+
+We explain the framework of the work \cite{EG25} of the first author and Giga, as our general framework follows this as well.
+Given an initial function \recordmath{u_0 \in C(\closure{\Omega})} whose zero-level set equals \recordmath{\Gamma_0},
+we define \recordmath{u^h(x,h) := S_hu_0(x)} and observe that \recordmath{u^h(\cdot,h)} is the solution to \eqref{eq:intro-discrete-PDE} with \recordmath{E = \{u_0 \leq 0\} = \closure{\{u_0 < 0\}}}.
+Taking \recordmath{E} as the sub zero-level set of \recordmath{u^h} in \eqref{eq:intro-discrete-PDE}, we can also define \recordmath{u^h(\cdot,2h)}.
+Repeating this procedure, we have a discrete solution \recordmath{u^h} up to the time horizon \recordmath{T} as in \eqref{eq:approx-sol}.
+We now consider the upper and lower relax limits \recordmath{\overline{u} = {\limsup_{h\to 0}}^* u^h} and \recordmath{\underline{u} = {\liminf_{h\to 0}}_* u^h} (see Definition~\ref{defn:relax-limit}).
+If we can prove that \recordmath{\overline{u}} and \recordmath{\underline{u}} are respectively a subsolution and supersolution of the level-set equation \eqref{eq:level-set},
+then a comparison principle for viscosity solutions (Proposition~\ref{prop:comparison-principle}) together with the trivial inequality \recordmath{\overline{u}\geq \underline{u}}
+implies \recordmath{\overline{u} = \underline{u}} as soon as the function operator \recordmath{S_h} satisfies the monotonicity, translation invariance, stability, and consistency (Proposition~\ref{prop:BS}).
+The most involved property of \recordmath{S_h} to prove is the consistency: Roughly speaking, we need to show the relation between the \textit{generator} of the function operator \recordmath{S_h} and the function \recordmath{F}:
+
+\begin{equation}
+\recorddisplay{
+    \label{eq:intro-consistency}
+    \lim_{h\to 0}\frac{S_h\varphi(x) - \varphi(x)}{h} = -F(\nabla\varphi(x), \nabla^2\varphi(x))
+}
+\end{equation}
+for smooth test functions \recordmath{\varphi} with \recordmath{\nabla\varphi(x)\neq 0}.
+To this end, we are led to relate the level sets of \recordmath{\left\{S_h\varphi\geq \lambda\right\}} to the set \recordmath{T_h(\left\{\varphi\geq \lambda\right\})} for \recordmath{\lambda\in\R},
+and if we admit this, then the consistency property will be proven as in \cite{EG25}.
+
+This relation between \recordmath{S_h} and \recordmath{T_h} can be deduced from the continuity property of \recordmath{T_h} (Proposition~\ref{prop:relation-TS}),
+and this property can be shown as a consequence of the equi-continuity of the solution \recordmath{w} to \eqref{eq:intro-discrete-PDE} with respect to the choice of the data \recordmath{E} (Proposition~\ref{prop:continuity-T}). Therefore, establishing the equi-continuity of the solution \recordmath{w} for the continuity property of \recordmath{T_h} is the most important contribution of the paper with detailed analysis, where the assumption \eqref{assumption:convexity} is used indeed critically.
+
+In \cite{EG25} of the first author and Giga, the assumption \eqref{assumption:convexity} is used in order to use the maximum principle on the gradient function, which then implies that the solution \recordmath{w} of \eqref{eq:intro-discrete-PDE} is uniformly Lipschitz continuous. More precisely, the assumption \eqref{assumption:convexity} ensures that the gradient function is a subsolution of an elliptic equation up to the boundary. In other words,  the gradient function does not assume maximum on the boundary \recordmath{\partial\Omega} due to the assumption \eqref{assumption:convexity}. However, this argument is no more valid if we do not assume \eqref{assumption:convexity}.
+
+%the geodesic signed distance function $d_{\Omega,E}$ coincides with the standard signed distance function $d_E$ when $\Omega$ is convex.
+%Moreover, 
+
+\subsection{The statement of our main result} The result of Proposition \ref{prop:previous} is restrictive in the sense that although the contact angle function \recordmath{\beta} is supposed to be a prescribed, its derivative
+should be bounded by geometric features of the container \recordmath{\Omega}.
+In particular, in the half-space case, all principal curvatures of the boundary are zero, and hence \recordmath{\beta} must be constant: This implies that in practice, we cannot prescribe spatially inhomogeneous contact angle condition. This motivates us to explore a more general criteria on \recordmath{\Omega} and \recordmath{\beta} to guarantee the convergence of the scheme. The following result completely removes the assumption \eqref{assumption:convexity}, which was used to establish the equi-continuity of the approximate solution \recordmath{w} for the continuity of \recordmath{T_h}, which we now state as our main result.
+
+\begin{theorem}\label{thm:main}
+Assume that \recordmath{\Omega} is a bounded domain in \recordmath{\R^d} with smooth boundary.
+Assume that \recordmath{\beta} is Lipschitz continuous on \recordmath{\pOmega} and \recordmath{\|\beta\|_{C^0(\partial\Omega)}<1}.
+Let \recordmath{\{\beta^h\}_{h>0}} be any sequence of smooth functions parametrized by the time step \recordmath{h>0} converging to \recordmath{\beta} uniformly on \recordmath{\pOmega}. Let \recordmath{T_h} be the set operator defined with the energy \recordmath{J_{\beta^h}(u)}, and the function operator \recordmath{S_h} is defined with this \recordmath{T_h} accordingly.
+Then, \recordmath{u^h} locally uniformly converges to the unique viscosity solution to \eqref{eq:level-set} as \recordmath{h\to 0}.
+\end{theorem}
+
+
+
+%as well as relaxing the required regularity condition of $\beta$ up to the Lipschitz continuity.
+
+
+
+%We mention that  is in order to relax the regularity condition of the function $\beta$ up to the Lipschitz continuity. 
+
+%, which are for technical reasons explained mainly in Section 3.% The conclusion of the theorem also states that the schemes induced from $J_{\beta}$ and $J_{\beta^h}$
+
+%\textcolor{blue}{any contextual development of why we consider $J_{\beta^h}$?}
+
+%\fix{This is because we cannot send $h\to 0$ to obtain $\|\nabla w\|_\infty \leq \|\nabla g\|_\infty$. This estimate is for a fixed $h> 0$. Thus, the Capillary Chambolle-type scheme depends on $\beta^h$ converging to $\beta$.}
+
+%\textcolor{blue}{To use the maximum principle from \cite{B99}, I think we need at least Lipschitz continuity of $\beta$.}
+
+%\textcolor{blue}{By selecting a subsequence, we can assume WLOG that $\|\beta^h-\beta\|_{\infty}\leq h$, or $\|\beta^h-\beta\|_{\infty}\leq h^2$, or as small as we want. Using this, can we derive consistency of $S^h$? I think Lipschitz continuity is enough.}
+
+%\textcolor{blue}{In my check, as we can assume $\|\beta^h\|_{\infty} \leq \|\beta\|_{\infty}$, I think the same conclusions of \cite[Prop 4.2, Thm 4.3]{EG25} hold without change so that we can claim the consistency of $S^h$ that is defined with $\beta^h$ (not $\beta$). My understanding is: \cite[Prop 4.2]{EG25} goes with the changed assumption $$z \in \partial\Omega, \nabla\varphi(z) \neq 0\, and\,
+%\langle \nabla\varphi(z), \nu_{\Omega}(z) \rangle
+%+ \beta^h(z)\, |\nabla\varphi(z)| > 0$$
+%and with the same conclusion statement to the equation \eqref{eq:E-L} with $\beta^h$ in place of $\beta$. This is because $\|\beta^h\|_{\infty} \leq \|\beta\|_{\infty}$ holds. On the other hand, \cite[Thm 4.3]{EG25} goes with the same assumption and conclusion because for each $z$ satisfying $$z \in \partial\Omega, \nabla\varphi(z) \neq 0\, and\,
+%\langle \nabla\varphi(z), \nu_{\Omega}(z) \rangle
+%+ \beta(z)\, |\nabla\varphi(z)| > 0,$$
+%it holds that $$z \in \partial\Omega, \nabla\varphi(z) \neq 0\, and\,
+%\langle \nabla\varphi(z), \nu_{\Omega}(z) \rangle
+%+ \beta^h(z)\, |\nabla\varphi(z)| > 0$$
+%for $h>0$ small enough. All the other arguments hold true without any change. Would you confirm this?}
+
+%\fix{
+%Thank you for share your opinion. Let me write my understanding.
+%\begin{itemize}
+%    \item Given $\beta$, we replace the scheme $T_h$ and $S_h$ by replacing $\beta$ with $\beta_h$ some sequence of smooth functions converging to $\beta$ in $C^0(\pOmega)$.
+%    This replacement of the scheme would be necessary since your part will show some Lipschitz bound of the gradient of $w$ which is the unique minimizer of the alternative energy, not original one.
+%    \item The hypothesis of \cite[Proposition 4.2]{EG25} holds for $h\ll 1$. It is important that we can take $-1 < \underline{\beta} \leq \beta^h\leq \overline{\beta} < 1$.
+%    \item Consistency of $S_h$ \cite[Theorem 4.3]{EG25} fully relies on \cite[Proposition 4.2]{EG25} and does not suffer from the replacement of $\beta$ with $\beta^h$.
+%    \item In my opinion, we need not assume an error estimate like $\|\beta^h - \beta\|_\infty \leq O(h^\alpha)$ because the replacement of $\beta$ only affects the boundary part of the proof. The convergence $\beta^h\to\beta$ in $C^0(\pOmega)$ would be enough.
+%\end{itemize}
+%}
+%\textcolor{blue}{I understand in the same way as you wrote so I think our theorem holds for Lipschitz $\beta$. The task now is to write this idea and update our draft, right?}
+
+%\textcolor{blue}{I suggested the division of Section 3 and non-Section 3 in terms of updating the draft. After I finish updating Section 3, I'll take other parts as well, probably starting from small pieces such as abstract (as my impression is your writing is interconnected).}
+
+%\fix{I have updated the manuscript according to the above discussion other than the abstract and Section 3. After your revision, I would like to go through the manuscript quickly.}
+
+%\fix{Could you clarify the regularity of $\beta$ to establish the uniform boundedness of $w^\varepsilon$ ? Aside from $\Omega$, the regularity of $\beta$ is more important since we would know a trade-off between the previous assumption and the current assumption on $\Omega$ and $\beta$.}
+
+%\textcolor{blue}{Various constant $C>0$ appearing in the proof depend on the second-derivative of $\beta$ as well, and this is all. I think $\beta\in C^{2,\alpha}$ is enough.}
+
+% \todo{I guess that $C^2$ boundary of $\Omega$ would be enough to claim this statement once Ishii--Sato's comparison principle \cite{IS04} can be applied to our problem.}
+
+% \textcolor{blue}{I differentiated $w^{\varepsilon}$ three times in Proposition \ref{prop:equation-v} so I need at least $C^{3,\alpha}$ which also is enough the comparison principle. whenever some technicalities appear during the paper in this regard, I don't mind assuming further regularity. I wrote smooth boundary in Theorem \ref{thm:main} temporarily.}
+
+% \fix{Ishii--Sato's result also needs $C^{2,1}$ boundary. Sorry for my oversight.} \textcolor{blue}{I see, thank you.}
+
+% \fix{OK. I agree with this. I woule like to clarify how much regularity of $\Omega$ is required to claim the statement and will mention it as a remark in the finalization phase. Thank you.}
+% \textcolor{red}{Here, we need more assumptions on $\beta$ and $\Omega$ to ensure the comparison principle for the level-set equation \eqref{eq:level-set}. I will elaborate on this point later.}
+
+% \textcolor{blue}{i see.}
+
+
+
+% Theorem~\ref{thm:main} is an improved version of \cite[Theorem 1.1 and Corollary 1.1]{EG25} since this convergence result applies to the case when either $\Omega$ is not necessarily convex, or the assumption that $|\nabla_{\partial\Omega}\beta|\le \min_{1\le i\le d-1} \kappa_i$ does not hold, where $\kappa_i\,(1\le i\le d-1)$ denotes the principal curvature of $\partial\Omega$.
+% These assumptions were imposed to show a Lipschitz bound of the solutions $w^h$ to the partial differential equation \eqref{eq:intro-discrete-PDE}.
+
+
+
+% \todo{Here, I will mention about Barles--Souganidis's convergence result and its consistency property is the most difficult part to validate in our proof.} \textcolor{blue}{If I understood correctly, your point is that our novelty should be stressed enough in the below and you are giving context development here, right? I can further update the below as you keep updating here.}
+% \fix{Yes, I think that it would be better to discuss here difficulties and the structure of the argument which will be given in the subsequent sections.}
+
+
+%\fix{I will not update the subsequent sentences in Introduction.}
+
+%In \cite{EG25}, the assumption that
+
+%was essentially used to adapt a classical maximum principle of an elliptic partial differential equation. Here, $\kappa_i$'s are the principal curvatures of $\pOmega$. The main result of this paper obtains the same convergence but not relying on the assumption \eqref{assumption:convexity} so that we can include general cases.% This is possible by considering a weighted gradient function which is motivated by \cite{JKMT22,J23}.
+
+%We remark that we relax the required regularity condition of $\beta$ up to the Lipschitz continuity by working with the operators $T_h$ and $S_h$ induced from the energy $J_{\beta^h}$ (instead of $J_{\beta}$). Regarding these schemes, we refer to the beginning of Section 3 for further discussions on this point.
+% We also achieve to prove the equi-continuity but not relying on the assumption \eqref{assumption:convexity}. The novelty of this will be explained after the context of how the assumption \eqref{assumption:convexity} appeared previously.
+
+We remark before we explain our result and its novelty that variant versions of \eqref{assumption:convexity} appeared in the literature interestingly. For instance, on a convex domain with the right-angle condition (which corresponds to the assumption \eqref{assumption:convexity} with \recordmath{\beta\equiv0}), the Lipschitz continuity of viscosity solutions to \eqref{eq:level-set} is proved in \cite{GOS99}, which is directly related to the existence of stable stationary surfaces of \eqref{eq:target_equation}.
+%Considering the weight function for the gradient as in \cite{JKMT22,J23} is not a coincidence: This is because the assumption $|\sgrad\beta|\leq \min_{i=1,\cdots,d-1}\kappa_i$ on $\partial\Omega$ of \cite{EG25} appeared in other works \cite{GOS99,JKMT22,J23} as an alternative condition interestingly.
+%For the level-set mean curvature equation \eqref{eq:level-set}, the study on the influence of the domain $\Omega$ and the right-angle condition on evolving surfaces is initiated in \cite{GOS99}. 
+% \textcolor{red}{Would you like the notation $\nabla'$ to specify the tangential gradient on $\partial\Omega$ rather than $\nabla_{\partial\Omega}$ ? Rigorously, this means the surface gradient on $\partial\Omega$, and the notation $\nabla'$ is slightly confusing in my opinion.}
+% \textcolor{blue}{Yes, I think I used $\nabla'$ in the proof of Proposition \ref{prop:w/o-multiplier}. You can use $\nabla_{\partial\Omega}$ in your writing, and after that, I can change them for consistency at once.}
+% \textcolor{red}{Thanks!}
+The work \cite{JKMT22} by the second author, Kwon, Mitake, and Tran includes a spatial forcing term (possibly on a nonconvex domain) and provides a sufficient condition on the forcing term and the domain to guarantee the Lipchitz continuity of viscosity solutions, which is a generalization of the condition \eqref{assumption:convexity}. The second author \cite{J23} then extends the conclusions including general angle conditions.
+
+The main result of this paper can be seen as a continuation of this context since our paper obtains the uniform Lipschitz regularity of the solution \recordmath{w} of \eqref{eq:intro-discrete-PDE} (see Proposition \ref{prop:a-priori-estimate}) that was proved in \cite{EG25} under the assumption \eqref{assumption:convexity}. Our main result removes the assumption \eqref{assumption:convexity}, and thus, Theorem \ref{thm:main} applies on a nonconvex domain as well.
+
+
+
+In this context, the technical novelty of our main result (see Theorem \ref{thm:main} and Proposition \ref{prop:a-priori-estimate}) is as follows: Instead of estimating the gradient function itself (denote by \recordmath{\phi}), we alternatively prove a uniform estimate for a suitable gradient \recordmath{z:=\rho(\phi + \psi)} (with an additive corrector \recordmath{\psi} and a multiplicative weight function \recordmath{\rho}) in order to avoid the use of the assumption \eqref{assumption:convexity}. The weight function \recordmath{\rho} is taken so that the corrected gradient \recordmath{z} cannot assume maximum on the boundary \recordmath{\partial\Omega}, and consequently, the function \recordmath{\rho} depends on the shape of \recordmath{\partial\Omega} naturally. We then next derive an elliptic partial differential inequality in \recordmath{\Omega} which is satisfied by the function \recordmath{z} and a uniform constant function. The maximum principle is thus applied so that the corrected gradient \recordmath{z} (as well as the original gradient \recordmath{\phi} up to a multiplicative constant) is bounded by a uniform constant.
+
+%\textcolor{blue}{Let me update further.}
+
+
+
+%\begin{corollary}\label{cor:from-main-thm}
+%Suppose further that the average of $\beta$ on $\partial \Omega$ is zero. Then, there exists a flat flow for mean curvature flow with contact angle condition satisfying the weak-strong uniqueness.
+%\end{corollary}
+
+%\textcolor{red}{Please sketch the proof when you have a time.}\newline %\textcolor{blue}{For this one, I think this is a good statement for us to fill in the logic by ourselves, as I expect no further new ingredients. Would you try also on your side? I'd also try on my side when I have time. Or, was there nontrivial difficulty? I think \cite{EG24} proved the essential part.}\newline
+%\textcolor{red}{According to the assumption that $\int_{\partial\Omega}\beta\,d\mathcal H^{d-1} = 0$, it would be possible to connect the result by \cite{BK18} since the minimizer $T_h(E)$ corresponds to $\mathcal A_\beta(F,E,1/h)$. I would ask whether the strong solutions mean distributional solution or not. Anyhow, we should note that their result only applies to the half-space case. I will continue to consider this.}
+
+%\textcolor{blue}{By strong solutions, I mean a family of smoothly evolving surfaces $\{E_t\}_{t\in(0,T)}$. By flat flows, I mean a family of sets $\{E_t^h\}_{t\in(0,T)}$ with $h>0$ step size destined to go to zero. By the weak-strong uniqueness, I mean the $L^1$-convergence (and the Hausdorff convergence) of $E_t^h$ to $E_t$ for each $t\in(0,T)$ (maybe locally uniformly $t\in(0,T)$...?). My main reference is \cite[Section 2]{Chambolle04}. I'll also continue to think, thank you.}
+
+%\textcolor{red}{Thank you for the explanation. Maybe, our goal in this corollary is to establish a convergence result like \cite[Theorem 3]{Chambolle04} for contact boundary case, and this was directly imported from \cite[Theorem 7.4]{Almgren93}. For the contact boundary case, Kholmatov \cite{Kholmatov25} showed some smooth consistency result in the half-space case $\R^3_+$. So, if we follow the strategy by Chambolle, we need to extend Almgren's result to the contact boundary case, and this should be quite tough task. This is just my current insight.}
+
+%\textcolor{blue}{if we have smooth evolution, does it result in a viscosity solution? also, does a bounded capillary energy $C_{\beta}$ imply a convergence in $L^1$-norm as the $BV$-norm does on a bounded domain? If the second is true, then we have a convergent subsequence $E_t^h$ that depends on $t$. We want to remove the dependence on $t$, which was achieved by showing $|E^h_t\Delta E^h_s|\leq C|t-s|^{1/2}$ in the flat flow literature. For this one, we can obtain this when $\Omega$ is a half-space or when $\beta$ is small enough depending on $\Omega$. For us, Do we have a similar continuity in time from the convergence $u^h\to u$?}
+
+%\textcolor{blue}{By the way, the reason why the second is true is from the fact that we can choose a vector field $X \in C^1(\overline{\Omega};\mathbb{R}^d)$ such that \[
+%\int_{\partial\Omega} \beta\, T(f)
+%=
+%\int_{\Omega} f\, \operatorname{div} X
+%+
+%\int_{\Omega} X \cdot dDf,
+%\]
+%satisfying
+%\[
+%X\cdot\nu=\beta
+%\qquad\text{on }\partial\Omega\quad\text{and}\quad \|X\|_{L^{\infty}}\leq\|\beta\|_{L^{\infty}}.
+%\]}
+
+
+
+%\begin{theorem}\label{thm:half-space}
+%A flat flow constructed in \cite{BK18} on the half-space $\Omega = \R^{d+1}_+$ satisfies the weak-strong uniqueness. Here, we are assuming $\beta \in C^1(\partial\Omega)$ be given satisfying $\|\beta\|_{L^{\infty}(\partial\Omega)} < 1$.
+%\end{theorem}
+
+%\textcolor{red}{Please sketch the proof when you have a time.} %\textcolor{blue}{I'll work on it, thank you.}
+
+%\textcolor{red}{Would you have an idea to prove Corollary~\ref{cor:from-main-thm} and Theorem~\ref{thm:half-space}?}
+
+%\textcolor{blue}{I believe that they can be proved without difficulty, but rigorously speaking, I haven't checked them rigorously.}
+
+%\textcolor{blue}{how about this one? flat flow on half space exists by literature BK18, i think we need to compare two flows of our own and of BK18. i propose to work on it together to fill in the rigorous details.}
+
+%\textcolor{blue}{Or, do you think we have Theorem \ref{thm:main} even on the half-space? Then, I think we can approach Theorem \ref{thm:half-space} much simpler.}
+
+%\textcolor{red}{No, the boundedness of $\Omega$ is necessary to ensure that $w$ is uniformly bounded w.r.t $h > 0$ using the fact that $g = d_{\Omega,\cdot}$ is bounded in $\Omega$.}
+
+%\textcolor{blue}{Alright, then you are not interested in Corollary and Theorem \ref{thm:half-space}, am I right?}
+
+% \textcolor{red}{I meant that it should be done in a separate paper due to the technical difficulty. I would recommend to first focus on the convergence result with the general assumption on $\Omega$ and $\beta$.}
+
+% \textcolor{blue}{I see. Let's focus on Theorem \ref{thm:main}. I erased the others. Would you be able to continue writing? I appreciate your opinion.}
+
+% \textcolor{red}{Thank you for your understanding. I will continue to write the rest of the paper.}
+% \textcolor{red}{I would like to confirm that your part has been almost done, and I should complete the rest of the paper. Is this correct? I think that you have imported your results from \cite{JKMT22,J23} to this paper. Would there be something new beyond your previous works?}
+
+% \textcolor{blue}{Yes, it was not easy for me. This is not a direct translation from \cite{JKMT22,J23}. I borrowed only the philosophy and general idea, almost every detail is different. Theorem \ref{thm:main} is not derived from \cite{JKMT22,J23} logically. To my knowledge, what I have written below as a detailed logic is correct. I'd appreciate it if you can go over and check logically on your side.}
+
+% \textcolor{blue}{Another question on my side is that does the convergence result of Barles and Souganidis work even for $\mathcal{F}$-viscosity solutions? As the class of test functions is restricted, I didn't understand it yet.}
+
+% \textcolor{red}{Thank you for your comment and it is great to hear that we could include something new! And, I believe that $\mathcal F$-solution is compatible for our problem, say the level-set mean curvature flow equation with contact boundary as in the previous email. But, please let me discuss this more carefully. I will include this kind of things in this paper.}
+
+% \textcolor{blue}{Thank you. If you have questions for something that is unclear when you go over the logic below, please let me know. I'll check the file regularly.}
+
+%\textcolor{blue}{I'll update my writing on \cite{JKMT22,J23} to clarify what I meant based on your above question.}
+
+%\textcolor{red}{
+    %I have started writing about viscosity solutions and mentioned relaxation of test functions of the convergence result by Barles and Souganidis \cite{BS91}. In fact, the test functions taken in their proof were supposed to be admissible test functions of viscosity solutions. Thus, adapting the $\mathcal F$-solutions directly leads to the zero-Hessian relaxation.
+    %The novelty of this paper is concentrated to your multiplier approach for adaptation of Bernstein's method, and this point should be pointed out more clearly.
+    %}
+
+%\textcolor{blue}{I see, thank you. I'll reflect this point when I update the above paragraphs.}
+
+%\fix{By the way, would you be occupied by something now? I would like to finalize this work within July, since the most difficult part has been done, and the remained task is to refine Introduction and the structure of the paper. I will take a time to continue.}
+
+%\textcolor{blue}{I've been in full of trips these days... but I'm trying to check the file whenever I can. Let me try more.}
+
+%\textcolor{blue}{I have to leave now again. I'll come back in 3 hours.}
+
+%\textcolor{blue}{but at the same time I also have devoted to this study over the past few months.}
+
+%\fix{I really appreciate your contribution to this work!}
+
+\subsection{Literature}
+
+We review previous works (by no means a complete list) on MMSs for the mean curvature flow. 
+We first consider the case without contact with a container boundary.
+Almgren--Taylor--Wang \cite{Almgren93} introduced a MMS for mean curvature flow in the whole space \recordmath{\mathbb{R}^d}, starting from a bounded set \recordmath{E_0} of finite perimeter.  They proved the existence of a limiting flow, called a \textit{flat \recordmath{\Phi}-curvature flow}, and showed that it agrees with the smooth mean curvature flow as long as the latter exists.
+Luckhaus--Sturzenhecker \cite{LS95} studied the same MMS and proved convergence to a distributional solution of mean curvature flow under the additional assumption that the perimeters of the discrete solutions converge to the perimeter of the limiting flow.
+Chambolle \cite{Chambolle04} proposed a level-set formulation of the Almgren--Taylor--Wang scheme.  In the present notation, the corresponding energy is given by \eqref{eq:mms} with \recordmath{\beta\equiv 0}.  This formulation yields a well-defined discrete operator despite the possible non-uniqueness of set minimizers thanks to the strict convexity of the energy.
+Chambolle proved that the resulting discrete flow converges, in the \recordmath{L^1} sense, to the level-set mean curvature flow up to the time horizon on which the latter is uniquely defined.
+The works of Eto--Giga--Ishii \cite{EGI12-1,EGI12-2} are foundational earlier works for the approach adopted in the present paper.  They revisited Chambolle's scheme from the viewpoint of morphological operators (see \cite{C03}), and introduced a function operator associated with the discrete scheme.  By exploiting a sup-inf representation of this operator, they proved convergence of the approximate solutions to the unique viscosity solution of the corresponding level-set mean curvature equation.
+Chambolle--De Gennaro--Morini \cite{CDM24} developed a MMS for anisotropic and inhomogeneous mean curvature flows with mobility and time-dependent forcing.  They proved convergence to level-set/viscosity solutions and, in low dimensions and under a suitable energy convergence assumption, convergence to distributional solutions in the sense of Luckhaus--Sturzenhecker.
+The same authors \cite{CDGM26} studied a fully discrete variant of the implicit variational scheme for crystalline mean curvature flow.  Their scheme combines the time-discrete minimizing-movement approach of Almgren--Taylor--Wang and Luckhaus--Sturzenhecker with a spatial discretization based on discrete total variation energies.  A key point of their construction is a suitable discrete signed-distance/redistancing operator, which avoids the drift and pinning phenomena arising in more direct fully discrete implementations.  They proved convergence to the corresponding distributional crystalline curvature flow in arbitrary dimension for a large class of purely crystalline anisotropies.
+
+
+We next recall related works in the presence of contact with a boundary.
+Bellettini--Kholmatov \cite{BK18} studied a MMS for mean curvature flow of droplets in the half-space \recordmath{\mathbb{R}^d_+} with a prescribed, possibly non-constant, contact angle.  They proved the existence of generalized minimizing movements (GMMs) and showed their compatibility with a distributional formulation of mean curvature flow with prescribed contact angle.  This work motivated the subsequent works by the first author and Giga \cite{EG24,EG25}.
+Kholmatov \cite{K25-2} subsequently extended this set-theoretic GMM framework to forced anisotropic curvature flows of droplets in a half-space, based on anisotropic capillary energies and prescribed anisotropic Young laws.
+The same author \cite{Kholmatov25} proved consistency of GMMs with the smooth mean curvature flow of droplets in \recordmath{\mathbb{R}^3_+} with prescribed contact angle.  In particular, under suitable regularity assumptions on the initial droplet and on the contact angle function \recordmath{\beta}, including \recordmath{\beta\in C^{1+\alpha}(\partial\R^3_+)} and \recordmath{\|\beta\|_{C^0(\partial\R^3_+)}<1}, the GMM agrees with the corresponding smooth flow as long as the latter exists.
+
+% Tashiro is not related to the MMS and would be better not to mention about.
+% Beyond MMSs, Tashiro \cite{T26} established an existence result for mean curvature flow with prescribed contact angle in a Brakke-type varifold framework.
+
+% \paragraph{Organization of the paper.}
+
+\subsection*{Organization of the paper}
+This paper is organized as follows. In Section~\ref{sec:preliminaries},
+we recall basic definitions and properties of the geodesic signed distance function, viscosity solutions, and set operator and function operators. 
+Section~\ref{sec:lipschitz-bound} is devoted to derivation of a Lipschitz estimate of approximate solutions. We emphasize that this section presents a main contribution of this paper.
+Finally, in Section~\ref{sec:convergence}, we perform the proof of Theorem~\ref{thm:main}.
+
+\section{Preliminaries}
+\label{sec:preliminaries}
+\subsection{Geodesic distance}
+In this paper, we will work with the \textit{geodesic signed distance function} \recordmath{d_{\Omega,E}} to a relatively closed set \recordmath{E} in \recordmath{\Omega}
+instead of the ordinary signed distance function \recordmath{d_E}. We give the precise definition of this function and mention about some gradient bound.
+
+\begin{defn}[Geodesic distance between points]
+    For \recordmath{x,y\in\closure{\Omega}},
+    a Lipschitz continuous map \recordmath{\ell:[0,1]\to\closure{\Omega}} is called a \emph{path} between \recordmath{x} and \recordmath{y}, which is written as \recordmath{\ell\in\operatorname{Path}(x,y)},
+    if and only if \recordmath{\ell(0) = x} and \recordmath{\ell(1) = y}. The geodesic distance \recordmath{\operatorname{dist}_\Omega(x,y)} between \recordmath{x} and \recordmath{y} is defined by:
+
+    \begin{equation}
+\recorddisplay{
+        \label{eq:geodesic-distance}
+    \operatorname{dist}_\Omega(x,y) := \inf\left\{\int_0^1|\ell'(t)|\,dt\biggm| \ell\in\operatorname{Path}(x,y)\right\}.
+    }
+\end{equation}
+\end{defn}
+
+\begin{defn}[Geodesic distance to sets]
+    For each \recordmath{E\subset\closure{\Omega}}, the \emph{geodesic distance function} \recordmath{\operatorname{dist}_\Omega(\cdot,E)} to the set \recordmath{E} is defined by:
+
+    \[\recorddisplay{
+    \operatorname{dist}_\Omega(x,E) := \inf\left\{\operatorname{dist}_{\Omega}(x,y)\biggm| y\in E\right\}.
+    }\]
+\end{defn}
+
+\begin{defn}[Geodesic signed distance to sets]
+    For each \recordmath{E\subset\closure{\Omega}}, the \emph{geodesic signed distance function} \recordmath{d_{\Omega,E}} to the set \recordmath{E} is defined by:
+
+    \begin{equation*}
+        d_{\Omega,E}(x) :=
+        \begin{cases}
+            -\operatorname{dist}_{\Omega}(x,\Omega\setminus E) & \qquad \mbox{if}\quad x\in E,\\
+            \operatorname{dist}_\Omega(x,E) & \qquad \mbox{if}\quad x\notin E.
+        \end{cases}
+    \end{equation*}
+\end{defn}
+
+\begin{remark}
+    In the case when \recordmath{\Omega} is convex, \recordmath{d_{\Omega,E}} coincides with the ordinary signed distance function \recordmath{d_E}
+    since the segment connecting \recordmath{x} and \recordmath{y} is always included in \recordmath{\closure{\Omega}},
+    and the corresponding map \recordmath{\ell\in\operatorname{Path}(x,y)} attains the minimum of \eqref{eq:geodesic-distance}.
+\end{remark}
+
+\begin{proposition}
+    \label{prop:geodesic-uniform-bounded}
+    Assume that \recordmath{\Omega} is bounded Lipschitz domain in \recordmath{\R^d}. Then, there exists a constant \recordmath{C_\Omega > 0} such that
+    \[\recorddisplay{
+    |d_{\Omega,E}(x) - d_{\Omega,E}(y)| \leq C_\Omega|x-y|\qquad\forall x,y\in\closure{\Omega}.
+    }\]
+    In particular, \recordmath{d_{\Omega,E}} is differentiable a.e. in \recordmath{\closure{\Omega}}, and it holds that \recordmath{|\nabla d_{\Omega,E}(x)|\leq C_\Omega} for a.e. \recordmath{x\in\closure{\Omega}}.
+\end{proposition}
+\begin{proof}
+    This can be deduced from the fact that any bounded Lipschitz domain is uniform (see \cite{BH07}, for instance).
+    The differentiability of \recordmath{d_{\Omega,E}} follows from Rademacher's theorem (see \cite[Theorem 3.2]{EG15}).
+\end{proof}
+
+\begin{remark}
+    For the classical signed distance functions, it is well known that \recordmath{|\nabla d_E| = 1} at points of differentiability.
+    For a \recordmath{C^{2,1}}-domain \recordmath{\Omega}, we have the bound \recordmath{\|\nabla d_{\Omega,E}\|_{L^\infty(\Omega)}\leq C_\Omega} as above.
+    Note that we have \recordmath{|\nabla d_{\Omega,E}(x)|\leq 1} when differentiable since we can take \recordmath{\delta > 0} so small that
+    \recordmath{\operatorname{dist}_{\Omega}(x,y) = |x-y|} for every \recordmath{y\in B_\delta(x)}.
+\end{remark}
+
+\subsection{Viscosity solutions}\label{sec:viscosity-sol}
+In this section, we recall the notion of viscosity solutions and its well known properties which will be used in the sequel.
+For later use, we introduce functions \recordmath{F:(\R^d\setminus\{0\})\times \mathbb S^{d}\to \R} and \recordmath{B:\partial\Omega\times \R^d\to\R},
+where \recordmath{\mathbb S^{d}} denotes the set of all symmetric matrices in \recordmath{\R^{d\times d}}, and \recordmath{I_d\in \R^{d\times d}} designs the identity matrix.
+Using these functions, we consider the following initial boundary problem:
+
+\begin{equation}
+\begin{aligned}
+\label{eq:level-set-FB}
+    u_t + F(\nabla u, \nabla^2 u) &= 0\qquad\mbox{in}\quad \Omega\times(0,T),\\
+    B(\cdot, \nabla u) &= 0\qquad\mbox{on}\quad \partial\Omega\times (0,T),\\
+    u(\cdot,0) &= u_0\,\,\,\quad\mbox{in}\quad\overline{\Omega},
+    \end{aligned}
+\end{equation}
+where \recordmath{\nabla^2 u} denotes the Hessian matrix of \recordmath{u}, say \recordmath{(\nabla^2 u)_{ij} := \partial^2_{x_ix_j}u} for \recordmath{1\le i,j\le d}.
+
+We note that the level-set equation \eqref{eq:level-set} can be represented as \eqref{eq:level-set-FB} by choosing
+\begin{equation}
+\label{eq:FB}
+    \begin{aligned}
+    F(p,X) &:= -\operatorname{tr}\left(\left(I_d - \frac{p\otimes p}{|p|^2}\right)X\right)\qquad\,\,\mbox{for}\quad p\in\R^d\setminus\{0\},\, X\in \mathbb S^d,\\
+    B(x, p) &:= p \cdot \nu_\Omega(x) + \beta (x) |p|\qquad\quad\qquad\mbox{for}\quad x\in\overline{\Omega},\, p\in\R^d.
+    \end{aligned}
+\end{equation}
+
+We now introduce the notion of viscosity solutions to \eqref{eq:level-set-FB}.
+Let us begin with recalling a family of test functions from \cite[\S 2.1.3]{G06}.
+
+\begin{defn}[Compatible test functions]
+    Let \recordmath{\mathcal F} be the set of smooth functions on the half line defined by
+    \[\recorddisplay{
+    \mathcal F := \left\{f\in C^2[0,\infty)\,\biggm| f(0) = f'(0) = f''(0) = 0,\quad f''(r) > 0\quad\forall r > 0\right\}.
+    }\]
+    A function \recordmath{\varphi\in C^2({\Omega}\times(0,T))} is compatible with the function \recordmath{F}
+    provided that for any \recordmath{(\hat x, \hat t)\in\Omega\times(0,T)} with \recordmath{\nabla\varphi(\hat x, \hat t) = 0},
+    there exist a constant \recordmath{\delta > 0}, a function \recordmath{f \in \mathcal F}, and a modulus \recordmath{\omega\in C[0,\infty)} with \recordmath{\lim_{\sigma\to 0}\omega(\sigma)/\sigma =0}
+    satisfying
+    \[\recorddisplay{
+    |\varphi(x,t) - \varphi(\hat x, \hat t) - \varphi_t(\hat x, \hat t)(t - \hat t)| \leq f(|x- \hat x|) + \omega(|t - \hat t|)
+    }\]
+    for every \recordmath{(x,t) \in\Omega\times(0,T)} with \recordmath{|x-\hat x|\le \delta} and \recordmath{|t - \hat t|\le \delta}.
+    The set of all compatible test functions with \recordmath{F} is denoted by \recordmath{C^2_F(\Omega\times(0,T))}.
+\end{defn}
+%\textcolor{blue}{Can we directly use $(\hat{x},\hat{z})$, not using $\hat{z}$?}
+
+%\textcolor{red}{Thank you for your suggestion. Yes, it is possible, and I have fixed accordingly.}
+
+\begin{defn}[Semi-continous envelopes]
+    The lower (resp., upper) semi-continuous envelope \recordmath{F_*} (resp., \recordmath{F^*}) of \recordmath{F:\R^d\setminus\{0\}\times\mathbb S^d\to\R} is defined by
+    \begin{align*}
+        \recorddisplay{F_*(p,X)
+} &\recorddisplay{:= \liminf_{\varepsilon\to 0}\left\{F(q,Y)\biggm| |p - q| < \varepsilon,\quad \|X-Y\|_2 < \varepsilon\right\}
+}\\
+        \recorddisplay{resp.,\quad F^*(p,X)
+} &\recorddisplay{:= \limsup_{\varepsilon\to 0}\left\{F(q,Y)\biggm| |p - q| < \varepsilon,\quad \|X-Y\|_2 < \varepsilon\right\},
+}
+    \end{align*}
+    where \recordmath{\|X\|_2 := \sqrt{\sum_{i,j=1}^d x_{ij}^2}} for \recordmath{X = (x_{ij})_{1\leq i,j\leq d}\in \R^{d\times d}}.
+\end{defn}
+
+\begin{defn}[Viscosity solutions]
+\label{dfn:viscosity-sol}
+A function \recordmath{u:\overline{\Omega}\times(0,T)\to \R} is called a viscosity subsolution (resp., supersolution) to \eqref{eq:level-set-FB} provided that \recordmath{u^*(x,t) < \infty} (resp., \recordmath{u_*(x,t) > -\infty}) for all \recordmath{(x,t)\in\overline{\Omega}\times(0,T)} and for any test function \recordmath{\varphi\in C^2_F(\overline{\Omega}\times(0,T))} and \recordmath{(\hat x, \hat t)\in \overline{\Omega}\times(0,T)} such that \recordmath{u^*-\varphi} takes a local maximum (resp., local minimum) at \recordmath{(\hat x,\hat t)}, it holds that
+
+\begin{equation}
+\label{eq:def-viscosity-sol}
+    \begin{cases}
+        \varphi_t(\hat x,\hat t) + F_*(\nabla\varphi(\hat x,\hat t), \nabla^2\varphi(\hat x,\hat t)) \le 0 &\qquad\mbox{if}\quad \nabla\varphi(\hat x,\hat t) \neq 0\\
+        (resp.,\, \varphi_t(\hat x,\hat t) + F^*(\nabla\varphi(\hat x,\hat t), \nabla^2\varphi(\hat x,\hat t)) \ge 0 &\qquad\mbox{if}\quad \nabla\varphi(\hat x,\hat t) \neq 0),\\
+        \varphi_t(\hat x,\hat t)\le 0&\qquad \mbox{if}\quad \nabla\varphi(\hat x,\hat t) = 0\\
+        (resp.,\, \varphi_t(\hat x, \hat t)\ge 0 &\qquad\mbox{if}\quad \nabla \varphi(\hat x, \hat t) = 0),
+    \end{cases}
+\end{equation}
+if \recordmath{\hat x\in \Omega} and either \eqref{eq:def-viscosity-sol} or \recordmath{B_*(\hat x, \nabla\varphi(\hat x,\hat t))\le 0} (resp., \recordmath{B^*(\hat x,\nabla\varphi(\hat x, \hat t)) \ge 0}) holds if \recordmath{\hat x\in\partial\Omega}.
+
+A function \recordmath{u} is called a viscosity solution to \eqref{eq:level-set-FB} if \recordmath{u} is a viscosity subsolution and supersolution.
+\end{defn}
+
+\begin{remark}
+Definition~\ref{dfn:viscosity-sol} is based on the notion of \recordmath{\mathcal F}-solutions (see e.g., \cite[Definition 2.3.7]{G06}).
+For the special choice of \recordmath{F} in \eqref{eq:FB}, we have that
+\begin{equation}
+\recorddisplay{
+    \label{eq:compatible-set}
+C^2_F(\Omega\times(0,T)) = \left\{\varphi\in C^2(\Omega\times(0,T))\biggm|\nabla\varphi(z) = 0\,\Longrightarrow\,\nabla^2\varphi(z) = O\right\}.
+}
+\end{equation}
+Therefore, for test functions \recordmath{\varphi} with \recordmath{\varphi(\hat x,\hat t) = 0},
+we may assume that \recordmath{\nabla^2\varphi(\hat x, \hat t) = O} for the confirmation of either \recordmath{\varphi_t(\hat x,\hat t) \leq 0} or \recordmath{\varphi_t(\hat x,\hat t) \geq 0}.
+We refer the reader to \cite[Remark 2.1.6, Proposition 2.1.8]{G06} for the detail.
+\end{remark}
+
+\begin{defn}[Degenerate ellipticity and geometricity]
+    A function \recordmath{F:(\R^d\setminus\{0\})\times\mathbb S^{d}\to\R} is said to be degenerate elliptic if for any \recordmath{p\in\R^d} and \recordmath{X,Y\in\mathbb S^d} satisfying \recordmath{X\le Y}, then it holds that
+    \[\recorddisplay{F(p,X) \ge F(p,Y),
+    }\]
+    where the condition \recordmath{X\le Y} means that \recordmath{Y - X} is positive semi-definite.
+    A function \recordmath{F:(\R^d\setminus\{0\})\times\mathbb S^d\to\R} is said to be geometric if for any \recordmath{\lambda > 0}, \recordmath{p\in\R^d\setminus\{0\}} and \recordmath{X\in\mathbb S^d}, then it holds that
+    \[\recorddisplay{F(\lambda p, \lambda X + \sigma p\otimes p) = \lambda F(p,X)\qquad\mbox{for all }\sigma\in\R.
+    }\]
+\end{defn}
+
+\begin{remark}
+    The viscosity solution describes a weak notion of solutions in the sense that any classical solution satisfies the partial differential inequalities in \eqref{eq:def-viscosity-sol} due to the maximum principle as soon as \recordmath{F} is degenerate elliptic.
+\end{remark}
+
+\begin{remark}
+    The geometric property \recordmath{F} is important to apply the level-set method to geometric flows like the mean curvature flow \eqref{eq:target_equation}.
+    This property guarantees an invariant property of the level sets yielded from the solution of \eqref{eq:level-set-FB} in regard to the choice of the initial condition \recordmath{u_0}
+    satisfying \recordmath{\{u_0 = 0\} = \Gamma_0}. See \cite[Theorem 4.2]{B99}, for instance.
+\end{remark}
+
+We now state an important property of viscosity solutions which guarantees its uniqueness.
+
+\noindent
+\begin{proposition*}[Comparison principle]
+    \label{prop:comparison-principle}
+Let \recordmath{u} (resp., \recordmath{v}) be a bounded viscosity subsolution (resp., supersolution) to \eqref{eq:level-set-FB}.
+Assume that \recordmath{F} is degenerate elliptic and geometric.
+Then, it holds that \recordmath{u \le v} in \recordmath{\overline{\Omega}\times(0,T)} provided that \recordmath{u(\cdot,0)\le v(\cdot,0)} in \recordmath{\overline{\Omega}}. 
+\end{proposition*}
+
+We now recall from \cite[Theorem 2.2]{EG25} the comparison principle for \eqref{eq:level-set-FB}.
+\begin{proposition}\label{prop:comparison-principle}
+    Assume that \recordmath{\Omega} is a bounded \recordmath{C^{2,1}}-domain, \recordmath{\|\beta\|_{C^0(\pOmega)} < 1}, and \recordmath{\beta} is Lipschitz continuous.
+    Then, for the choice of \recordmath{F} and \recordmath{B} as in \eqref{eq:FB}, the target level-set equation \eqref{eq:level-set-FB} satisfies the comparison principle.
+\end{proposition}
+
+\begin{remark}[Regularity of the boundary]
+    Proposition~\ref{prop:comparison-principle} was shown in \cite[Theorem 2.1]{EG25} by invoking the comparison result due to Barles \cite[Theorem 3.1]{B99};
+    the \recordmath{C^{2,1}} regularity of \recordmath{\Omega} was crucial to guarantee the uniformly boundedness of the surface gradient \recordmath{\sgrad\nu_\Omega} of the outward normal vector field \recordmath{\nu_\Omega}.
+    We can find a similar comparison result by Ishii--Sato \cite[Theorem 2.1,\S 5]{IS04}, and their theorem also required the \recordmath{C^{2,1}} regularity of \recordmath{\Omega}.
+\end{remark}
+
+\begin{remark}[Boundedness of the surface gradient of \recordmath{\beta}]
+    We note that \recordmath{\Omega} is not necessarily bounded in the hypothesis of Proposition~\ref{prop:comparison-principle}.
+    However, we will invoke the assumption that \recordmath{\Omega} is bounded to claim the maximum principle of the variational problem \eqref{eq:mms}.%,
+    %and hence $\|\nabla_{\pOmega}\beta\|_{C^0(\pOmega)} < \infty$ is automatically satisfied as soon as $\beta$ is smooth since $\pOmega$ is compact.
+\end{remark}
+
+\begin{defn}[Relaxed limit]
+    \label{defn:relax-limit}
+    Let \recordmath{\mathcal O} be a set, being typically either \recordmath{\closure{\Omega}} or \recordmath{\closure{\Omega}\times[0,T]},
+    and let \recordmath{u^h} be a function on \recordmath{\mathcal O} parametrized by \recordmath{h>0}.
+    Then, the relaxed limits \recordmath{\overline u} and \recordmath{\underline{u}} of \recordmath{u^h} are defined by
+
+    \begin{equation*}
+        \begin{aligned}
+        \overline{u}(x) = {{\limsup_{h\to 0}}^*}u^h(x) &:= \lim_{h\to 0}\sup\left\{u^h(y)\biggm| |x-y| < \delta,\quad 0<\delta<h\right\},\\
+        \underline{u}(x) = {{\liminf_{h\to 0}}_*}u^h(x) &:= \lim_{h\to 0}\inf\left\{u^h(y)\biggm| |x-y| < \delta,\quad 0<\delta<h\right\}.
+        \end{aligned}
+    \end{equation*}
+\end{defn}
+
+In this study, we aim to apply the convergence result of discrete schemes approximating viscosity solutions by Barles and Souganidis \cite[Theorem 2.1]{BS91} to show Theorem~\ref{thm:main}. 
+
+\begin{proposition}\label{prop:BS}
+    For each \recordmath{h>0}, suppose that \recordmath{S_h:BUC(\overline{\Omega})\to BUC(\overline{\Omega})} satisfies the following conditions:\newline
+
+    \noindent
+    \textbf{Monotonicity:}\newline
+    \begin{equation*}
+\recorddisplay{
+        S_h u \le S_h v\qquad\mbox{if}\quad u \le v\quad\text{in}\quad\overline{\Omega}.
+    }
+\end{equation*}
+
+    \noindent
+    \textbf{Translation invariance:}\newline
+    \begin{equation*}
+        \begin{aligned}
+            S_h(u + c) &= S_h u + c\qquad \forall c\in\R,\\
+            S_h (0) &= 0.
+        \end{aligned}
+    \end{equation*}
+
+    \noindent
+    \textbf{Consistency:}
+    Assume that \recordmath{F:(\R^d\setminus\{0\})\times\mathbb S^{d}\to\R} is degenerate elliptic, geometric, and continuous, and \recordmath{F} satisfies \recordmath{-\infty<F_*(0,O) = F^*(0,O) < \infty}.
+    For every \recordmath{\varphi\in C^2_F(\Omega)\cap C^2(\overline{\Omega})} and \recordmath{z\in\overline{\Omega}} satisfying either
+    \begin{itemize}
+        \item \recordmath{z\in\Omega}, or
+        \item \recordmath{z\in\partial\Omega} and \recordmath{\left<\nabla\varphi(z),\nu_\Omega(z)\right> + \beta(z)|\nabla\varphi(z)| > 0\, (resp., < 0)},
+    \end{itemize}
+    it holds that
+    \begin{equation}
+        \label{eq:consistency}
+        \begin{aligned}
+        {\limsup_{h\to 0}}^*\frac{S_h\varphi(z) - \varphi(z)}{h}  &\le - F_*(\nabla\varphi(z), \nabla^2\varphi(z))\\
+        ((resp.,\, {\liminf_{h\to 0}}_*\frac{S_h\varphi(z) - \varphi(z)}{h}  &\ge - F^*(\nabla\varphi(z), \nabla^2\varphi(z))).
+        \end{aligned}
+    \end{equation}
+    Finally, assume that the limit problem \eqref{eq:level-set-FB} satisfies the comparison principle.
+    Then, for any \recordmath{u_0\in BUC(\overline{\Omega})}, the function \recordmath{u^h} defined by \eqref{eq:approx-sol} converges locally uniformly to the unique viscosity solution to \eqref{eq:level-set-FB}.
+
+\end{proposition}
+
+\begin{remark}
+    We note that the original criterion of the consistency condition in \cite[Theorem 2.1]{BS91} did not include the case for \recordmath{z\in\partial\Omega}.
+    We do not have to check \eqref{eq:consistency} if \recordmath{\left<\nabla\varphi(z),\nu_\Omega(z)\right> + \beta(z)|\nabla\varphi(z)| \le 0\, (resp.,\, \ge 0)}
+    thanks to the definition of viscosity solutions in Definition~\ref{dfn:viscosity-sol}.
+\end{remark}
+
+\begin{remark}
+    We mention that checking the consistency condition for compatible test functions with \recordmath{F} is sufficient, which follows by examining the proof of the convergence result by Barles--Souganidis \cite[Theorem 2.1]{BS91}.
+    Thus, thanks to the relation \eqref{eq:compatible-set}, the Hessian of test functions can be supposed to be zero whenever its gradient vanishes.
+\end{remark}
+
+\subsection{Set operator and function operator}
+% In this section, we give a sketch of the proof of Theorem~\ref{thm:main}
+% and will point out how to obtain the same consequence of \cite[Theorem 1.1]{EG25} under more relaxed conditions on $\Omega$ and $\beta$.
+
+% \todo{We could relocate this section into Preliminaries and give a sketch of the proof of Theorem~\ref{thm:main} in Introduction for readability.}
+
+% \textcolor{blue}{How do you want to relocate? My sketch of the proof would be the paragraph that appears right before the organization of the paper and I hope this helps designing the structure you are thinking.}
+
+% \fix{Your sketch of the proof could be helpful to consider the structure of Introduction. Indeed, this section explains how we can relate the set operator determined by Chambolle scheme with the consistency property of Bales--Souganidis' strategy. I would like to briefly explain this kind of things in Introduction, and I do not suppose that the full text of this section should be relocated into Introduction.}
+
+In this section, we give a general framework which connects a set operator like \recordmath{T_h} introduced in \eqref{eq:def-Th} to a function operator via a level-set interpretation.
+First, we call a map \recordmath{T:\mathcal P(\closure{\Omega})\to\mathcal P(\closure{\Omega})} a \textit{set operator} on \recordmath{\closure{\Omega}}
+
+\begin{defn}[Monotonicity of set operators]
+    A set operator \recordmath{T} on \recordmath{\closure{\Omega}} is said to be monotone provided that
+    \[\recorddisplay{T(E)\subset T(F)\qquad\mbox{if}\quad E\subset F\subset\closure{\Omega}.}\]
+\end{defn}
+
+\begin{defn}[Continuity of set operators]
+    \label{defn:Th-continuous}
+    A set operator \recordmath{T} on \recordmath{\closure{\Omega}} is said to be continuous
+    provided that for any non-increasing sequence \recordmath{\{E_i\}_i} of closed sets in \recordmath{\closure{\Omega}}, it holds that
+    \begin{equation}
+\recorddisplay{
+        \label{eq:continuity-T}
+        \bigcap_{i = 1}^\infty T(E_i) = T\left(\bigcap_{i=1}^\infty E_i\right).
+    }
+\end{equation}
+\end{defn}
+
+\begin{defn}[A function operator associated to a set operator]
+    Let \recordmath{T} be a set operator on \recordmath{\closure{\Omega}}. Then, the function operator \recordmath{S} associated to \recordmath{T} is defined by
+    \begin{equation}
+\recorddisplay{
+        \label{eq:defn-S}
+        S u (x) := \sup\left\{\lambda\in\R\biggm| x\in T(u\geq \lambda)\right\}\qquad\mbox{for}\quad x\in\closure{\Omega},\, u\in C(\closure{\Omega}).
+    }
+\end{equation}
+\end{defn}
+
+\begin{proposition}
+    \label{prop:relation-TS}
+    Assume that a set operator \recordmath{T} is continuous, and let \recordmath{S} be the function operator associated to \recordmath{T}.
+    Then, it holds that
+    \begin{equation*}
+\recorddisplay{
+        \left\{Su \geq \lambda\right\} = T(\left\{u\geq \lambda\right\})\qquad \forall\lambda\in\R,\,\forall u\in C(\closure{\Omega}).
+    }
+\end{equation*}
+\end{proposition}
+\begin{proof}
+    If \recordmath{x\in T(\{u\geq \lambda\})}, then we deduce from the definition of \recordmath{S} \eqref{eq:defn-S} that \recordmath{Su(x) \geq \lambda}, and hence \recordmath{\{Su\geq \lambda\}\supset T(\{u\geq\lambda\})}.
+    We show the opposite inclusion. Assume that \recordmath{Su(x)\geq\lambda}.
+    We can take a non-decreasing sequence \recordmath{\lambda_i\uparrow Su(x)} for which \recordmath{x\in T(E_i)} for every \recordmath{i\in\mathbb N} using the notation that \recordmath{E_i := \{u\geq \lambda_i\}}.
+    Since \recordmath{\{E_i\}_i} is non-increasing, we can invoke the continuity of \recordmath{T} \eqref{eq:continuity-T} and obtain
+    \[\recorddisplay{
+    x\in\bigcap_{i=1}^\infty T(E_i) = T\left(\bigcap_{i=1}^\infty E_i\right) = T(\{u\geq \lambda\}).
+    }\]
+    This means \recordmath{\{Su\leq \lambda\}\subset T(\{u\geq \lambda\})} which concludes the proof.
+\end{proof}
+
+\begin{proposition}
+    \label{prop:continuity-T}
+    Suppose that a map \recordmath{\mathcal{P}(\closure{\Omega})\ni E\mapsto w_E\in C(\closure{\Omega})} satisfies the following conditions:\newline
+    
+    \noindent
+    \textbf{Monotonicy:} For any \recordmath{E\subset F\subset\closure{\Omega}}, \[\recorddisplay{w_E \geq w_F.}\]
+
+    \noindent
+    \textbf{Uniformly boundedness:} \[\recorddisplay{\sup_{E\subset\closure{\Omega}}\|w_E\|_{C^0(E)} < \infty.}\]\newline
+
+    \noindent
+    \textbf{Equi-continuity:} The Lipschitz constant of \recordmath{w_E} does not depend on \recordmath{E}, namely we have
+    \[\recorddisplay{\sup_{E\subset\closure{\Omega}}\operatorname{Lip}(w_E) < \infty,}\]
+    where
+    \[\recorddisplay{\operatorname{Lip}(f) := \sup_{x\neq y}\frac{|f(x) - f(y)|}{|x - y|}\qquad \mbox{for}\quad f:\closure{\Omega}\to \R.}\]
+    Assume that the set operator \recordmath{T} on \recordmath{\closure{\Omega}} is defined by \recordmath{T(E) := \{x\in\closure{\Omega}\mid w_E(x)\leq 0\}}.
+    Then, \recordmath{T} is continuous.
+\end{proposition}
+\begin{proof}
+    Since \recordmath{E\mapsto w_E} is monotone, \recordmath{T} is obviously monotone, and therefore the left-hand side of the formula \eqref{eq:continuity-T} is larger than the right-hand side.
+    The opposite inclusion can be shown to extract a subsequence of \recordmath{\left\{E_i\right\}_i} such that \recordmath{w_{E_i}} locally uniformly converges to a function from
+    the Arzer\'a--Ascoli theorem (see \cite[Lemma 3.6]{EG25} for a similar discussion, which directly applied to the operator \recordmath{T_h} defined in \eqref{eq:def-Th}).
+    % \textcolor{blue}{I know it isn't a serious issue, isn't Arzer\'a--Ascoli the standard name?} \fix{Thank you for your comment. In fact, this theorem is typically called Ascoli--Arzer\'a in many Japanese textbooks, although I have confirmed that the standard order is Arzer\'a--Ascoli. I have corrected it.} \textcolor{blue}{Thank you. It's interesting for me to know standard names can be different in different cultures.}
+\end{proof}
+
+We now revisit the capillary Chambolle-type scheme which defines the map \recordmath{E\mapsto w_E^h} (so the set operator \recordmath{T_h} is also monotone for each \recordmath{h>0}).
+We see that this map is monotone due to \cite[Lemma 3.1]{EG25} and is uniformly bounded from this monotonicity together with the boundedness of the domain \recordmath{\Omega}.
+To apply Proposition~\ref{prop:continuity-T}, it remains to show a Lipschitz bound estimate of \recordmath{w_E} which is independent of the choice of \recordmath{E}.
+In the strategy which was presented by the first author and Giga \cite{EG25}, they assumed the convexity of \recordmath{\Omega}
+and a point-wise gradient bound of the contact angle function \recordmath{\beta} by the minimal principal curvature of the boundary of 
+the container \recordmath{\pOmega}, as well as its smoothness (see \cite[Theorem 3.1]{EG25}).
+As explained in Introduction, we only assume that \recordmath{\beta} is Lipschitz continuous and approximate it by a sequence \recordmath{\{\beta^h\}_{h>0}} of smooth functions on \recordmath{\pOmega} parametrized by the time step \recordmath{h>0}. Then, we obtain a Lipschitz bound of the gradient of the approximate solution whose Lipschitz constant depends on a fixed \recordmath{h>0}.
+
+\section{Lipschitz bound estimate for the approximate solutions}
+\label{sec:lipschitz-bound}
+In this section, we aim to show a Lipschitz bound for the solution \recordmath{w} of the minimization problem
+\begin{equation}
+\recorddisplay{\label{eq:minimization-with-g}
+%\label{eq:mms}
+w := \argmin_{u\in L^2(\Omega)\cap BV(\Omega)} \left\{\int_\Omega |\nabla u| + \int_{\partial\Omega}\beta^h\gamma u\,\mathrm{d}\mathcal{H}^{d-1} + \frac{1}{2h}\int_\Omega(u - g)^2\,\mathrm{d}\mathcal{L}^d\right\}.
+}
+\end{equation}
+%\textcolor{blue}{Although this is part of Section 3, I think this appearance of $\beta^h$ is too sudden. I guess this is why you are coming back after my revision, right?}
+Here, \recordmath{\beta^h} is a smooth function on \recordmath{\partial\Omega} that satisfies \recordmath{\|\beta^h\|_{C^0(\partial\Omega)} \leq \|\beta\|_{C^0(\partial\Omega)}} and uniformly converges to \recordmath{\beta} on \recordmath{\pOmega} as \recordmath{h\to 0}, and \recordmath{g} is a given Lipschitz continuous function on \recordmath{\Omega}. As mentioned right after the statement of Theorem \ref{thm:main}, we work with the function \recordmath{\beta^h} instead of \recordmath{\beta}. In technical viewpoints, this is because we will need the classical differentiability of the function in order to implement the Bernstein method. Although the whole estimates shown in this section (see Proposition \ref{prop:a-priori-estimate}) become sensitive in \recordmath{h\in(0,1)}, it does not occur issues when proving the continuity of the operator \recordmath{T_h} (see Lemma \ref{lem:Th_continuity}). We also stress that establishing the continuity of the operator is the main reason why we obtain gradient estimates (Proposition \ref{prop:a-priori-estimate}) by developing technical computations in this section, where all the novelties of the paper lie in.
+
+
+In view of \cite{EG24}, we can interpret the Euler--Lagrange equation as the Neumann boundary problem:
+\begin{align}\recorddisplay{\label{eq:E-L}
+\begin{cases}
+w - h \operatorname{div} \nabla\phi(\nabla w)= g &\qquad \text{in}\quad \Omega, \\
+\nu_{\Omega}\cdot\nabla w + \beta^h|\nabla w| = 0 &\qquad \text{on}\quad \partial \Omega.
+\end{cases}
+}
+\end{align}
+%\begin{equation}
+%   \label{eq:E-L-Inclusion}    \frac{w - g}{h} + \partial C_\beta(w) \ni 0.
+%\end{equation}
+%\noindent
+%, \eqref{eq:E-L-Inclusion} can be interpreted as 
+% \subsection{A priori estimate}\label{eq:a-priori-estimate}
+% \fix{I am adding \S 4 which briefly shows the convergence result, and I think that \S 3 should concentrate to establish the uniform boundedness of $\nabla w$. So, I would recommend that \S 3 should not include any subsection. Would you agree with this?} \textcolor{blue}{I agree. Thank you for your edit.}
+\noindent
+However, the equation \eqref{eq:E-L} is categorized as a \textit{very singular diffusion equation} since its divergence term becomes unbounded at \recordmath{|\nabla w| = 0},
+and it is involved to define its viscosity solution (see e.g.,  \cite{GGP14}).
+Thus, instead of solving \eqref{eq:E-L} directly, we consider approximate energies, corresponding minimizers, and Euler-Lagrange equations as arranged in the below:% and identify the limit of $w^\varepsilon$ as the unique minimize $w$ of \eqref{eq:mms}.
+
+\begin{proposition}\label{prop:gamma-convergence}
+%Let $w^\varepsilon$ be the smooth solution of \eqref{eq:E-L-approximate}.
+For a smooth approximation \recordmath{\{g^{\varepsilon}\}_{\varepsilon\in(0,1)}} of \recordmath{g} satisfying \recordmath{\|\nabla g^{\varepsilon}\|_{L^{\infty}(\Omega)} \leq \|\nabla g\|_{L^{\infty}(\Omega)}}, define 
+\[\recorddisplay{
+J_{\varepsilon,\beta^h}(u) := C_{\varepsilon,\beta^h}(u) + \frac{1}{2h}\int_\Omega(u-g^\varepsilon)^2 \,\mathrm{d}\mathcal L^d
+}\]
+with
+\[\recorddisplay{
+C_{\varepsilon,\beta^h}(u) := \int_\Omega\sqrt{\varepsilon^2 + |\nabla u|^2}\dL + \int_{\pOmega}\beta^h\gamma u\,\mathrm{d}\mathcal H^{d-1}.
+}\]
+%The minimizer $w^\varepsilon$ is a critical point of the energy $J_{\varepsilon,\beta}(u)$.
+Then, the following statements hold:
+\begin{itemize}
+    \item[(i)] There exists a unique minimizer \recordmath{w^{\varepsilon}\in L^2(\Omega)} of \recordmath{J_{\varepsilon,\beta^h}}. Furthermore, \recordmath{w^{\varepsilon}} is smooth and solves the equation
+    \begin{align}\recorddisplay{\label{eq:E-L-approximate}
+    \begin{cases}
+    w^{\varepsilon} - h \operatorname{div} \nabla\phi^{\varepsilon}(\nabla w^{\varepsilon}) = g^{\varepsilon} &\qquad \text{in}\quad \Omega, \\
+    B^{\varepsilon}(\cdot, \nabla w^{\varepsilon}) = 0 &\qquad \text{on}\quad \partial \Omega,
+    \end{cases}
+}
+    \end{align}
+    where
+    \begin{equation*}
+\recorddisplay{
+    \phi^{\varepsilon}(p) := \sqrt{\varepsilon^2+|p|^2}\qquad
+    \mbox{and}\qquad
+    B^{\varepsilon}(x, p) := \nu_{\Omega}(x) \cdot p + \beta^h(x) \phi^{\varepsilon}(p).
+    }
+\end{equation*}
+
+    \item[(ii)] If the minimizer \recordmath{w^\varepsilon} of the energy \recordmath{J_{\varepsilon,\beta^h}} converges to \recordmath{w} in \recordmath{L^2(\Omega)}, then \recordmath{w} solves the minimization problem \eqref{eq:minimization-with-g}.
+\end{itemize}
+\end{proposition}
+
+\begin{comment}
+    
+
+\begin{proof}
+    (i) \textcolor{blue}{I'll come back later and edit once more.}
+
+    (ii) Though the proof is standard, we give the proof for the reader's convenience.
+    First, calculating the first variation of \recordmath{J_{\varepsilon,\beta}(u)}, it is easily seen that \recordmath{w^\varepsilon} is a critical point of \recordmath{J_{\varepsilon,\beta}(u)}.
+    Let us show the \recordmath{\Gamma}-convergence of \recordmath{J_{\varepsilon,\beta}(u)}. Assume that \recordmath{\varepsilon_i \downarrow 0} and \recordmath{w_i} converges to \recordmath{w} strongly in \recordmath{L^2(\Omega)} as \recordmath{i\to \infty}.
+    Then, we deduce from the lower semi-continuity of \recordmath{C_\beta(u)}, which is ensured by \eqref{assumption:kappa}, that
+    \begin{align*}
+    \recorddisplay{J_{\beta}(w)
+} &\recorddisplay{= C_{\beta}(w) + \frac{1}{2h}\int_\Omega (w - g)^2\,\mathrm d\mathcal L^d
+    \leq \liminf_{i\to \infty} \left\{ C_{\beta}(w_i) + \frac{1}{2h}\int_\Omega(w_i - g^{\varepsilon_i})^2\,\mathrm d\mathcal L^d\right\}
+}\\
+    &\recorddisplay{\leq \liminf_{i\to\infty}\left\{C_{\varepsilon_i,\beta}(w_i) + \frac{1}{2h}\int_{\Omega}(w_i - g^{\varepsilon_i})^2\dL\right\} = \liminf_{i\to\infty}J_{\varepsilon_i,\beta}(w_i).
+}
+    \end{align*}
+    Here, we note that \recordmath{g^{\varepsilon_i}} strongly converges to \recordmath{g} in \recordmath{L^2(\Omega)} as \recordmath{i\to\infty}.
+    Second, we take any \recordmath{w\in L^2(\Omega)\cap BV(\Omega)}. Then, By \cite[Theorem 3.9, Theorem 3.88]{AFP00}, we can take a sequence \recordmath{\{w_i\}_i} from \recordmath{C^\infty(\Omega)\cap BV(\Omega)} satisfying
+    \begin{align*}
+        &\recorddisplay{w_i \longrightarrow w\qquad\mbox{strongly in}\quad L^2(\Omega),
+}\\
+        &\recorddisplay{\int_\Omega|\nabla w_i|\dL \longrightarrow \int_\Omega|\nabla w|,
+}\\
+        &\recorddisplay{\gamma w_i\longrightarrow \gamma w\qquad\mbox{in}\quad L^1(\pOmega).
+}
+    \end{align*}
+    Take any sequence \recordmath{\varepsilon_i\downarrow 0} as \recordmath{i\to\infty}.
+    Then, we compute
+    \begin{align*}
+        \recorddisplay{J_{\varepsilon_i,\beta}(w_i)
+} &\recorddisplay{= \int_\Omega\sqrt{\varepsilon^2 + |\nabla w_i|^2}\dL + \int_{\pOmega}\beta\gamma w_i\dH + \frac{1}{2h}\int_\Omega(w_i - g^{\varepsilon})^2\dL
+}\\
+        &\recorddisplay{\leq \int_\Omega(|\nabla w_i| + \varepsilon_i)\dL + \int_{\pOmega}\beta\gamma w_i\dH + \frac{1}{2h}\int_\Omega(w_i - g^{\varepsilon_i})^2\dL
+}\\
+        &\recorddisplay{\leq \int_\Omega|\nabla w_i| \dL + \int_{\pOmega}\beta\gamma w_i\dH + \frac{1}{2h}\int_\Omega(w_i - g^{\varepsilon_i})^2\dL + \varepsilon_i\mathcal L^d(\Omega),
+}
+    \end{align*}
+    where \recordmath{\mathcal L^d(\Omega)} denotes the \recordmath{d}-dimensional Lebesgue measure of \recordmath{\Omega}.
+    Sending \recordmath{i\to\infty}, we obtain
+    \begin{equation*}
+\recorddisplay{
+        \limsup_{i\to\infty}J_{\varepsilon_i,\beta}(w_i) \leq J_{\beta}(w).
+    }
+\end{equation*}
+    Therefore, \recordmath{J_{\varepsilon,\beta}(u)} \recordmath{\Gamma}-converges to \recordmath{J_\beta(u)} strongly in \recordmath{L^2(\Omega)} as \recordmath{\varepsilon\to 0}.
+    Finally, we deduce from the fundamental theorem for \recordmath{\Gamma}-convergence (see e.g., \cite[Corollary 7.20]{D93}),
+    that the minimizers \recordmath{w^\varepsilon} of \recordmath{J_{\varepsilon,\beta}(u)} converges to \recordmath{w} strongly in \recordmath{L^2(\Omega)}, then \recordmath{w} corresponds to the unique minimizer of \recordmath{J_\beta(u)} as \recordmath{\varepsilon\to 0}.
+    The proof is now complete.
+\end{proof}
+
+\end{comment}
+
+
+%Namely, we consider
+
+%and $g^{\varepsilon}$ is a smooth approximation of $g\in\mathrm{Lip}(\Omega)$ satisfying $\|\nabla g^{\varepsilon}\|_{L^{\infty}(\Omega)} \leq \|\nabla g\|_{L^{\infty}(\Omega)}$
+%(for instance, we can take $g^\varepsilon := g * \eta_\varepsilon$, where $\eta_\varepsilon$ is a standard mollifying function).
+%Assume that
+
+%\noindent
+%Then, we can identify the limit of $w^\varepsilon$ as the unique solution to \eqref{eq:E-L-Inclusion}.
+
+
+
+% \fix{In my opinion, the statements that we originally show should be categorized as Lemma, not Proposition. I prefer to use Proposition when the statement was already shown or can be shown by combining well known results. Would you agree with this?}
+
+% \textcolor{blue}{In my opinion, categorizing as either lemma or proposition depends on the importance in the context. For example, I would use Proposition for Proposition \ref{prop:a-priori-estimate} and lemma for subsequent propositions. This is because the subsequent propositions are the technical supporting reasons for Proposition \ref{prop:a-priori-estimate}. Here, I didn't consider whether the statement or the computation comes from the literature or our own paper. I would label as Theorem if the statement is a big conclusion and this is even if the statement is from literature.}
+
+% \fix{OK. We can discuss this in the finalization phase, although I almost agree that the category would depend on its importance in the paper.}
+
+%In the remainder of this section, we shall establish the uniformly boundedness and equi-continuity of $w^\varepsilon$ with respect to $\varepsilon$, which will then result in a convergence $w^{\varepsilon}$ in $C^0(\overline{\Omega})$ as $\varepsilon\to0$ up to a subsequence. We first
+
+We mention that the equation \eqref{eq:E-L-approximate} is from the first variation of \recordmath{J_{\varepsilon,\beta^h}} being zero and that the smoothness of \recordmath{w^{\varepsilon}} (as stated in Proposition \ref{prop:gamma-convergence}(i)) is a consequence of a priori gradient estimates (Proposition \ref{prop:a-priori-estimate}). We also mention that \ref{prop:gamma-convergence}(ii) is a consequence of the \recordmath{\Gamma}-convergence of the energy \recordmath{J_{\varepsilon,\beta^h}} to \recordmath{J_{\beta^h}} with respect to the \recordmath{L^2(\Omega)}-topology as \recordmath{\varepsilon\to 0}. We omit the proof of Proposition \ref{prop:gamma-convergence} as it is standard.
+
+By proving the uniform boundedness and the equi-continuity of \recordmath{w^\varepsilon} with respect to \recordmath{\varepsilon\in(0,1)}, as stated in Proposition \ref{prop:a-priori-estimate}, we will obtain the convergence \recordmath{w^{\varepsilon}} in \recordmath{C^0(\overline{\Omega})} as \recordmath{\varepsilon\to0} (up to a subsequence). Then, Proposition \ref{prop:gamma-convergence}(ii) is applied so that we obtain the solution \recordmath{w} to the minimization problem \eqref{eq:minimization-with-g}.
+% \fix{I think that we have already used \eqref{eq:E-L-approximate} to obtain the a-priori estimate. The unique minimizer $w^\varepsilon$ should solve \eqref{eq:E-L-approximate} due to another reason, like making the first variation of $J_{\varepsilon,\beta}$ zero, for instance. Would you elaborate this?} \textcolor{blue}{Yes, the existence of the minimizer $w^{\varepsilon}$ and the first variation \eqref{eq:E-L-approximate} are the parts that I skipped. What I meant as a mention was the smoothness of $w^{\varepsilon}$ as a consequence of a priori estimates, which I clarified now.}
+
+% \fix{Thank you for your clarification. I appreciate your decision that we omit the standard proof of Proposition~\ref{prop:gamma-convergence}.}
+
+\medskip
+
+Write the condition \recordmath{\|\beta\|_{C^0(\partial\Omega)}<1} as, for some \recordmath{\kappa\in\left(0,\frac12\right]},
+\begin{equation}
+\recorddisplay{\label{assumption:kappa}
+\|\beta\|_{C^0(\partial\Omega)} \leq 1-2\kappa\quad\text{so that}\quad\|\beta^h\|_{C^0(\partial\Omega)} \leq 1-2\kappa\quad\text{for all }h\in(0,1).
+}
+\end{equation}
+As the main result of this section, we have the following uniform estimate:
+
+%As the main result of this section, we state , which then results in a convergence 
+
+
+\begin{proposition}\label{prop:a-priori-estimate}
+Let \recordmath{w^{\varepsilon}} be a smooth solution to the equation \eqref{eq:E-L-approximate}. Then, there exists a constant \recordmath{C=C(\Omega,\kappa,\|\beta^h\|_{C^2(\partial\Omega)},\|g\|_{W^{1,\infty}(\Omega)})>0} such that for any \recordmath{\varepsilon,h\in(0,1)}, it holds
+\begin{align*}
+\recorddisplay{\|\nabla w^\varepsilon\|_{L^\infty(\Omega)} \le C.
+}
+\end{align*}
+In particular, there exists a subsequence \recordmath{\varepsilon\to0}, still denoted by \recordmath{\varepsilon\to0}, along which \recordmath{w^{\varepsilon}} converges uniformly on \recordmath{\overline{\Omega}} to a function \recordmath{w} satisfying
+\begin{align*}
+\recorddisplay{\|\nabla w\|_{L^\infty(\Omega)} \le C.
+}
+\end{align*}
+\end{proposition}
+
+% \textcolor{red}{I think that we need some convergence result for the viscosity solution to \eqref{eq:E-L} as $\varepsilon\to0$. This is not straightforward.}
+
+% \textcolor{blue}{I think it is a standard viscosity solution theory once we know the Lipschitz estimate because this yields a subsequential limit uniformly on $\overline{\Omega}$. Just the thing is I think we should consider and suggest the notion of the viscosity solution of the equation with $|\nabla w|$ multiplied: \begin{align*}%\label{eq:E-L}
+% \begin{cases}
+% |\nabla w|(w-g) - h |\nabla w|\operatorname{div} \nabla\phi(\nabla w) = 0 & \text{in } \Omega, \\
+% B(\cdot, \nabla w) = 0 & \text{on } \partial \Omega.
+% \end{cases}
+% \end{align*}
+% How about other parts such as Propositions \ref{prop:w/o-multiplier}, \ref{prop:multiplier}, \ref{prop:equation-v}?}
+
+% \fix{Could you let me know the reason that we need to consider the equation multiplied by $|\nabla w|$? The viscosity solution is well defined even if the equation is singular at the point where $\nabla w = 0$. I will gradually go through with asking something if needed.}
+
+% \textcolor{blue}{I see that it is well-defined even in case $|\nabla w|=0$. It is related to the notion of $\mathcal{F}$-viscosity solutions, right?}
+
+% \fix{Yes, exactly.}
+
+The remainder of this section is devoted to the proof of Proposition \ref{prop:a-priori-estimate}.
+
+\medskip
+
+Consider an extension \recordmath{\widetilde{\beta}^h\in C^\infty(\overline{\Omega})} of the function \recordmath{\beta^h\in C^\infty(\partial\Omega)} on the whole domain \recordmath{\overline{\Omega}} satisfying 
+\[\recorddisplay{
+\|\widetilde{\beta}^h\|_{C^0(\overline{\Omega})} \leq \|\beta^h\|_{C^0(\partial\Omega)}\quad\text{and}\quad\|\nabla\widetilde{\beta}^h\|_{C^1(\overline{\Omega})}\leq C(\Omega,\|\beta^h\|_{C^2(\partial\Omega)}).
+}\]
+We use the same notation \recordmath{\beta^h} to denote the extension by abuse of notations. Let \recordmath{\eta=\eta(x)} be a smooth function on \recordmath{\overline{\Omega}} satisfying
+\[\recorddisplay{
+D\eta = \nu_{\Omega}\quad\text{on}\quad\partial\Omega\quad\text{and}\quad|D\eta|\leq1\quad\text{on}\quad\overline{\Omega}.
+}\]
+We now set
+\[\recorddisplay{
+y^\varepsilon := \phi^\varepsilon + \beta^h D\eta \cdot Dw^{\varepsilon}, \quad \text{where } \phi^\varepsilon = \sqrt{\varepsilon^2 + |\nabla w^\varepsilon|^2}.
+}\]
+
+
+
+\begin{proposition}\label{prop:w/o-multiplier}
+There exists a constant \recordmath{C=C(\Omega,\kappa,\|\beta^h\|_{C^2(\partial\Omega)})>0} such that
+\begin{align*}
+\recorddisplay{\xi^\varepsilon(y^{\varepsilon})\leq Cy^{\varepsilon}\qquad\text{on}\quad\partial\Omega.
+}
+\end{align*}
+Here, \recordmath{\xi^\varepsilon:C^1(\closure{\Omega})\to\R} is the oblique boundary operator defined by
+\[\recorddisplay{
+\xi^\varepsilon(f) := \nu_{\Omega}\cdot Df + \beta\frac{Df\cdot Dw^{\varepsilon}}{\sqrt{\varepsilon^2+|Dw^{\varepsilon}|^2}}\qquad\text{for}\quad f\in C^1(\overline{\Omega}).
+}\]
+% \textcolor{red}{
+%     \begin{itemize}
+%     % \item I think that $\xi$ also depends on $\varepsilon$ so we should write $\xi^\varepsilon$. Would you agree with this?
+%     \item Here, does $D$ denote the gradient with respect to the local coordinate not to the original one, right?
+%     % \item Which notations would you like $\|\beta\|_{C^0({\pOmega})}$ or $\|\beta\|_{L^\infty({\pOmega})}$?
+%     % In this framework, we always works with the continuous settings (not Lebesgue), so it might be better to choose $C^0(\pOmega)$?
+%     % In fact, I prefer to write $C(\pOmega)$ rather than $C^0(\pOmega)$. 
+%     \end{itemize} 
+%     }
+
+% \textcolor{blue}{
+% \begin{itemize}
+%     % \item Yes, I agree.
+%     \item I think you are right, I mix used $D$ and $\nabla$. I'll clarify this.
+%     % \item I agree with using $C^0(\pOmega)$.
+% \end{itemize}
+% }
+%$\xi:=\nabla_p B^{\varepsilon}(\cdot,\nabla w^{\varepsilon}(\cdot)) = \nu_{\Omega}+\beta\frac{\nabla w^{\varepsilon}}{\sqrt{\varepsilon^2+|\nabla w^{\varepsilon}|^2}}$.
+\end{proposition}
+\begin{proof}
+Let \recordmath{x_0\in\partial\Omega}.
+
+\medskip
+
+\textbf{Step 1. Local coordinate setup at \recordmath{x_0}.} By translation and rotation, we can assume \recordmath{x_0=0} and \recordmath{\nu_{\Omega}(x_0) = -\overrightarrow{e_d}} without loss of generality and let \recordmath{(x_1,\cdots,x_{d-1})} be the geodesic coordinate of \recordmath{x_0\in\partial\Omega}. Take the transport of the tangential directions \recordmath{\left\{\frac{\partial}{\partial x_i}\right\}_{i=1}^{d-1}} along the geodesic \recordmath{x_d\in[0,\delta)} for some small number \recordmath{\delta>0} so that the geodesic coordinate is set around the point \recordmath{x_0\in\partial\Omega} (see \cite{GT83}).  Let \recordmath{\nabla_{\partial\Omega}} denote the induced connection on \recordmath{\partial\Omega} by the Euclidean connection \recordmath{D}, and let the subscript \recordmath{i\,(1\leq i\leq d-1)} denotes the derivative by the connection \recordmath{\nabla_{\partial\Omega,i}}.
+
+As a result of the coordinate setup, we have \recordmath{D_i \eta = 0} for \recordmath{i < d} and \recordmath{D_d \eta = -1} along the line \recordmath{\{x_d\overrightarrow{e_d}\,:\,x_d\in[0,\delta)\}}. Furthermore, we can take a function \recordmath{\eta\in C^{\infty}(\overline{\Omega})} such that the second fundamental form of \recordmath{\partial\Omega} at \recordmath{x_0} is \recordmath{\{D_{ij}\eta(x_0)\}_{1\leq i,j\leq d-1}}. The boundary condition \recordmath{B^\epsilon = 0} can be written as
+\begin{align}\recorddisplay{\label{eq:BC-at-x0}
+\frac{\partial w^\varepsilon}{\partial \nu_\Omega} + \beta^h \phi^\varepsilon = 0\quad\text{on $\partial\Omega$},\quad\text{which becomes}\quad w_d^{\varepsilon} = \beta^h \phi^\varepsilon\text{ at } x_0.
+}
+\end{align}
+Also, the function \recordmath{y^\varepsilon} simplifies to
+\[\recorddisplay{
+y^\varepsilon = \phi^\varepsilon + \beta^h D\eta\cdot Dw^{\varepsilon} = \phi^{\varepsilon} + \beta^h (-\beta^h\phi^{\varepsilon}) = (1-(\beta^h)^2)\phi^{\varepsilon}\qquad\text{on $\partial\Omega$}.
+}\]
+
+\medskip
+
+We divide cases into when \recordmath{\beta^h(x_0)=0} and when \recordmath{\beta^h(x_0)\neq0}. We start with the case \recordmath{\beta^h(x_0)=0} as this is simpler than the other.
+
+\medskip
+
+\textbf{Step 2. The case when \recordmath{\beta^h(x_0)=0}.} %We recall that we used the temporary condition $\beta(x_0)\neq0$ in \eqref{eq:wdi}. We cover when $\beta(x_0)=0$ in this step with similar arguments.
+We compute \recordmath{y_d^{\varepsilon}} at \recordmath{x_0} to get
+\[\recorddisplay{
+y^\varepsilon_d = \phi_d^\varepsilon + \beta^h_d \sum_{k=1}^d \eta_k w^\varepsilon_k + \beta^h \partial_d \left(\sum_{k=1}^d \eta_k w^\varepsilon_k\right).
+}\]
+Since \recordmath{\eta_d = -1, \eta_j = 0\, (1\leq j\leq d-1)}, and \recordmath{\beta^h=0},
+\recordmath{w^\varepsilon_d=0} at \recordmath{x_0}, we have
+\[\recorddisplay{
+y^\varepsilon_d = \frac{\sum_{j=1}^{d-1}
+w^\varepsilon_j w^\varepsilon_{jd} + w^\varepsilon_d
+w^\varepsilon_{dd}}{\phi^\varepsilon} + \beta^h_d (-w^\varepsilon_d) + 0 =
+\frac{\sum_{j=1}^{d-1} w^\varepsilon_j w^\varepsilon_{jd}}{\phi^\varepsilon}.
+}\]
+
+To find \recordmath{w^\varepsilon_{jd}} when \recordmath{\beta^h=0}, we differentiate the boundary condition
+\recordmath{w^\varepsilon \cdot \nu_\Omega + \beta^h \phi^\varepsilon = 0} along a tangential
+direction \recordmath{x_j} (\recordmath{1\leq j\leq d-1}) to obtain
+\[\recorddisplay{
+\partial_j (w^\varepsilon \cdot \nu_\Omega) + \partial_j (\beta^h
+\phi^\varepsilon) = 0.
+}\]
+Using the Weingarten equation, we have
+\[\recorddisplay{
+-w^\varepsilon_{dj} + \sum_{k=1}^{d-1}
+w^\varepsilon_k \eta_{jk} + \beta^h_j \phi^\varepsilon = 0 \implies
+w^\varepsilon_{dj} = \sum_{k=1}^{d-1} \eta_{jk} w^\varepsilon_k + \beta^h_j
+\phi^\varepsilon\quad\text{at }x_0.
+}\]
+
+Substitute \recordmath{w^\varepsilon_{dj}} back into
+\recordmath{\xi^\varepsilon(y^\varepsilon) = -y^\varepsilon_d} to obtain
+\[\recorddisplay{
+\xi^\varepsilon(y^\varepsilon) = -\frac{\sum_{j=1}^{d-1} w^\varepsilon_j
+(\sum_{k=1}^{d-1} \eta_{jk} w^\varepsilon_k + \beta^h_j
+\phi^\varepsilon)}{\phi^\varepsilon} = -\frac{1}{\phi^\varepsilon}
+\sum_{j,k=1}^{d-1} \eta_{jk} w^\varepsilon_j w^\varepsilon_k - \sum_{j=1}^{d-1}
+\beta^h_j w^\varepsilon_j.
+}\]
+%and similarly as in Step 6, we conclude $$\xi^\varepsilon(y^\varepsilon) \le Cy^\varepsilon\qquad\text{at }x_0$$ for some constant $C = C(\Omega,\kappa, \|\beta\|_{C^1(\partial\Omega)})>0$.
+From the fact that \recordmath{|w^\varepsilon_i| \le \phi^\varepsilon} and that
+\[\recorddisplay{
+2\kappa\phi^{\varepsilon} \leq y^{\varepsilon} \leq (2-2\kappa)\phi^{\varepsilon},\quad\text{which follows by }|D\eta|\leq 1,
+}\]
+we conclude \[\recorddisplay{\xi^\varepsilon(y^\varepsilon) \le Cy^\varepsilon\qquad\text{at }x_0}\] for some constant \recordmath{C=C(\Omega,\kappa,\|\beta^h\|_{C^2(\partial\Omega)})>0}.
+
+\medskip
+
+From now on, we assume the other case when \recordmath{\beta(x_0)\neq0}.
+
+\medskip
+
+\textbf{Step 3. Tangential derivatives \recordmath{y^\varepsilon_i} (\recordmath{1 \le i \le d-1}) at \recordmath{x_0}.} Differentiating \recordmath{y^\varepsilon = \phi^\varepsilon + \beta^h \sum_{k=1}^d \eta_k w^\varepsilon_k} with respect to \recordmath{x_i} for \recordmath{i=1,\cdots,d-1}, we obtain
+\begin{align*}
+\recorddisplay{y^\varepsilon_i = D_i \phi^\varepsilon + \beta^h_i \sum_{k=1}^d \eta_k w^\varepsilon_k + \beta^h \sum_{k=1}^d (\eta_{ki} w^\varepsilon_k + \eta_k w^\varepsilon_{ki}),
+}    
+\end{align*}
+which becomes
+\[\recorddisplay{
+\displaystyle y^\varepsilon_i = \frac{\sum_{k=1}^d w^\varepsilon_k w^\varepsilon_{ki}}{\phi^\varepsilon} - \beta^h_i w^\varepsilon_d + \beta^h \sum_{j=1}^{d-1} \eta_{ji} w^\varepsilon_j + \beta^h \eta_{di} w^\varepsilon_d - \beta^h w^\varepsilon_{di}\quad\text{at }x_0.
+}\]
+We split \recordmath{\sum_{k=1}^d w^\varepsilon_k w^\varepsilon_{ki} = \sum_{j=1}^{d-1} w^\varepsilon_j w^\varepsilon_{ji} + w^\varepsilon_d w^\varepsilon_{di}} and substitute \recordmath{w^\varepsilon_d = \beta^h \phi^\varepsilon} to get
+\[\recorddisplay{
+\displaystyle y^\varepsilon_i = \frac{\sum_{j=1}^{d-1} w^\varepsilon_j w^\varepsilon_{ji}}{\phi^\varepsilon} + \frac{(\beta^h \phi^\varepsilon) w^\varepsilon_{di}}{\phi^\varepsilon} - \beta^h_i w^\varepsilon_d + \beta^h \sum_{j=1}^{d-1} \eta_{ji} w^\varepsilon_j + \beta^h \eta_{di} w^\varepsilon_d - \beta^h w^\varepsilon_{di}\quad\text{at }x_0.
+}\]
+The cancellation \recordmath{\frac{\beta^h \phi^\varepsilon w^\varepsilon_{di}}{\phi^\varepsilon} - \beta^h w^\varepsilon_{di} = 0} happens due to \eqref{eq:BC-at-x0} so that for \recordmath{1 \le i \le d-1}, we can write
+\begin{equation}
+\recorddisplay{ \label{eq:yi}
+y^\varepsilon_i = \frac{\sum_{j=1}^{d-1} w^\varepsilon_j w^\varepsilon_{ji}}{\phi^\varepsilon} - \beta^h_i w^\varepsilon_d + \beta^h \sum_{j=1}^{d-1} \eta_{ji} w^\varepsilon_j + \beta^h \eta_{di} w^\varepsilon_d\quad\text{at $x_0$ for $1 \le i \le d-1$}. 
+}
+\end{equation}
+
+
+
+\medskip
+
+\textbf{Step 4. Mixed derivative \recordmath{w^\varepsilon_{di}} from the boundary condition.} Since \recordmath{y^\varepsilon = (1-(\beta^h)^2)\phi^\varepsilon} holds on \recordmath{\partial\Omega}, we differentiate this identity tangentially to get
+\[\recorddisplay{
+y^\varepsilon_i = -2\beta \beta_i \phi^\varepsilon + (1-(\beta^h)^2)\frac{\sum_{j=1}^{d-1} w^\varepsilon_j w^\varepsilon_{ji} + w^\varepsilon_d w^\varepsilon_{di}}{\phi^\varepsilon}\quad\text{for $1 \le i \le d-1$ on $\partial\Omega$}.
+}\]
+Equating with \eqref{eq:yi} and using \eqref{eq:BC-at-x0}, we obtain
+\begin{align*}
+\recorddisplay{\frac{\sum_{j=1}^{d-1} w^\varepsilon_j w^\varepsilon_{ji}}{\phi^\varepsilon} -
+}& \recorddisplay{\beta^h_i (\beta^h \phi^\varepsilon) + \beta^h \sum_{j=1}^{d-1} \eta_{ji} w^\varepsilon_j + (\beta^h)^2 \eta_{di} \phi^\varepsilon =
+} \\
+&\recorddisplay{-2\beta^h \beta^h_i \phi^\varepsilon + (1-(\beta^h)^2)\frac{\sum_{j=1}^{d-1} w^\varepsilon_j w^\varepsilon_{ji}}{\phi^\varepsilon} + \beta^h(1-(\beta^h)^2) w^\varepsilon_{di}.
+}
+\end{align*}
+Rearranging yields
+\begin{equation}
+\recorddisplay{ \label{eq:wdi}
+(1-(\beta^h)^2) w^\varepsilon_{di} = \frac{\beta^h}{\phi^{\varepsilon}} \sum_{j=1}^{d-1} w^\varepsilon_j w^\varepsilon_{ji} + \beta^h_i \phi^\varepsilon + \sum_{j=1}^{d-1} \eta_{ji} w^\varepsilon_j + \beta^h \eta_{di} \phi^\varepsilon\quad\text{for $1 \le i \le d-1$ at $x_0$}.
+}
+\end{equation}
+Here, we used the assumption that \recordmath{\beta^h(x_0)\neq0}.% The case $\beta(x_0)=0$ is much simpler and handled in Step 7.
+
+\medskip
+
+\textbf{Step 5. Normal derivative \recordmath{y^\varepsilon_d}.} Differentiating \recordmath{y^\varepsilon} in \recordmath{x_d}, we get
+\[\recorddisplay{
+y^\varepsilon_d = \phi_d^\varepsilon + \beta^h_d \sum_{k=1}^d \eta_k w^\varepsilon_k + \beta^h \sum_{k=1}^d (\eta_{kd} w^\varepsilon_k + \eta_k w^\varepsilon_{kd}),
+}\]
+which becomes
+\[\recorddisplay{
+y^\varepsilon_d = \frac{\sum_{j=1}^{d-1} w^\varepsilon_j w^\varepsilon_{jd} + w^\varepsilon_d w^\varepsilon_{dd}}{\phi^\varepsilon} - \beta^h_d w^\varepsilon_d + \beta^h \sum_{j=1}^{d-1} \eta_{jd} w^\varepsilon_j + \beta^h \eta_{dd} w^\varepsilon_d - \beta^h w^\varepsilon_{dd}\quad\text{ at $x_0$}.
+}\]
+The cancellation \recordmath{\frac{\beta^h \phi^\varepsilon w^\varepsilon_{dd}}{\phi^\varepsilon} - \beta^h w^\varepsilon_{dd} = 0} happens due to \eqref{eq:BC-at-x0} so that we can write
+\begin{equation}
+\recorddisplay{ \label{eq:yd}
+y^\varepsilon_d = \frac{\sum_{j=1}^{d-1} w^\varepsilon_j w^\varepsilon_{jd}}{\phi^\varepsilon} - \beta^h \beta^h_d \phi^\varepsilon + \beta^h \sum_{j=1}^{d-1} \eta_{jd} w^\varepsilon_j + (\beta^h)^2 \eta_{dd} \phi^\varepsilon\quad\text{ at $x_0$}.
+}
+\end{equation}
+
+\medskip
+
+\textbf{Step 6. Evaluating the boundary operator \recordmath{\xi^\varepsilon(y^\varepsilon)}.} The operator \recordmath{\xi^\varepsilon(y^\varepsilon)} at \recordmath{x_0} is
+\[\recorddisplay{
+\xi^\varepsilon(y^\varepsilon) = \nu_\Omega \cdot Dy^\varepsilon + \beta^h \frac{Dy^\varepsilon \cdot Dw^\varepsilon}{\phi^\varepsilon} = -y^\varepsilon_d + \frac{\beta^h}{\phi^\varepsilon}\left( \sum_{i=1}^{d-1} y^\varepsilon_i w^\varepsilon_i + y^\varepsilon_d w^\varepsilon_d \right).
+}\]
+From the boundary condition \eqref{eq:BC-at-x0}, this simplifies to
+\[\recorddisplay{
+\xi^\varepsilon(y^\varepsilon) = -(1-(\beta^h)^2) y^\varepsilon_d + \frac{\beta^h}{\phi^\varepsilon} \sum_{i=1}^{d-1} y^\varepsilon_i w^\varepsilon_i\quad\text{at }x_0.
+}\]
+We expand the first term and the second term in order. By \eqref{eq:wdi} and \eqref{eq:yd}, we have
+\begin{multline*}
+\recorddisplay{-(1-(\beta^h)^2) y^\varepsilon_d = -\left( \frac{\beta^h}{(\phi^\varepsilon)^2} \sum_{j,k=1}^{d-1} w^\varepsilon_j w^\varepsilon_k w^\varepsilon_{kj} + \sum_{j=1}^{d-1} \beta^h_j w^\varepsilon_j + \frac{1}{\phi^\varepsilon} \sum_{j,k=1}^{d-1} \eta_{kj} w^\varepsilon_j w^\varepsilon_k + \beta^h \sum_{j=1}^{d-1} \eta_{dj} w^\varepsilon_j \right)
+} \\
+\recorddisplay{+ (1-(\beta^h)^2)\beta^h \beta^h_d \phi^\varepsilon - (1-(\beta^h)^2)\beta^h \sum_{j=1}^{d-1} \eta_{jd} w^\varepsilon_j - (1-(\beta^h)^2)(\beta^h)^2 \eta_{dd} \phi^\varepsilon.
+}
+\end{multline*}
+On the other hand, by \eqref{eq:yi}, multiplying by \recordmath{w^\varepsilon_i} and summing, the second term becomes
+\[\recorddisplay{
+\frac{\beta^h}{\phi^\varepsilon} \sum_{i=1}^{d-1} y^\varepsilon_i w^\varepsilon_i = \frac{\beta^h}{(\phi^\varepsilon)^2} \sum_{i,j=1}^{d-1} w^\varepsilon_i w^\varepsilon_j w^\varepsilon_{ji} - (\beta^h)^2 \sum_{i=1}^{d-1} \beta^h_i w^\varepsilon_i + \frac{(\beta^h)^2}{\phi^\varepsilon} \sum_{i,j=1}^{d-1} \eta_{ji} w^\varepsilon_i w^\varepsilon_j + (\beta^h)^3 \sum_{i=1}^{d-1} \eta_{di} w^\varepsilon_i.
+}\]
+As a consequence of adding the terms, the \recordmath{\sum w^\varepsilon_i w^\varepsilon_j w^\varepsilon_{ji}} terms cancel. Therefore, we obtain
+\[\recorddisplay{
+\xi^\varepsilon(y^\varepsilon) = (1-(\beta^h)^2) \left( -\frac{1}{\phi^\varepsilon} \sum_{i,j=1}^{d-1} \eta_{ij} w^\varepsilon_i w^\varepsilon_j -\frac{1+(\beta^h)^2}{1-(\beta^h)^2} \sum_{i=1}^{d-1} \beta^h_i w^\varepsilon_i - 2\beta^h \sum_{i=1}^{d-1} \eta_{di} w^\varepsilon_i + \beta^h(\beta^h_d - \beta^h \eta_{dd})\phi^\varepsilon \right).
+}\]
+
+Now, similarly before as in the last part of Step 2, we finally conclude that \[\recorddisplay{\xi^\varepsilon(y^\varepsilon) \le Cy^\varepsilon\qquad\text{at }x_0}\] for some constant \recordmath{C=C(\Omega,\kappa,\|\beta^h\|_{C^2(\partial\Omega)})>0}. As \recordmath{x_0\in\partial\Omega} was arbitrary, we obtain the conclusion in all cases and finish the proof.
+%\textbf{Step 6. Estimate $\xi^\varepsilon(y^\varepsilon)$ by $y^\varepsilon$.} 
+\end{proof}
+
+% \textcolor{blue}{I appreciate your thorough checking.}
+
+% \textcolor{blue}{Let me let you know I'll clear up boundary derivative notations and update the paragraphs in the introduction.}
+
+% \fix{I see. Would you introduce some diffeomorphism between the original coordinate and the local coordinate in a neighborhood of the boundary $\pOmega$? I will continue to read the argument below.}
+
+% \textcolor{blue}{I'm adding the details of computations at $x_0$ but I tend to suppress too detailed arguments on distinguishing ``$\nabla'$ and $D'$." Here, detailed arguments mean general forms as in differential geometry that carry terms such as Christoffel symbols and metric tensors. They become trivial at $x_0$ anyway and that's why I kept plugging in $x_0$ every time and took the geodesic coordinate around $x_0$.}
+
+% \fix{I agree that we suppress distinguishing $\nabla'$ from $D'$. I think the regularity of the domain $\Omega$ is crucial, and it would be helpful to cite \cite{GT83}, for instance.}
+
+% \textcolor{blue}{Thank you, I cited above.}
+
+% \fix{Thanks, but I suppose that \cite{GT83} should be referred in the context of taking normal coordinate not in the Gauss--Weingarten equation. I believe that there would be a better reference for the equation, right?}
+
+% \textcolor{blue}{You are right, I updated the reference which is now more differential geometry.}
+
+% \fix{Confirmed. Thank you!}
+
+% \textcolor{blue}{I believe now the most important part is done. I claim the main novelty from here. I believe this will be the main source of result improvements such as Theorem \ref{thm:main}, which removes the condition $|\sgrad\beta|\leq\kappa_{\min}$ on $\partial\Omega$ from \cite{EG25}. I have devoted quite an amount of time and energy so far. Would you now take the turn for writing?}
+
+% \textcolor{red}{Thank you very much for your contribution to the main part! Of course, I am willing to continue draft writing. Please let me confirm the argument so far.}
+
+% \textcolor{blue}{Thank you. I'll try to be responsive while you are working on.}
+
+\begin{comment}
+
+We claim the conclusion for an arbitrarily given boundary point \recordmath{x_0\in\partial\Omega}. Without loss of generality, we may assume that \recordmath{x_0=0} and \recordmath{\partial\Omega\cap B_r(x_0)} is a graph of a function \recordmath{f(x_1,\cdots,x_{d-1})} for some small \recordmath{r>0} such that
+\begin{align}\recorddisplay{\label{eq:coordinate-choice}
+f(0') = 0, \quad \nabla' f(0') = 0, \quad \frac{\partial^2 f}{\partial x_i \partial x_j}(0') = - \kappa_j \delta_{ij} \quad\text{for }i,j=1,\cdots,d-1.
+}  
+\end{align}
+Here, \recordmath{0'=(0,\cdots,0)} is the origin of \recordmath{\R^{d-1}} and \recordmath{\nabla'} is the gradient with respect to the variable \recordmath{(x_1,\cdots,x_{d-1})} near the origin \recordmath{0'} in \recordmath{\R^{d-1}}, that is, the tangential gradient. The numbers \recordmath{\kappa_1,\cdots,\kappa_{d-1}} are the principal curvatures at \recordmath{x_0=0} so that \recordmath{x_j} is a principal direction associated with \recordmath{\kappa_j} for \recordmath{j=1,\cdots,d-1}. The outward unit normal vector near \recordmath{x_0} is given by
+\begin{align}\recorddisplay{\label{eq:normal-vector-coordinate}
+\nu_{\Omega} = \frac{1}{\sqrt{1+|\nabla'f|^2}}(-\nabla'f,1).
+}
+\end{align}
+At \recordmath{x_0}, the boundary condition \recordmath{B^{\varepsilon}(x_0,\nabla w^{\varepsilon}(x_0))=\nu_{\Omega}(x_0)\cdot \nabla w^{\varepsilon}(x_0) + \beta(x_0)\sqrt{\varepsilon^2 + |\nabla w^{\varepsilon}|^2}=0} is written as
+\begin{align*}
+\recorddisplay{\frac{\partial w^{\varepsilon}}{\partial x_d}(x_0) = -\beta(x_0)\sqrt{\varepsilon^2 + |\nabla w^{\varepsilon}(x_0)|^2}.
+}
+\end{align*}
+
+\medskip
+
+
+By abuse of notations, we keep using \recordmath{\beta} for the extended function on \recordmath{\overline{\Omega}} instead of \recordmath{\widetilde{\beta}} for brevity.
+
+
+
+Differentiating the boundary condition \recordmath{B^{\varepsilon}(x,\nabla w^{\varepsilon}(x))=0} at \recordmath{x_0} in \recordmath{x_j} for \recordmath{j=1,\cdots,d-1}, we see that, by using \eqref{eq:coordinate-choice},
+\begin{align*}
+\recorddisplay{\frac{\partial B^{\varepsilon}}{\partial x_j}(x_0,\nabla w^{\varepsilon}(x_0)) + \sum_{l=1}^d\frac{\partial B^{\varepsilon}}{\partial p_l}(x_0,\nabla w^{\varepsilon}(x_0))\frac{\partial^2 w^{\varepsilon}}{\partial x_j\partial x_l}(x_0)  = 0.
+}
+\end{align*}
+Multiplying \recordmath{\frac{\partial w^{\varepsilon}}{\partial x_j}(x_0)} and summing over \recordmath{j=1,\cdots,d-1}, we obtain
+\begin{align}\recorddisplay{\label{eq:boundary-condition-differentiated}
+\xi \cdot \nabla \overline{u}^{\varepsilon} = \sum_{l=1}^d\frac{\partial B^{\varepsilon}}{\partial p_l}(x_0,\nabla w^{\varepsilon}(x_0))\sum_{j=1}^{d-1}\frac{\partial w^{\varepsilon}}{\partial x_j}(x_0)\frac{\partial^2 w^{\varepsilon}}{\partial x_l\partial x_j}(x_0) = - \sum_{j=1}^{d-1} \frac{\partial w^{\varepsilon}}{\partial x_j}(x_0)\frac{\partial B^{\varepsilon}}{\partial x_j}(x_0,\nabla w^{\varepsilon}(x_0)).
+}
+\end{align}
+Note that by the outward normal vector expression \eqref{eq:normal-vector-coordinate}, the operator \recordmath{B^{\varepsilon}(x,p)} reads
+\begin{align*}
+\recorddisplay{B^{\varepsilon}(x,p) = \frac{1}{\sqrt{1+|\nabla'f|^2}}\left(-\sum_{j=1}^{d-1}\frac{\partial f}{\partial x_j}p_j + p_d\right) + \beta\sqrt{\varepsilon^2 + |p|^2}\quad\text{near }x_0\text{ on } \partial\Omega.
+}
+\end{align*}
+By the choice of the coordinate \eqref{eq:coordinate-choice} around \recordmath{x_0}, we have
+\begin{align*}
+\recorddisplay{\frac{\partial B^{\varepsilon}}{\partial x_j}(x_0,p) = \kappa_jp_j + \frac{\partial \beta}{\partial x_j}(x_0)\sqrt{\varepsilon^2 + |p|^2}.
+}
+\end{align*}
+Therefore, \eqref{eq:boundary-condition-differentiated} leads to, at \recordmath{x_0},
+\begin{align}\recorddisplay{\label{eq:conclusion-tangential-gradient}
+\xi \cdot \nabla \overline{u}^{\varepsilon} = - \sum_{j=1}^{d-1} \kappa_j\left(\frac{\partial w^{\varepsilon}}{\partial x_j}\right)^2 - \nabla'w^{\varepsilon}\cdot\sgrad\beta\sqrt{\varepsilon^2 + |\nabla w^{\varepsilon}|^2}.
+}
+\end{align}
+
+Substituting \recordmath{\overline{u}^{\varepsilon} := (1-\beta^2)u^{\varepsilon}} on \recordmath{\partial\Omega}, we obtain
+\begin{align*}
+\recorddisplay{\xi\cdot\nabla\overline{u}^{\varepsilon} = \xi \cdot \nabla ((1-\beta^2)u^{\varepsilon}) = (1-\beta^2)\xi\cdot\nabla u^{\varepsilon} + u^{\varepsilon}\xi\cdot\nabla(1-\beta^2).
+}
+\end{align*}
+From \eqref{eq:beta-tilde-norm-bounded}, \eqref{eq:conclusion-tangential-gradient}, and the fact that \recordmath{\xi=\nabla_p B^{\varepsilon}(\cdot,\nabla w^{\varepsilon}(\cdot)) = \nu_{\Omega}+\beta\frac{\nabla w^{\varepsilon}}{\sqrt{\varepsilon^2+|\nabla w^{\varepsilon}|^2}}} is bounded by \recordmath{2-2\kappa}, we derive
+\begin{align*}
+\recorddisplay{\xi\cdot\nabla u^{\varepsilon}
+} & \recorddisplay{= \frac{1}{1-\beta^2}\left(\xi\cdot\nabla\overline{u}^{\varepsilon} - u^{\varepsilon}\xi\cdot\nabla(1-\beta^2)\right)
+} \\
+& \recorddisplay{= \frac{1}{1-\beta^2}\left( - \sum_{j=1}^{d-1} \kappa_j\left(\frac{\partial w^{\varepsilon}}{\partial x_j}\right)^2 - \nabla'w^{\varepsilon}\cdot\sgrad\beta\sqrt{\varepsilon^2 + |\nabla w^{\varepsilon}|^2} - u^{\varepsilon}\xi\cdot\nabla(1-\beta^2)\right)
+} \\
+& \recorddisplay{\leq \frac{1}{\kappa(4-\kappa)}\left(Cu^{\varepsilon} + \frac12(\nabla'w^{\varepsilon}\cdot\sgrad\beta)^2+\frac12(\varepsilon^2 + |\nabla w^{\varepsilon}|^2) + Cu^{\varepsilon}\right)
+} \\
+& \recorddisplay{\leq Cu^{\varepsilon}.
+}
+\end{align*}
+Here, \recordmath{C=C(\Omega,\kappa,\|\sgrad\beta\|_{C^0(\partial\Omega)})>0} denotes a constant varying line by line. We finish the proof.
+
+\end{comment}
+
+%$\nu_{\Omega} \cdot \nabla'i Df = \nu_{\Omega} \cdot D_i D f = \left(-\frac{\partial}{\partial x_n}\right) \cdot \left(\frac{\partial^2 f}{\partial x_i \partial x_1}, \dots, \frac{\partial^2 f}{\partial x_i \partial x_n}\right) = -f_{ni}$
+%\textcolor{blue}{ After all, if we assume $\min \kappa_j\geq |\sgrad\beta|$, aren't we supposed to recover $\xi\cdot\nabla u^{\varepsilon}\leq 0$? I have a question about the assumption ``$\nabla_{\partial\Omega}\beta(x)$ is orthogonal to the kernel of the Weingarten map $\nabla_{\partial\Omega}\nu_{\Omega}(x)$ at each $x\in\partial\Omega$" in \cite[Lemma 3.4]{EG25} and how it is used.}
+
+%\textcolor{red}{Thank you for your comments. The assumption that $\nabla_{\partial\Omega}$ is orthogonal to the kernel of the Weingarten map means that the partial derivative of $\beta$ in the direction of $x_i$ such that $k_i = 0$ equals zero. }
+
+%\textcolor{blue}{Then, is that implied by the assumption $|\nabla_{\partial\Omega}\beta(x)| \leq \kappa(x)$ for every $x\in\partial\Omega$ as assumed in \cite[Theorem 1.1]{EG25}?}
+
+%\textcolor{red}{Yes, in fact, since $\Omega$ is assumed to be convex, $k_i(x) = 0$ for some $i$ implies that $k(x) := \min_{1\le i\le d}k_i(x) = 0$, and then we have $\nabla_{\partial\Omega}\beta(x) = 0$ from $|\nabla_{\partial\Omega}\beta(x)|\leq k(x)$. Thus, the orthogonal condition on $\nabla_{\partial\Omega}\beta$ is weaker than $|\nabla_{\partial\Omega}\beta(x)|\leq k(x)$. In the end, it seems that we do not have to mention the orthogonal condition on $\nabla_{\partial\Omega}\beta$ here... Anyhow, I think that the current draft needs not the convex condition on $\Omega$ and $|\nabla_{\partial\Omega}\beta|\le k$, right?}
+
+%\textcolor{blue}{Yes, I think we do not need the orthogonality condition. I'm working on applying the maximum principle part Proposition 3. Do you think we can obtain nice equations for $v^{\varepsilon}=\rho u^{\varepsilon}$ in the interior for which we can apply the maximum principle?}
+
+%\textcolor{blue}{as long as we can prove $\|\nabla w^{\varepsilon}\|_{L^{\infty}} \leq M(\|\nabla g^{\varepsilon}\|_{L^{\infty}}+1 )$ and its ``$\varepsilon\to0$" version ($M>0$ is a uniform constant), then we know that the arguments of \cite{EG25} work, in particular in the continuity of the operator $T_h$, right? would you confirm this for me?}
+
+%\textcolor{red}{I think that you are looking for a PDE satisfying the maximum principle to which $v^\varepsilon$ is a subsolution. Such a PDE (if exists) would depend on $\rho$ and its derivatives, and it is quite difficult for me to find out right now... In \cite{EG25}, the equi-continuity of $w$ with respect to $h$ is a key ingredient to assert the continuity of the set operator $T_h$. Thus, I would say, yes, the goal is to prove that $\|\nabla w\|_\infty \leq M(\|\nabla g\|_\infty + 1)$, for instance.}
+
+%\textcolor{blue}{thank you. i'll update the estimate soon.}
+
+\medskip
+
+We consider the function \recordmath{z^{\varepsilon}:=\rho y^{\varepsilon}}, where \recordmath{\rho\in C^{\infty}(\overline{\Omega})} is a multiplier that will be chosen as follows.
+
+\begin{proposition}\label{prop:multiplier}
+There exists a function \recordmath{\rho\in C^{\infty}(\overline{\Omega})} that depends only on \recordmath{\Omega,\kappa,\|\beta^h\|_{C^2(\partial\Omega)}} such that \recordmath{\rho\geq1} on \recordmath{\overline{\Omega}}, \recordmath{\rho=1} on \recordmath{\partial\Omega}, and \recordmath{z^{\varepsilon}=\rho y^{\varepsilon}} satisfies
+\begin{equation*}
+\recorddisplay{
+\xi^\varepsilon(z^{\varepsilon})<0\qquad\text{on}\quad\pOmega.
+}
+\end{equation*}
+\end{proposition}
+\begin{proof}
+Consider a function \recordmath{\rho\in C^{\infty}(\overline{\Omega})} that is of the form
+\begin{align*}
+\recorddisplay{\rho = 1 + Kd_{\partial\Omega}\qquad\text{near the boundary }\partial\Omega
+}
+\end{align*}
+and \recordmath{\rho\geq1} on \recordmath{\overline{\Omega}}, \recordmath{\rho=1} on \recordmath{\partial\Omega}. Here, \recordmath{d_{\partial\Omega}=\mathrm{dist}(\cdot,\partial\Omega)} and \recordmath{K=K(\Omega,\kappa,\|\beta^h\|_{C^2(\partial\Omega)})>0} is a constant to be determined. Then, it holds that
+\begin{align*}
+\recorddisplay{\xi^\varepsilon(\rho) = \left(\nu_{\Omega}+\beta\frac{\nabla w^{\varepsilon}}{\sqrt{\varepsilon^2+|\nabla w^{\varepsilon}|^2}}\right) \cdot \left(-K\nu_{\Omega}\right) \leq -K + K(1-2\kappa) = -2\kappa K\qquad\text{on}\quad\partial\Omega.
+}
+\end{align*}
+Therefore, by Proposition \ref{prop:w/o-multiplier}, since \recordmath{y^\varepsilon > 0} for every \recordmath{\varepsilon > 0}, we have
+\begin{align*}
+\recorddisplay{\xi^\varepsilon(z^{\varepsilon}) = \rho \xi^\varepsilon(y^{\varepsilon}) + y^{\varepsilon} \xi^\varepsilon(\rho)  \leq Cy^{\varepsilon} - 2\kappa K y^{\varepsilon} = y^{\varepsilon}(C-2\kappa K)<0\qquad\text{on}\quad\partial\Omega
+}
+\end{align*}
+once we choose \recordmath{K=K(\Omega,\kappa,\|\beta^h\|_{C^2(\partial\Omega)})>0} such that \recordmath{K>\frac{C}{2\kappa}}. Here, \recordmath{C(\Omega,\kappa,\|\beta^h\|_{C^2(\partial\Omega)})>0} is the constant from Proposition \ref{prop:w/o-multiplier}. We finish the proof.
+\end{proof}
+
+
+\begin{lemma}\label{lem:L-infty-estimate}
+There exists a constant \recordmath{C=C(\Omega,\kappa)>0} such that %for all $\varepsilon\in(0,1)$, we have
+\begin{align*}
+\recorddisplay{\|w^{\varepsilon}\|_{L^\infty(\Omega)} \leqslant \|g^{\varepsilon}\|_{L^\infty(\Omega)} + 1 + C(h+\varepsilon).
+}
+\end{align*}
+\end{lemma}
+% \textcolor{red}{
+% I guess that we can directly deduce $\|w\|_\infty\le \|g\|_\infty$ from the maximum principle for the underlying variational problem. But, I think that this estimation is still interesting.
+% }
+
+% \textcolor{blue}{Thank you. I needed an estimate for the $\varepsilon$-problem, which stops me from using the constant function as a barrier due to $\varepsilon>0$, so I needed to find another barrier functions.}
+
+
+\begin{proof}
+We recall that the function \recordmath{w^{\varepsilon}} is a solution to the equation \eqref{eq:E-L-approximate} which enjoys the maximum principle. The proof is by constructing barrier functions above and below.
+
+In this proof, we let \recordmath{d=\mathrm{dist(\cdot,\partial\Omega)}} denote the distance function to \recordmath{\partial\Omega} defined on the neighborhood \recordmath{\mathcal N_{2\delta} := \{x\in\closure{\Omega}\mid d(x) \leq 2\delta\}} of \recordmath{\partial\Omega}, where \recordmath{\delta\in(0,1)} is a sufficiently small number depending only on \recordmath{\Omega}. We will consider barrier functions \recordmath{V(x)} of the form \[\recorddisplay{V(x) := M + f(d(x)),}\]
+where \recordmath{M>0} is a sufficiently large number that will be determined later. The function \recordmath{f:\R\to\R} is defined by \[\recorddisplay{f(r) := \varepsilon\delta\int_{-1}^{\frac{r}{\delta}}\psi(y)\,dy,}\] where \recordmath{\psi\in C^{\infty}\left((-1,1)\right)} is a bump function satisfying
+\begin{equation}
+\recorddisplay{\label{eq:psi-condition}
+\int_{-1}^1\psi(y)\,dy=0\quad\text{and}\quad\frac{-\psi(0)}{\sqrt{1 + |\psi(0)|^2}} \geqslant 1 - 2\kappa.
+}
+\end{equation}
+Let us confirm that \recordmath{V(x)} is a supersolution to \eqref{eq:E-L-approximate}.
+This choice of \recordmath{\psi} satisfying \eqref{eq:psi-condition} ensures that the function \recordmath{V(x)} satisfies
+
+\[\recorddisplay{
+B^{\varepsilon}(\cdot,\nabla V)\geq0\qquad \mbox{on}\quad \pOmega.
+}\]
+Indeed, for every \recordmath{x\in\pOmega}, we compute
+
+\[\recorddisplay{
+\nabla V(x) = f'(d(x))\nabla d(x) = f'(0)\cdot(-\nu_\Omega(x)),
+}\]
+and hence
+
+\[\recorddisplay{
+B^\varepsilon(x,\nabla V(x)) = \nu_\Omega(x)\cdot \nabla V(x) + \beta^h(x)\sqrt{\varepsilon^2 + |\nabla V(x)|^2}.
+}\]
+Meanwhile, we have \recordmath{f'(r) = \varepsilon\psi\left(\frac{r}{\delta}\right)}, and thus \recordmath{f'(0) = \varepsilon\psi(0)}. Therefore, by \eqref{assumption:kappa} and \eqref{eq:psi-condition}, we have
+\[\recorddisplay{
+B^\varepsilon(x,\nabla V(x)) = \varepsilon\left(- \psi(0) + \beta^h(x)\sqrt{1+|\psi(0)|^2}\right) \geq \varepsilon\sqrt{1+|\psi(0)|^2}\left(1-2\kappa-\beta^h(x)\right)\geq0.
+}\]
+
+
+%Noting that $f'(0) < 0$ since $\psi(0) < 0$ due to \eqref{eq:psi-condition}, we derive
+%\[
+%B^\varepsilon(x,\nabla V(x)) = -f'(0) - \beta(x)f'(0) = -f'(0)(1 + \beta(x))\geq -f'(0)(1-\|\beta\|_{C^0(\pOmega)})\geq 0.
+%\]
+%\fix{I have added a detailed explanation for the inequality on the boundary. It is worthwhile to mention about this since you invoked the important property $\|\beta\|_\infty < 1$ here.}
+
+It remains to check that \recordmath{V(x)} is a supersolution inside \recordmath{\Omega} as well.
+We first mention that the function \recordmath{V(x) = M + f(d(x))} is well-defined for all \recordmath{x\in\overline{\Omega}} since \recordmath{f(d(x))\equiv0} when \recordmath{d(x)\geq\delta}, and \recordmath{V(x)} is smooth on \recordmath{\overline{\Omega}}.
+We calculate the divergence term: For a smooth positive function \recordmath{\phi}, we have
+\begin{align}\recorddisplay{\label{eq:expansion-first}
+\operatorname{div}\left(\frac{\nabla V}{\phi}\right) = \frac{\Delta V}{\phi} - \frac{\nabla\phi\cdot\nabla V}{\phi^2} = \frac{f'(d)\Delta d + f''(d)}{\phi} - \frac{\nabla\phi\cdot\nabla V}{\phi^2}.
+}
+\end{align}
+Here, the last equality follows from the fact that
+\[\recorddisplay{
+\nabla V=f'(d)\nabla d\quad\text{and thus}\quad \Delta V = f'(d)\Delta d + f''(d),
+}\]
+where we again used the formula \recordmath{|\nabla d|^2=1} (on the support of the function \recordmath{f}). Expanding the gradient \recordmath{\nabla \phi} in terms of partial derivatives of \recordmath{V}, we have
+\begin{equation}
+\recorddisplay{\label{eq:V_ij}
+\nabla \phi \cdot \nabla V = \sum_{i,j = 1}^d\frac{V_iV_jV_{ij}}{\phi} = \frac{1}{\phi} \sum_{i,j=1}^d (f'(d) d_i)(f'(d) d_j)(f''(d) d_j d_i + f'(d) d_{ij}) = \frac{(f'(d))^2f''(d)}{\phi}.
+}
+\end{equation}
+Here, we used once again the fact \recordmath{|\nabla d|^2=1} in the last equality. Therefore, putting \eqref{eq:V_ij} into \eqref{eq:expansion-first} leads to
+\begin{align*}
+\recorddisplay{\operatorname{div}\left(\frac{\nabla V}{\phi}\right)
+} &\recorddisplay{= \frac{f'(d)}{\phi}\Delta d + \frac{f''(d)}{\phi} - \frac{(f'(d))^2f''(d)}{\phi^3}
+}\\
+&\recorddisplay{= \frac{f'(d)}{\phi}\Delta d + \frac{f''(d)}{\phi}\left(1-\frac{(f'(d))^2}{\phi^2}\right) = \frac{f'(d)}{\phi}\Delta d + \frac{\varepsilon^2f''(d)}{\phi^3}.
+}
+\end{align*}
+% \fix{I would like to elaborate the following formula. I guess that some terms might be missing. However, I totally agree that this quantity should be bounded by a constant $C$.
+% Please let me rewrite this formula.
+% } \textcolor{blue}{To my knowledge, there are no missing terms even after my double-check. However, I basically needed to redo the skipped details when I did double-check, so I have added the details (probably the same as what you have added in the below...?).}
+\noindent
+Now, putting \recordmath{\phi = \phi^\varepsilon(\nabla V)} leads to
+\begin{align*}
+\recorddisplay{\operatorname{div} \left( \frac{\nabla V}{\sqrt{\varepsilon^2 + |\nabla V|^2}} \right)
+} &\recorddisplay{= \frac{f'(d)}{\sqrt{\varepsilon^2 + f'(d)^2}} \Delta d + \frac{\varepsilon^2 f''(d)}{\left(\varepsilon^2 + f'(d)^2\right)^{3/2}}
+}  \\
+&\recorddisplay{= \frac{f'(d)}{\sqrt{\varepsilon^2 + f'(d)^2}} \Delta d + \frac{\varepsilon^2 \left( \frac{\varepsilon}{\delta^2} \psi' \right)}{\left(\varepsilon^2 + \left(\frac{\varepsilon}{\delta} \psi'\right)^2\right)^{3/2}}
+} \\
+&\recorddisplay{= \frac{f'(d)}{\sqrt{\varepsilon^2 + f'(d)^2}} \Delta d + \frac{\psi'\left(\frac{d}{\delta}\right)}{\delta \left(1 + \psi'\left(\frac{d}{\delta}\right)^2\right)^{3/2}}.
+}
+\end{align*}
+We mention that the both terms on the right-hand side are bounded by a constant \recordmath{C>0} depending on only \recordmath{\Omega} and \recordmath{\kappa} (not on \recordmath{\varepsilon}), namely we have
+
+% \fix{Here is the suggestion of change:}
+% A direct calculation shows
+% \begin{equation*}
+% \operatorname{div} \left( \frac{\nabla V}{\sqrt{\varepsilon^2 + |\nabla V|^2}} \right) = \frac{1}{\sqrt{\varepsilon^2 + |\nabla V|^2}}\sum_{i=1}^d V_{ii} -\frac{1}{(\varepsilon^2 + |\nabla V|^2)^{\frac{3}{2}}} \sum_{i,j=1}^d V_iV_jV_{ij}.
+% \end{equation*}
+% Meanwhile, since $f''(r) = \frac{\varepsilon}{\delta}\psi'(\frac{r}{\delta})$, for $1\leq i,j\leq d$, we compute
+% \begin{equation*}
+%     V_i = f'(d)d_i\qquad\mbox{and}\qquad
+%     V_{ij} = f''(d)d_id_j + f'(d)d_{ij} = \frac{\varepsilon}{\delta}\psi'\left(\frac{d}{\delta}\right)d_id_j + \varepsilon\psi\left(\frac{d}{\delta}\right)d_{ij}.
+% \end{equation*}
+% Thus, we continue
+
+% \begin{align*}
+%    \operatorname{div} \left( \frac{\nabla V}{\sqrt{\varepsilon^2 + |\nabla V|^2}} \right)
+%    &= \frac{1}{\sqrt{\varepsilon^2 + \varepsilon^2|\psi(\frac{d}{\delta})|^2}}\left\{\frac{\varepsilon}{\delta}\phi'\left(\frac{d}{\delta}\right)|\nabla d|^2 + \varepsilon\psi\left(\frac{d}{\delta}\right)\Delta d\right\} \\
+%    &\quad- \frac{1}{(\varepsilon^2 + \varepsilon^2|\psi(\frac{d}{\delta})|^2)^{\frac{3}{2}}}\sum_{i,j=1}^d\left\{\varepsilon^2\psi\left(\frac{d}{\delta}\right)^2d_id_j\left(\frac{\varepsilon}{\delta}\psi'\left(\frac{d}{\delta}\right)d_id_j + \varepsilon\psi\left(\frac{d}{\delta}\right)d_{ij}\right) \right\}\\
+%    &= \frac{1}{\sqrt{1 + |\psi(\frac{d}{\delta})|^2}}\left\{\frac{1}{\delta}\phi'\left(\frac{d}{\delta}\right) + \psi\left(\frac{d}{\delta}\right)\Delta d\right\} \\
+%    &\quad- \frac{1}{(1 + |\psi(\frac{d}{\delta})|^2)^{\frac{3}{2}}}\sum_{i,j=1}^d\left\{\psi\left(\frac{d}{\delta}\right)^2d_id_j\left(\frac{1}{\delta}\psi'\left(\frac{d}{\delta}\right)d_id_j + \psi\left(\frac{d}{\delta}\right)d_{ij}\right) \right\},
+% \end{align*}
+% where we have invoked $|\nabla d| = 1$. We note that the right-hand side of the above equality does not depend on $\varepsilon$, and
+% all functions are continuous in the compact set $\mathcal N_\delta$. Therefore, we obtain the uniform bound of the divergence term with respect $\varepsilon$ as follows:
+% \fix{End of suggestion.}
+\begin{equation*}
+\recorddisplay{
+\left|\text{div} \left( \frac{\nabla V}{\sqrt{\varepsilon^2 + |\nabla V|^2}} \right)\right| \leq C.
+}
+\end{equation*}
+% \fix{Have you used the second condition of \eqref{eq:psi-condition} so far regarding $\kappa$? Is it needed? In this case, I would say $C$ depends on $\Omega$ (to determine $\delta$) and the bump function $\psi$.} \textcolor{blue}{It is explained above now.} \fix{Confirmed, thanks!}
+Therefore, the choice \recordmath{M := \|g^{\varepsilon}\|_{L^{\infty}(\Omega)} + 1 + C(h + \varepsilon)} (by taking a larger constant \recordmath{C=C(\Omega,\kappa)>0}) ensures that the function \recordmath{V(x)} is a supersolution inside and thus to the whole equation \eqref{eq:E-L-approximate} as well. Hence, we have
+\[\recorddisplay{
+w^{\varepsilon}(x) \leq \|V\|_{L^{\infty}(\Omega)} \leq \|g^{\varepsilon}\|_{L^{\infty}(\Omega)} + 1 + C(h+\varepsilon)\qquad\text{for all}\quad x\in\overline{\Omega}.
+}\]
+By working with \recordmath{-V(x)} similarly, we also obtain
+\[\recorddisplay{
+w^{\varepsilon}(x) \geq -\|V\|_{L^{\infty}(\Omega)} \geq -(\|g^{\varepsilon}\|_{L^{\infty}(\Omega)} + 1 + C(h+\varepsilon))\qquad\text{for all}\quad x\in\overline{\Omega},
+}\]
+which completes the proof.
+\end{proof}
+
+\begin{proposition}\label{prop:equation-v}
+Let the subscript \recordmath{k=1,\cdots,d} denote the partial derivative with respect to the variable \recordmath{x_k}. Let \recordmath{L} denote the operator given by
+\[\recorddisplay{
+L[u] = u - h \phi^{\varepsilon}_{ij}(\nabla w^{\varepsilon}) \partial_{ij} u.
+}\]
+
+Then, there exists a constant \recordmath{C=C(\Omega,\kappa,\|\beta^h\|_{C^2(\partial\Omega)},\|g\|_{W^{1,\infty}(\Omega)})>0} such that the following hold.
+
+\begin{enumerate}[label=(\roman*)]
+\item The function \recordmath{y^{\varepsilon}} satisfies
+\begin{align*}
+\recorddisplay{L[y^{\varepsilon}] + B^{\varepsilon}\cdot\nabla y^{\varepsilon}\leq C.
+}
+\end{align*}
+Here, \recordmath{B} is the vector field given by
+\[\recorddisplay{
+(B^{\varepsilon})^j = -h \partial_i (\phi^{\varepsilon}_{ij}(\nabla w^{\varepsilon}))\qquad\text{for each }j.
+}\]
+
+\item The function \recordmath{z^{\varepsilon}=\rho y^{\varepsilon}} satisfies
+\begin{align*}
+\recorddisplay{L[z^{\varepsilon}] + \widetilde{B}^{\varepsilon}\cdot\nabla z^{\varepsilon}\leq C.
+}
+\end{align*}
+Here, \recordmath{\widetilde{B}^{\varepsilon}} is the vector field given by
+\[\recorddisplay{
+(\widetilde{B}^{\varepsilon})^j = (B^{\varepsilon})^j + \frac{h\phi^{\varepsilon}_{ij}\rho_i}{\rho}\left(2-\frac{y^{\varepsilon}}{\rho}\right)\qquad\text{for each }j.
+}\]
+\end{enumerate}
+
+%\item It holds that $$\|\nabla u^{^{}}\|$$
+
+\end{proposition}
+
+% \textcolor{red}{Could you provide some supplementary explanations to see that these partial differential inequalities ensure that we can apply the maximum principle to $v^{\varepsilon}$? In other words, I would like to confirm that the underlying PDEs satisfy the maximum principle. Moreover, it should be mentioned what estimates we could obtain from this proposition.}
+
+% \textcolor{blue}{I supplemented as the proof of Proposition \ref{prop:a-priori-estimate} in the below.}
+
+\begin{proof}
+In this proof, we drop the superscript \recordmath{\varepsilon} and adopt the Einstein convention for brevity.
+
+\medskip
+
+(i) \textbf{Step 1. Linearize the equation.} Consider the regularized equation for \recordmath{w}:
+\begin{equation}
+\recorddisplay{\label{eq:main}
+w - h \partial_i (\phi_i(\nabla w)) = g 
+}
+\end{equation}
+where \recordmath{\phi(p) = \sqrt{\varepsilon^2 + |p|^2}}, \recordmath{\phi_i = \frac{p_i}{\phi}}, and \recordmath{\phi_{ij} = \frac{1}{\phi} \left( \delta_{ij} - \frac{p_i p_j}{\phi^2} \right)}. Define the linearized operator \recordmath{L} and the vector field \recordmath{B} as
+\[\recorddisplay{
+L[u] = u - h \phi_{ij}(\nabla w) \partial_{ij} u, \quad B^j = -h \partial_i (\phi_{ij}(\nabla w)).
+}\]
+Differentiating \eqref{eq:main} with respect to \recordmath{x_k} and using the chain rule (\recordmath{\partial_k \phi_i = \phi_{ij} w_{jk}}), we derive
+\[\recorddisplay{
+w_k - h \partial_i (\partial_k \phi_i) = g_k \quad\text{and thus}\quad w_k - h \phi_{ij} w_{ijk} - h (\partial_i \phi_{ij}) w_{jk} = g_k.
+}\]
+Rearranging to solve for the third-order term yields the identity
+\begin{equation}
+\recorddisplay{\label{eq:third_deriv}
+h \phi_{ij} w_{ijk} = w_k - g_k + B^j w_{jk}. 
+}
+\end{equation}
+
+\medskip
+
+\textbf{Step 2. Differentiate the function \recordmath{y}.} Let \recordmath{A^k = \beta^h \partial_k \eta} and \recordmath{\psi = A^k w_k}. We compute the derivative of \recordmath{y = \phi + \psi} to have
+\begin{equation}
+\recorddisplay{\label{eq:first_y}
+\partial_i y = \frac{w_k w_{ki}}{\phi} + A^k w_{ki} + (\partial_i A^k) w_k.
+}
+\end{equation}
+The second-order derivatives of \recordmath{\phi} and \recordmath{\psi} are
+\[\recorddisplay{
+\partial_{ij} \phi = \frac{w_k w_{kij}}{\phi} + \frac{1}{\phi} (w_{ki} w_{kj} - \partial_i \phi \partial_j \phi)
+}\]
+and
+\[\recorddisplay{
+\partial_{ij} \psi = A^k w_{kij} + 2(\partial_i A^k) w_{kj} + (\partial_{ij} A^k) w_k.
+}\]
+
+\medskip
+
+\textbf{Step 3. Apply the operator \recordmath{L} to \recordmath{y}.} By linearity, \recordmath{L[y] = L[\phi] + L[\psi]}. Grouping the terms containing third derivatives \recordmath{w_{kij}}, we have
+\begin{align*}
+\recorddisplay{L[y]
+} &\recorddisplay{= (\phi + A^k w_k) - h \phi_{ij} \left( \frac{w_k}{\phi} + A^k \right) w_{kij}
+} \\
+&\recorddisplay{\quad - \frac{h}{\phi} \phi_{ij} (w_{ki} w_{kj} - \partial_i \phi \partial_j \phi) - h \phi_{ij} \left( 2 (\partial_i A^k) w_{kj} + (\partial_{ij} A^k) w_k \right).
+}
+\end{align*}
+We substitute the identity for \recordmath{h \phi_{ij} w_{ijk}} from equation \eqref{eq:third_deriv} to derive
+\begin{align*}
+\recorddisplay{L[y] = y - \left( \frac{w_k}{\phi} + A^k \right) (w_k - g_k + B^j w_{jk})  + Q - h \phi_{ij} \left( 2 (\partial_i A^k) w_{kj} + (\partial_{ij} A^k) w_k \right).
+}
+\end{align*}
+Here, we let the quadratic term \recordmath{Q := - \frac{h}{\phi} \phi_{ij} (w_{ki} w_{kj} - \partial_i \phi \partial_j \phi)}, which will be analyzed in a moment.
+
+Focusing on the first two terms, we expand the product and use \recordmath{y - A^k w_k = \phi} and \recordmath{\phi - \frac{|\nabla w|^2}{\phi} = \frac{\varepsilon^2}{\phi}} to have
+\[\recorddisplay{
+L[y] = \frac{\varepsilon^2}{\phi} + \left( \frac{w_k}{\phi} + A^k \right) g_k - \left( \frac{w_k w_{jk}}{\phi} + A^k w_{jk} \right) B^j + Q - h \phi_{ij} \left( 2 (\partial_i A^k) w_{kj} + (\partial_{ij} A^k) w_k \right).
+}\]
+From \eqref{eq:first_y}, we have
+\[\recorddisplay{
+\frac{w_k w_{jk}}{\phi} + A^k w_{jk} = \partial_j y - (\partial_j A^k) w_k,
+}\]
+and thus, we have
+\begin{align}\recorddisplay{\label{eq:L-before-Q}
+L[y] + B \cdot \nabla y
+} &\recorddisplay{= \frac{\varepsilon^2}{\phi} + \left( \frac{w_k}{\phi} + A^k \right) g_k + Q  + B^j (\partial_j A^k) w_k - 2h\phi_{ij}(\partial_iA^k)w_{kj} - h \phi_{ij} (\partial_{ij} A^k) w_k.
+}
+\end{align}
+
+\medskip
+
+\textbf{Step 4. Estimate the terms concerning the Hessian \recordmath{w_{ij}}}. We estimate the terms
+\[\recorddisplay{
+Q  + B^j (\partial_j A^k) w_k - 2h\phi_{ij}(\partial_iA^k)w_{kj}.
+}\]
+first, by direct differentiation and using \recordmath{\phi_{kl}=\frac{1}{\phi}\left(\delta_{kl} - \frac{w_kw_l}{\phi^2}\right)}, we compute the quadratic term \recordmath{Q} by
+\begin{align*}
+\recorddisplay{Q
+} &\recorddisplay{= - \frac{h}{\phi} \phi_{ij} (w_{ki} w_{kj} - \partial_i \phi \partial_j \phi)  = - \frac{h}{\phi} \phi_{ij} \left(w_{ki} w_{lj}\delta_{kl} - \frac{w_kw_{ki}w_lw_{lj}}{\phi^2}\right)
+}\notag \\
+&\recorddisplay{= - \frac{h}{\phi} \phi_{ij} w_{ki} w_{lj}\left(\delta_{kl} - \frac{w_kw_l}{\phi^2}\right) = -h\phi_{ij} w_{ki} w_{lj}\phi_{kl}.
+}\notag
+\end{align*}
+Therefore, we obtain
+\begin{align}\recorddisplay{\label{eq:Q}
+Q = -h\sum_{j,k=1}^d\left(\sum_{i=1}^d\phi_{ji}w_{ik}\right)^2
+}
+\end{align}
+
+%\fix{I would like to elaborate \eqref{eq:Q}. I think that this means that $Q=\sum_{i,j,k = 1}^d - h(\phi_{ji}w_{ik})^2$, right? If so, this might be wrong and $$Q = -h\operatorname{tr}((\nabla^2\phi\nabla^2 w)^2)$$ holds according to my calculation. Since \eqref{eq:Q} is used to obtain \eqref{eq:estimate-Hessian-terms} which is also used in the sequel, I would like to know if this affects your argument from here.}
+
+%\textcolor{blue}{Oh, this is $Q=-h \sum_{j,k}(\sum_i\phi_{ji}w_{ik})^2.$}
+%Completing a square, we consequently have
+%\begin{align}
+%Q = -h\left(\phi_{ji}w_{ik} + \partial_jA^k\right)^2 + h(\partial_jA^k)^2 \leq h(\partial_jA^k)^2.
+%\end{align}
+
+Now, we expand the other terms by writing
+\[\recorddisplay{
+B^j (\partial_j A^k) w_k = -h \partial_i (\phi_{ij}(\nabla w))(\partial_j A^k) w_k = -h\phi_{ijm}w_{mi}(\partial_j A^k)w_k.
+}\]
+By direct differentiation, it holds that
+\[\recorddisplay{
+\phi_{ijm} = \frac{3w_i w_j w_m}{\phi^5} - \frac{\delta_{ij} w_m + \delta_{im} w_j + \delta_{jm} w_i}{\phi^3} = -\frac{\phi_{ij}w_m+\phi_{im}w_j+\phi_{jm}w_i}{\phi^2}.
+}\]
+Therefore, we can write, and after appropriate re-indexing,
+\begin{align*}
+\recorddisplay{B^j (\partial_j A^k) w_k
+} &\recorddisplay{= h(\phi_{ij}w_{mi})\left(\frac{w_mw_k}{\phi^2}\partial_j A^k\right) + h(\phi_{im}w_{mj})\left(\delta_{ij}\frac{w_j w_k}{\phi^2}\partial_j A^k\right) + h(\phi_{jm}w_{mi})\left(\frac{w_iw_k}{\phi^2}\partial_j A^k\right)
+} \\
+&\recorddisplay{= 2h(\phi_{ji}w_{ik})\left(\frac{w_k w_m}{\phi^2}\partial_j A^m\right) + h(\phi_{ji}w_{ik})\left(\delta_{jk}\frac{w_j w_m}{\phi^2}\partial_k A^m\right).
+}
+\end{align*}
+After re-indexing once more, we obtain
+\begin{align}\recorddisplay{\label{eq:other-terms}
+B^j (\partial_j A^k) w_k - 2h\phi_{ij}(\partial_iA^k)w_{kj} = -2h(\phi_{ji}w_{ik})U^{jk}.
+}
+\end{align}
+with
+\[\recorddisplay{
+U^{jk}:=-\frac{w_k w_m}{\phi^2}\partial_j A^m-\delta_{jk}\frac{w_j w_m}{2\phi^2}\partial_k A^m + \partial_jA^k\qquad\text{for each }j,k.
+}\]
+Note that \recordmath{U^{jk}} is bounded by some constant \recordmath{C=C(\Omega,\kappa,\|\beta^h\|_{C^2(\partial\Omega)})>0}. 
+
+Therefore, by \eqref{eq:Q} and \eqref{eq:other-terms}, we derive
+\begin{align}
+\recorddisplay{Q  + B^j (\partial_j A^k) w_k - 2h\phi_{ij}(\partial_iA^k)w_{kj}
+} &\recorddisplay{= -h\left((\phi_{ji}w_{ik})^2 + 2U^{jk}(\phi_{ji}w_{ik})\right)
+}\notag \\
+&\recorddisplay{= -h\left((\phi_{ji}w_{ik}+U^{jk})^2-(U^{jk})^2\right) \leq Ch \label{eq:estimate-Hessian-terms}.
+}
+\end{align}
+
+\medskip 
+
+\textbf{Step 5. Conclude.} Therefore, by \eqref{eq:L-before-Q} and \eqref{eq:estimate-Hessian-terms}, and by the fact that the others terms on the right-hand side of \eqref{eq:L-before-Q} are bounded by some constant (such as \recordmath{\frac{\varepsilon^2}{\phi}\leq \varepsilon} and \recordmath{\phi_{ij}(\partial_{ij}A^k)w_k \leq C}), we conclude
+\[\recorddisplay{
+L[y] + B \cdot \nabla y \le C(\|\nabla g\|_{C^0(\Omega)} + h + \varepsilon).
+}\]
+
+\medskip
+
+(ii) \textbf{Step 1. Apply the operator \recordmath{L} to \recordmath{z = \rho y}.} Using the product rule for second derivatives, we have
+\[\recorddisplay{ \partial_{ij}(\rho y) = \rho_{ij} y + \rho_i y_j + \rho_j y_i + \rho y_{ij}. }\]
+Substituting this into the operator \recordmath{L} yields
+\begin{align*}
+\recorddisplay{L[z]
+} &\recorddisplay{= \rho y - h \phi_{ij} (\rho_{ij} y + 2 \rho_i y_j + \rho y_{ij})
+} \\
+&\recorddisplay{= \rho (y - h \phi_{ij} y_{ij}) - h y (\phi_{ij} \rho_{ij}) - 2h \phi_{ij} \rho_i y_j
+} \\
+&\recorddisplay{= \rho L[y] - h y (\phi_{ij} \rho_{ij}) - 2h \phi_{ij} \rho_i y_j.
+}
+\end{align*}
+By the conclusion of (i) proved above, we derive
+\begin{equation}
+\recorddisplay{
+L[z] \le \rho \left(L[y] + B \cdot \nabla y \right) - \rho B \cdot \nabla y - h y (\phi_{ij} \rho_{ij}) - 2h \phi_{ij} \rho_i y_j. \label{eq:sub_y}
+}
+\end{equation}
+
+From \recordmath{z = \rho y}, we change the derivatives of \recordmath{y} to those of \recordmath{z} by using
+\[\recorddisplay{ \nabla z = \rho \nabla y + y \nabla \rho \implies \rho \nabla y = \nabla z - y \nabla \rho. }\]
+That is, substituting \recordmath{\rho \nabla y} and \recordmath{y_j = \frac{1}{\rho}(z_j - y \rho_j)} into \eqref{eq:sub_y} gives
+\[\recorddisplay{ L[z] \le \rho \left(L[y] + B \cdot \nabla y \right) - B \cdot (\nabla z - y \nabla \rho) - h y (\phi_{ij} \rho_{ij}) - \frac{2h \rho_i}{\rho} \phi_{ij} (z_j - y \rho_j). }\]
+Grouping all terms containing \recordmath{\nabla z} and using the estimates \recordmath{y\phi_{ij}\leq C} yield
+\begin{equation}
+\recorddisplay{\label{eq:Lz}
+L[z] + \left(B^j + \frac{2h \rho_i}{\rho} \phi_{ij}\right)z_j \le \rho \left(L[y] + B \cdot \nabla y \right) + yB \cdot \nabla \rho + Ch.
+}
+\end{equation}
+%with the vector field $\widetilde{B}$ given by
+%\[
+%\widetilde{B}^j:=B^j + \frac{2h \rho_i}{\rho} \phi_{ij}\qquad\text{for each }j.
+%\]
+
+\medskip
+
+\textbf{Step 2. Estimate the term \recordmath{yB\cdot\nabla \rho}.} By direct expansion and differentiation as in the proof of (i), we have
+\begin{align*}
+\recorddisplay{yB\cdot\nabla \rho = -hy\partial_i(\phi_{ij}(\nabla w))\rho_j = -hy\left(\frac{3 (\nabla \phi \cdot \nabla w) (\nabla w \cdot \nabla \rho)}{\phi^4} - \frac{2 \phi \nabla \phi \cdot \nabla \rho + \Delta w (\nabla w \cdot \nabla \rho)}{\phi^{3}}\right).
+}
+\end{align*}
+We use the equality that comes from the equation \eqref{eq:E-L-approximate} that
+\[\recorddisplay{
+\Delta w = \frac{\nabla w \cdot \nabla \phi}{\phi} + \frac{w - g}{h} \phi
+}\]
+to derive
+\begin{align*}
+\recorddisplay{yB\cdot\nabla \rho
+} &\recorddisplay{= -hy\left(\frac{2 (\nabla \phi \cdot \nabla w) (\nabla w \cdot \nabla \rho)}{\phi^4} - \frac{2\nabla\phi\cdot\nabla\rho}{\phi^2} -\frac{\nabla w\cdot\nabla \rho}{\phi^2}\cdot\frac{w-g}{h}\right).
+}\\
+\end{align*}
+Using the equality \recordmath{(\nabla \phi \cdot \nabla w) (\nabla w \cdot \nabla \rho) - \phi^2\nabla\phi\cdot\nabla\rho = -\phi^3\phi_{ij}\phi_i\rho_j} on the first two terms, we obtain
+\begin{align*}
+\recorddisplay{yB\cdot\nabla \rho = \frac{hy}{\phi}\phi_{ij}\phi_i\rho_j + y(w-g)\frac{\nabla w\cdot \nabla g}{\phi^2}.
+}
+\end{align*}
+
+Now, by substituting
+\[\recorddisplay{
+\phi = \rho^{-1}z - \beta^h \eta_k w_k \implies \phi_i = (\rho^{-1})_iz + \rho^{-1}z_i - \beta^h_i \eta_{k} w_k - \beta^h \eta_{ki} w_k - \beta^h \eta_k w_{ki},
+}\]
+and using the estimates \recordmath{\frac{y}{\phi}\leq C} and \recordmath{|w_k\phi_{ij}|\leq C}, we have
+\begin{align*}
+\recorddisplay{h\frac{y}{\phi}\phi_{ij}\phi_i\rho_j \leq \frac{hy}{\rho\phi}\phi_{ij}\rho_iz_j - \frac{h\beta^h y}{\phi}(\eta_k \rho_j) (\phi_{ji} w_{ik}) + Ch.
+}
+\end{align*}
+We now apply Lemma \ref{lem:L-infty-estimate} to the term \recordmath{y(w-g)\frac{\nabla w\cdot \nabla g}{\phi^2}} to have
+\begin{align*}
+\recorddisplay{yB\cdot\nabla \rho \leq \frac{hy}{\rho\phi}\phi_{ij}\rho_iz_j - \frac{h\beta^h y}{\phi}(\eta_k \rho_j) (\phi_{ji} w_{ik}) + C(\Omega,\kappa,\|\beta^h\|_{C^2(\partial\Omega)},\|g\|_{W^{1,\infty}(\Omega)}).
+}
+\end{align*}
+Letting \recordmath{C=C(\Omega,\kappa,\|\beta^h\|_{C^2(\partial\Omega)},\|g\|_{W^{1,\infty}(\Omega)})}, we have, from \eqref{eq:Lz},
+\begin{align}\recorddisplay{\label{eq:yBrho}
+L[z] + \left(B^j + \frac{h\phi_{ij}\rho_i}{\rho}\left(2-\frac{y}{\rho}\right)\right)z_j \le \rho \left(L[y] + B \cdot \nabla y \right) - \frac{h\beta^h y}{\phi}(\eta_k \rho_j) (\phi_{ji} w_{ik}) + C.
+}
+\end{align}
+
+Write \eqref{eq:L-before-Q} as
+\begin{align*}
+\recorddisplay{L[y] + B \cdot \nabla y \leq Q  + B^j (\partial_j A^k) w_k - 2h\phi_{ij}(\partial_iA^k)w_{kj} + C.
+}
+\end{align*}
+Substituting this into \eqref{eq:yBrho} yields
+\begin{align}
+&\recorddisplay{L[z] + \left(B^j + \frac{h\phi_{ij}\rho_i}{\rho}\left(2-\frac{y}{\rho}\right)\right)z_j
+}\notag \\
+&\recorddisplay{\qquad\le \rho \left(Q  + B^j (\partial_j A^k) w_k - 2h\phi_{ij}(\partial_iA^k)w_{kj} - \frac{h\beta^h y}{\rho\phi}(\eta_k \rho_j) (\phi_{ji} w_{ik})\right)+ C. \label{eq:L-before-Q-rho}
+}
+\end{align}
+
+\medskip
+
+\textbf{Step 3. Estimate the terms concerning the Hessian \recordmath{w_{ij}} and conclude.} Similarly as before, we use \eqref{eq:estimate-Hessian-terms} to write
+\begin{align*}
+&\recorddisplay{Q + B^j (\partial_j A^k) w_k - 2h\phi_{ij}(\partial_iA^k)w_{kj} - \frac{h\beta^h y}{\rho\phi}(\eta_k \rho_j) (\phi_{ji} w_{ik})
+} \\
+&\recorddisplay{\quad=-h\left((\phi_{ji}w_{ik})^2 + 2U^{jk}(\phi_{ji}w_{ik}) + \frac{\beta^h y}{\rho\phi}(\eta_k \rho_j) (\phi_{ji} w_{ik})\right)
+} \\
+&\recorddisplay{\quad=-h\left((\phi_{ji}w_{ik})^2 + 2V^{jk}(\phi_{ji}w_{ik})\right)
+}
+\end{align*}
+with
+\[\recorddisplay{
+V^{jk} := U^{jk} + \frac{\beta^h y}{2\rho\phi}(\eta_k \rho_j)\qquad\text{for each }j,k.
+}\]
+Note that \recordmath{V^{jk}} is bounded by some constant \recordmath{C=C(\Omega,\kappa,\|\beta^h\|_{C^2(\partial\Omega)})>0}. Therefore, we derive
+\begin{align}
+&\recorddisplay{Q + B^j (\partial_j A^k) w_k - 2h\phi_{ij}(\partial_iA^k)w_{kj} - \frac{h\beta^h y}{\rho\phi}(\eta_k \rho_j) (\phi_{ji} w_{ik})
+}\notag \\
+&\recorddisplay{\qquad\qquad\qquad\qquad\qquad\qquad= -h\left((\phi_{ji}w_{ik}+V^{jk})^2-(V^{jk})^2\right) \leq Ch \label{eq:estimate-Hessian-terms-rho}.
+}
+\end{align}
+Therefore, we conclude by combining \eqref{eq:L-before-Q-rho} and \eqref{eq:estimate-Hessian-terms-rho} that
+\begin{align*}
+\recorddisplay{L[z] + \widetilde{B}\cdot\nabla z \le C(\|g\|_{C^1(\Omega)})
+}
+\end{align*}
+with the vector field \recordmath{\widetilde{B}} given by
+\[\recorddisplay{
+\widetilde{B}^j := B^j + \frac{h\phi_{ij}\rho_i}{\rho}\left(2-\frac{y}{\rho}\right)\qquad\text{for each }j.
+}\]
+\end{proof}
+
+We are now in the position to prove the Lipschitz bound estimate.
+\begin{proof}[Proof of Proposition \ref{prop:a-priori-estimate}]
+
+Thanks to the maximum principle (see \cite{PW84}) applied to the following boundary value problem (as a consequence of Propositions \ref{prop:multiplier} and \ref{prop:equation-v}(ii))
+\begin{equation*}
+\begin{cases} 
+\displaystyle L[z^{\varepsilon}] + \widetilde{B}^{\varepsilon}\cdot\nabla z^{\varepsilon}\leq C & \text{in} \quad \Omega, \\ 
+\xi^{\varepsilon}(z^{\varepsilon}) \leq0 & \text{on} \quad \partial\Omega,
+\end{cases}
+\end{equation*}
+we obtain that \[\recorddisplay{z^{\varepsilon}\leq C\qquad\text{on}\quad\overline{\Omega}.}\]
+Since \recordmath{z^{\varepsilon} = \rho y^{\varepsilon}} and \recordmath{2\kappa\phi^{\varepsilon} \leq y^{\varepsilon} \leq (2-2\kappa)\phi^{\varepsilon}}, we derive that \[\recorddisplay{\phi^{\varepsilon}\leq C,\quad\text{which leads to}\quad |\nabla w^{\varepsilon}|\leq C\quad\text{on}\quad\overline{\Omega}}\]
+for some constant \recordmath{C=C(\Omega,\kappa,\|\beta^h\|_{C^2(\partial\Omega)},\|g\|_{W^{1,\infty}(\Omega)})>0}. This yields the conclusion of the proposition and finishes the proof.
+
+Finally, we note that \recordmath{w^\varepsilon} is uniformly bounded and equi-continuous with respect to \recordmath{\varepsilon}.
+Hence, we deduce from the Arzer\'a--Ascoli theorem that \recordmath{w^\varepsilon} locally uniformly converges to some function \recordmath{w} as \recordmath{\varepsilon\to 0}, which also ensures the strong convergence of \recordmath{w^\varepsilon} to \recordmath{w} in \recordmath{L^2(\Omega)}.
+Therefore, we can invoke Proposition~\ref{prop:gamma-convergence} to conclude that the limit function \recordmath{w} corresponds to the unique solution of the minimization problem \eqref{eq:minimization-with-g}. 
+\end{proof}
+
+\section{Convergence result}
+\label{sec:convergence}
+In this section, we shall give a proof of Theorem~\ref{thm:main}.
+The proof consists in verifying that the function operator \recordmath{S_h} defined in \eqref{eq:def-Sh} satisfies the criteria which has been presented in Proposition~\ref{prop:BS}.
+To this end, we prepare several lemmas, although some part of the proofs will be left to previous works \cite{EG24,EG25} in the case when the proof might become lengthy.
+From now on, we assume that the schemes \recordmath{T_h} and \recordmath{S_h} are constructed with the energy \recordmath{J_{\beta^h}(u)}, where smooth functions \recordmath{\beta^h} on \recordmath{\partial\Omega} satisfying \recordmath{\|\beta^h\|_{C^0(\partial\Omega)} \leq \|\beta\|_{C^0(\partial\Omega)}} uniformly converges to \recordmath{\beta} on \recordmath{\pOmega} as \recordmath{h\to 0}.
+
+\begin{lemma}[Monotonicity of \recordmath{T_h}]
+    \label{lem:Th_monotone}
+    The set operator \recordmath{T_h} is monotone; for every \recordmath{E\subset F\subset\closure{\Omega}}, it holds that \recordmath{T_h(E)\subset T_h(F)}.
+\end{lemma}
+\begin{proof}
+    Let \recordmath{w_E} be the unique solution of the variational problem \eqref{eq:mms}.
+    Then, we have \recordmath{\{w_E\leq 0\}}. Since \recordmath{E\subset F}, it is immediate that \recordmath{d_{\Omega,E}\geq d_{\Omega,F}} in \recordmath{\closure{\Omega}}.
+    We deduce from \cite[Lemma 3.1]{EG25} that \recordmath{w_E\geq w_F} in \recordmath{\closure{\Omega}} which concludes the proof.
+\end{proof}
+
+\begin{lemma}[Monotonicity of \recordmath{S_h}]
+    \label{lem:Sh_monotone}
+    The function operator \recordmath{S_h} is monotone; for every \recordmath{u,v\in C(\closure{\Omega})} satisfying \recordmath{u\leq v} in \recordmath{\closure{\Omega}},
+    it holds that \[\recorddisplay{S_hu\leq S_hv\qquad\mbox{in}\quad\closure{\Omega}.}\]
+\end{lemma}
+\begin{proof}
+    Take any \recordmath{u,v\in C(\closure{\Omega})} with \recordmath{u\leq v} in \recordmath{\closure{\Omega}}, and \recordmath{x\in\closure{\Omega}}.
+    Then, for every \recordmath{\lambda\in\R}, it immediately follows that \recordmath{\{u\geq \lambda\} \subset \{v\geq \lambda\}}.
+    Since \recordmath{T_h} is monotone by Lemma~\ref{lem:Th_monotone}, we obtain that \recordmath{T_h(\{u\geq \lambda\})\subset T_h(\{v\geq \lambda\})},
+    which concludes the proof.
+\end{proof}
+
+\begin{lemma}[Translation invariance of \recordmath{S_h}]
+    \label{lem:Sh_translation}
+    The function operator \recordmath{S_h} is translation invariant; for every \recordmath{u\in C(\closure{\Omega})} and \recordmath{c\in\R}, it holds that \[\recorddisplay{S_h(u + c) = S_hu + c\qquad\mbox{in}\quad\closure{\Omega}.}\]
+\end{lemma}
+\begin{proof}
+    This is straightforward from the definition of \recordmath{S_h}.
+\end{proof}
+
+\begin{lemma}[Continuity of \recordmath{T_h}]
+    \label{lem:Th_continuity} The set operator \recordmath{T_h} is continuous in the sense of Definition~\ref{defn:Th-continuous}.
+\end{lemma}
+\begin{proof}
+    Since \recordmath{T_h} is defined by \recordmath{E\mapsto T_h(E):=\{w_E\leq 0\}}, it is enough to confirm that for every \recordmath{E\subset\closure{\Omega}}, \recordmath{w_E} satisfies
+    all conditions in Proposition~\ref{prop:continuity-T}.
+    The monotonicity has been shown in \cite[Lemma 3.1]{EG25}.
+    Since \recordmath{\Omega} is bounded, there exists a constant \recordmath{M > 0} satisfying \recordmath{-M\leq d_{\Omega,E}\leq M} for all \recordmath{E\subset\closure{\Omega}}.
+    Since the constant functions \recordmath{w_\pm \equiv\pm M} are classical solutions to the discrete equation \eqref{eq:E-L} with \recordmath{g=\pm M}, the monotonicity property again yields \recordmath{-M\leq w_E\leq M}, and thus \recordmath{w_E} is uniformly bounded with respect to \recordmath{E}.
+
+    Finally, we shall check the equi-continuity of \recordmath{w_E} with respect to \recordmath{E}. We deduce from Proposition~\ref{prop:a-priori-estimate} that there exists a positive constant \recordmath{C} depending only on \recordmath{\Omega}, \recordmath{\kappa}, and \recordmath{\|\sgrad{\beta}\|_{C^1(\pOmega)}} (and the constant \recordmath{C_\Omega} from Proposition~\ref{prop:geodesic-uniform-bounded} which depends only on \recordmath{\Omega}) such that  \[\recorddisplay{\|\nabla w_E\|_{L^\infty(\Omega)}\leq C.}\]
+    Since the right-hand side of this inequality is independent of \recordmath{E}, we see that \recordmath{w_E} is uniformly Lipschitz continuous with respect to \recordmath{E}.
+\end{proof}
+
+% \fix{The following remark is no longer valid because the constant $C$ above will become dependent on $h>0$.}
+% \begin{remark}
+%     We note that $w_E$ depends on the choice of $h >0$, although we see that it is uniformly bounded and continuous with respect to $h\ll 1$ as well.
+%     This fact will be used in the proof of Theorem~\ref{thm:main}.
+% \end{remark}
+
+\begin{lemma}[Consistency of \recordmath{S_h}]
+    \label{lem:Sh_consistency-main}
+    For every \recordmath{\varphi\in C^2_F(\Omega)\cap C^2(\overline{\Omega})} and \recordmath{z\in\overline{\Omega}} satisfying either
+    \begin{itemize}
+        \item \recordmath{z\in\Omega} or
+        \item \recordmath{z\in\partial\Omega} and \recordmath{\left<\nabla\varphi(z),\nu_\Omega(z)\right> + \beta(z)|\nabla\varphi(z)| > 0\, (resp., < 0)},
+    \end{itemize}
+    it holds that
+    \begin{equation}
+        \label{eq:consistency-main}
+        \begin{aligned}
+        \relaxlimitSup\frac{S_h\varphi(z) - \varphi(z)}{h}  &\le - F_*(\nabla\varphi(z), \nabla^2\varphi(z))\\
+        resp.,\, \relaxlimitInf\frac{S_h\varphi(z) - \varphi(z)}{h}  &\ge - F^*(\nabla\varphi(z), \nabla^2\varphi(z)).
+        \end{aligned}
+    \end{equation}
+\end{lemma}
+\begin{proof}[Sketch of proof]
+    % The proof given in \cite[Theorem 4.3]{EG25} works as soon as the continuity of $T_h$ (Lemma~\ref{lem:Th_continuity}) is satisfied,
+    % and hence the relation between $S_h$ and $T_h$ is available presented in Proposition~\ref{prop:relation-TS}.
+We follow the consistency argument in \cite[Theorem 4.3]{EG25}.
+We recall the points needed for the present paper.
+
+First, by Lemma~\ref{lem:Th_continuity} and
+Proposition~\ref{prop:relation-TS}, we have
+\[\recorddisplay{
+    \{S_h\varphi\ge\lambda\}
+    =
+    T_h(\{\varphi\ge\lambda\})\qquad\forall\lambda\in\R.
+}\]
+Thus, the desired consistency inequalities are reduced to one-step
+inclusion estimates for
+\[\recorddisplay{
+    E^\varphi_\lambda:=\{\varphi\ge\lambda\}.
+}\]
+
+Second, near a regular level set of \recordmath{\varphi}, the argument of
+\cite[Proposition 4.2]{EG25} gives the one-sided local expansion
+\[\recorddisplay{
+    w^h_{E^\varphi_\lambda}
+    =
+    d_{\Omega,E^\varphi_\lambda}
+    -
+    h\kappa_{E^\varphi_\lambda}
+    +
+    o(h)\qquad\mbox{as}\quad h\to 0,
+}\]
+where \recordmath{\kappa_{E^\varphi_\lambda}} denotes the mean curvature of the smooth hyper surface \recordmath{\partial E^\varphi_\lambda}, say \recordmath{\kappa_{E^\varphi_\lambda} := \operatorname{div}(\nabla\phi(\nabla\varphi))},
+in the sense needed for the comparison argument. At boundary points on \recordmath{\pOmega},
+the sign condition
+\[\recorddisplay{
+    \langle\nabla\varphi(z),\nu_\Omega(z)\rangle
+    +\beta(z)|\nabla\varphi(z)|\gtrless 0
+}\]
+allows one to choose \recordmath{h>0} so small that
+\[\recorddisplay{
+    \langle\nabla\varphi(z),\nu_\Omega(z)\rangle
+    +\beta^h(z)|\nabla\varphi(z)|\gtrless 0,
+}\]
+and \recordmath{\underline{\beta}\leq \beta^h\leq \overline{\beta}} holds on \recordmath{\pOmega} for some \recordmath{-1 < \underline{\beta}\leq \overline{\beta}<1}.
+Thus, we can use the same translating-soliton barriers as in
+\cite{EG25} with \recordmath{\beta = \beta^h}. As in that proof, the test function may be modified outside
+a small neighborhood of \recordmath{z}, and the monotonicity of \recordmath{T_h} is used to
+compare the corresponding super-level sets.
+
+Third, inserting this one-step estimate into the relation between
+\recordmath{S_h} and \recordmath{T_h}, and expanding \recordmath{\varphi} at the points
+\recordmath{z_h\to z}, gives
+\[\recorddisplay{
+    \relaxlimitSup
+    \frac{S_h\varphi(z)-\varphi(z)}{h}
+    \le
+    -F_*(\nabla\varphi(z),\nabla^2\varphi(z)),
+}\]
+and similarly for the lower inequality. This is precisely the last part
+of the proof of \cite[Theorem 4.3]{EG25}.
+
+Finally, if \recordmath{\nabla\varphi(z)=0} and \recordmath{\nabla^2\varphi(z)=O}, the flat
+barrier argument of \cite[Theorem 4.3]{EG25} applies and yields both
+upper and lower limits, since \recordmath{F_*(0,O)=F^*(0,O)=0}.
+\end{proof}
+
+We are now in the position to prove our main result.
+
+\begin{proof}[\textbf{Proof of Theorem~\ref{thm:main}}]
+
+    We follow the strategy by Barles and Souganidis \cite[Theorem 2.1]{BS91}.
+    Since \recordmath{\overline{u}\geq \underline{u}} is trivial, we aim to show \recordmath{\overline{u}\leq \underline{u}} in \recordmath{\closure{\Omega}\times[0,T]}.
+    By the definition, it immediately follows that \recordmath{\overline{u}(\cdot,0) = u_0 = \underline{u}(\cdot,0)} in \recordmath{\closure{\Omega}}.
+    Thus, the comparison principle (Proposition~\ref{prop:comparison-principle}) implies \recordmath{\overline{u}\leq \underline{u}} in \recordmath{\closure{\Omega}\times[0,T]} once
+    \recordmath{\overline{u}} (resp., \recordmath{\underline{u}}) is shown to be a viscosity subsolution (resp., supersolution).
+
+    Hereafter, we only show the former case since the latter one can be proved by a symmetric argument.
+    Take any \recordmath{\varphi\in C^2_F(\closure{\Omega}\times[0,T])} and \recordmath{(\hat x, \hat t)\in\closure{\Omega}\times[0,T]}.
+    Assume that \recordmath{\overline{u} - \varphi} takes a local maximum at \recordmath{(\hat x,\hat t)}.
+    We need to show
+    \begin{equation}
+\recorddisplay{
+        \label{eq:convergence-goal}
+        \varphi_t(\hat x, \hat t) + F_*(\nabla\varphi(\hat x, \hat t), \nabla^2\varphi(\hat x,\hat t)) \leq 0.
+    }
+\end{equation}
+    Then, there exists sequences \recordmath{\{h_n\}_n} and \recordmath{\{(x_n,t_n)\}_n} such that
+    \begin{equation*}
+\recorddisplay{
+        h_n \downarrow 0,\quad (x_n,t_n)\to (\hat x,\hat t),\quad
+        u^{h_n}(x_n,t_n)\to \overline{u}(\hat x, \hat t)\qquad\mbox{as}\quad n\to\infty
+    }
+\end{equation*}
+    and \recordmath{u^{h_n} - \varphi} takes the global maximum at \recordmath{(x_n,t_n)}.
+    This is possible since \recordmath{u^h} is uniformly bounded with respect \recordmath{h > 0}, and we can modify \recordmath{\varphi} outside a ball \recordmath{B_\delta(\hat x,\hat t)}.
+
+    First, we treat the case when \recordmath{\nabla\varphi(\hat x,\hat t)\neq 0}, and assume that
+    either \recordmath{\hat x\in\Omega} or \recordmath{\hat x\in\pOmega} and \recordmath{\langle\nu_\Omega(\hat x),\nabla\varphi(\hat x,\hat t)\rangle + \beta(\hat x)|\nabla \varphi(\hat x,\hat t)| > 0} (otherwise, the conclusion is straightforward due to the definition of viscosity subsolutions).
+    Then, we have
+
+    \begin{equation}
+\recorddisplay{
+        \label{eq:convergence-1}
+    u^{h_n}(\cdot, t_n - h_n) - \varphi(\cdot, t_n-h_n) \leq u^{h_n}(x_n, t_n) - \varphi(x_n,t_n)\qquad\mbox{in}\quad \closure{\Omega}.
+    }
+\end{equation}
+    Let \recordmath{\xi_n} denote the right-hand side of the above equality.
+    We apply \recordmath{S_{h_n}} to both sides of \eqref{eq:convergence-1} and obtain that
+
+    \begin{equation}
+\recorddisplay{
+        \label{eq:convergence-2}
+        u^{h_n}(\cdot, t_n) \leq S_{h_n}\left[\varphi(\cdot, t_n - h_n)\right] + \xi_n\qquad\mbox{in}\quad \closure{\Omega}.
+    }
+\end{equation}
+    Here, we have invoked the monotonicity and translation invariance of \recordmath{S_{h_n}} (Lemma~\ref{lem:Sh_monotone} and Lemma~\ref{lem:Sh_translation} on noting that \recordmath{\xi_n} is constant).
+    Subtracting \recordmath{\varphi(x_n,t_n-h_n)} from both sides of \eqref{eq:convergence-2} and evaluating at \recordmath{x = \hat x},
+    we derive
+
+    \begin{equation*}
+\recorddisplay{
+        \varphi(x_n, t_n) - \varphi(x_n, t_n-h_n) \leq S_{h_n}\left[\varphi(\cdot,t_n-h_n)\right](x_n) - \varphi(x_n,t_n-h_n).
+    }
+\end{equation*}
+    We divide the above inequality by \recordmath{h_n} and send \recordmath{n\to\infty} to obtain
+    \begin{align*}
+    \recorddisplay{\varphi_t(\hat x,\hat t)
+} &\recorddisplay{= \lim_{n\to\infty}\frac{\varphi(x_n,t_n) - \varphi(x_n,t_n-h_n)}{h_n}
+}\\
+    &\recorddisplay{\leq \relaxlimitSup\left[\frac{S_h\varphi(\cdot,\hat t) - \varphi(\cdot,\hat t)}{h}\right](\hat x)\leq -F_*(\nabla\varphi(\hat x,\hat t), \nabla^2\varphi(\hat x,\hat t)).
+}
+    \end{align*}
+    Here, we have invoked the consistency property of \recordmath{S_{h_n}} (Lemma~\ref{lem:Sh_consistency-main}) to derive the last inequality,
+    and hence \eqref{eq:convergence-goal} follows.
+
+    In the case when \recordmath{\nabla\varphi(\hat x,\hat t) = 0}, we may assume that \recordmath{\nabla^2\varphi(\hat x,\hat t) = O} (see \eqref{eq:compatible-set}).
+    Since \recordmath{F_*(0,O) = 0} holds for our definition of \recordmath{F}, the previous argument works, and we see that \recordmath{\varphi_t(\hat x,\hat t) \leq 0}.
+
+    Therefore, we conclude that \recordmath{\overline{u}} is a viscosity subsolution of \eqref{eq:level-set-FB}.
+\end{proof}
+
+\begin{remark}
+We note that the limit of the modified Capillary Chambolle-type scheme is independent of the choice of a convergent sequence \recordmath{\beta^h \to \beta} in \recordmath{C^0(\pOmega)}.
+\end{remark}
+
+% \fix{Would you wish to write Acknowlegment? (I do not have anything to write.)} \textcolor{blue}{Neither do I. Thank you.}
+
+\section*{Acknowledgment} The authors appreciate Mr. Kei Matsushita at the University of Tokyo for his question which motivated further improvement of Section 3.
+
+\bibliographystyle{abbrv}
+\bibliography{Preprint}
+
+
+\end{document}
+
+

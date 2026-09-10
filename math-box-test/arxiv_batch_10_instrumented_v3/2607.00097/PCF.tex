@@ -1,0 +1,688 @@
+\hoffset=-2.8mm
+%\voffset=-2cm
+\documentclass[11pt, reqno]{amsart}
+\allowdisplaybreaks[3]
+
+\usepackage[indentafter]{titlesec}
+\usepackage{enumerate}
+%\usepackage{enumitem}
+\usepackage{mathrsfs}
+\usepackage{amsopn,amscd,amsmath,amssymb,amsthm,amsfonts,epsfig,graphics}
+\usepackage{pslatex,avant,color}
+\usepackage{cite}
+
+%% autorove definicije  - brisati
+\newcommand{\ran}{{\rm ran}}
+\newcommand{\hol}{{\rm hol}}
+\newcommand{\dom}{{\rm dom}}
+\newcommand{\mul}{{\rm mul}}
+
+%% kraj autorovih definicija   - brisati
+%% dodaje se poslije autorovih definicija    - brisati
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}{Lemma}[section]
+\newtheorem{cor}{Corollary}[section]
+%\newtheorem{cor}[thm]{cor}
+\newtheorem{propo}{Proposition}[section]
+%\newtheorem{prop}[thm]{propo}
+
+%\theoremstyle{definition}
+\newtheorem{defi}{Definition}[section]
+%\newtheorem{defi}[thm]{Definition}
+\newtheorem{exm}{Example}[section]
+%\newtheorem{exm}[thm]{exm}
+\newtheorem{problem}{Problem}[section]
+%\newtheorem{problem}[thm]{Problem}
+\newtheorem{conj}{Conjecture}[section]
+%\newtheorem{conj}[thm]{Conjecture}
+
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}[section]
+%\newtheorem{rem}[thm]{Remark}
+\newtheorem{note}{Note}[section]
+%\newtheorem{note}[thm]{Note}
+\newtheorem{case}{Case}[section]
+%\newtheorem{case}[thm]{Case}
+\newtheorem{prop}{Proposition}[section]
+
+
+\titleformat{name=\section}{}{\thetitle.}{0.8em}{\centering\scshape}
+\titleformat{name=\subsection}{}{\thetitle.}{0.5em}{\bfseries}[]
+
+%%%%%%%%%%%%%%% za brojeve strana u zaglavlju
+\newcounter{str}
+\newcommand{\strk}{\pageref{LastPage}}
+
+
+%%% stavlja se broj pocetne strane rada
+%\setcounter{str}{1}
+%\setcounter{page}{\thestr}
+%%%%%%%%%%%%%%%%%
+
+\numberwithin{equation}{section}
+\setlength{\textheight}{19cm}
+
+
+
+% mathBox automatic coordinate recorder
+\usepackage{zref-savepos}
+\usepackage{zref-abspage}
+\newsavebox{\mathboxrecordbox}
+\newwrite\mathcoords
+\immediate\openout\mathcoords=mathcoords.csv
+\immediate\write\mathcoords{id,page,x,y,width,height,depth}
+\newcounter{mathrecordid}
+\makeatletter
+\zref@addprop{savepos}{abspage}
+\newcommand{\recordmath}[1]{%
+  \ifmeasuring@ #1%
+  \else
+    \stepcounter{mathrecordid}%
+    \sbox{\mathboxrecordbox}{$#1$}%
+    \edef\mathrecordlabel{math-record-\themathrecordid}%
+    \leavevmode\zsavepos{\mathrecordlabel}%
+    \immediate\write\mathcoords{%
+      \themathrecordid,
+      \zref@extractdefault{\mathrecordlabel}{abspage}{0},
+      \zposx{\mathrecordlabel},\zposy{\mathrecordlabel},
+      \number\wd\mathboxrecordbox,\number\ht\mathboxrecordbox,
+      \number\dp\mathboxrecordbox}%
+    \usebox{\mathboxrecordbox}%
+  \fi}
+\makeatother
+\newcommand{\recorddisplay}[1]{\recordmath{\displaystyle #1}}
+\AtEndDocument{\immediate\closeout\mathcoords}
+% end mathBox automatic coordinate recorder
+
+\begin{document}
+
+\title[Construction of Pole Cancellation Functions]{Construction of Pole Cancellation Functions at Ordinary Poles of Operator-Valued Functions}
+\author{Muhamed Borogovac}
+
+\begin{abstract} 
+A pole of order $m \in \mathbb{N}$ at $\beta \in \mathbb{C}$ of a regular operator valued function $Q : \mathcal{D}(Q) \to \mathcal{L}(\mathcal{H})$ is investigated. We provide a characterization of pole cancellation functions $\boldsymbol{\psi}(z)$ of $Q(z)$ of order $k \le m$ at $\beta$ in terms of the coefficients of the Laurent expansion of $Q$. This characterization yields practical and explicit constructions of pole cancellation functions $\boldsymbol{\psi}(z)$. Moreover, it leads to an explicit formula for the associated functions $\boldsymbol{\hat{\varphi}}(z) := Q(z)\boldsymbol{\psi}(z)$, which are root functions of order $k$ at the zero $\beta$ of $Q^{-1}$. The results are illustrated by an example.
+\end{abstract}
+
+\subjclass[2020]{47A56, 30D30}
+\keywords{Operator-valued functions, Matrix-valued functions, Pole cancellation functions, Root functions, Generalized Jordan vectors.} 
+
+\maketitle
+\thispagestyle{empty}
+\section{Introduction}\label{s2}
+
+\textbf{1.1.}  Let \recordmath{\mathbb{N}}, \recordmath{\mathbb{R}}, and \recordmath{\mathbb{C}} denote the sets of positive integers, real numbers, and complex numbers, respectively. The extended complex plane is defined as \recordmath{\bar{\mathbb{C}} := \mathbb{C} \cup \{\infty\}}. Let \recordmath{\mathcal{H}} denote a Hilbert space, and let \recordmath{\mathcal{L}(\mathcal{H})} denote the Banach space of bounded linear operators on \recordmath{\mathcal{H}}. %In this paper, we frequently consider the case $\mathcal{H} = \mathbb{C}^{n}$.
+
+We assume that \recordmath{\mathcal{D}(Q) \subseteq \mathbb{C}} is a domain, and that \recordmath{Q : \mathcal{D}(Q) \to \mathcal{L}(\mathcal{H})} is a holomorphic operator-valued function on \recordmath{\mathcal{D}(Q)}, that is, the domain of \recordmath{Q} coincides with its domain of holomorphy. We study poles of such functions. Obviously, these functions may have other kinds of singularities outside their domains of meromorphy, such as generalized poles of generalized Nevanlinna-Herglotz functions; see, for example, \cite{Lu3}. For the study of generalized poles of generalized Nevanlinna-Herglotz
+functions, operator and integral representations of these functions are required, which are not available in the general case of operator-valued functions.
+
+If an operator-valued function \recordmath{Q(z)} is boundedly invertible at least at one point of holomorphy \recordmath{w \in \mathcal{D}(Q)}, then it is boundedly invertible on some domain in \recordmath{\mathbb{C}} and is called a \textit{regular} operator-valued function on that domain; see, e.g., \cite[p.~327]{Lu4}. If \recordmath{\mathcal{H} = \mathbb{C}^{n}}, then we deal with matrix-valued functions. Evidently, a matrix-valued function is regular if and only if \recordmath{\chi(z) := \det Q(z) \not\equiv 0}.
+
+Recall that an isolated singularity \recordmath{\beta \in \mathbb{C}} is called a \textit{pole of order} \recordmath{m \in \mathbb{N}} of the operator-valued function \recordmath{Q(z)} if \recordmath{m} is the minimal number such that the function \recordmath{\tilde{Q}(z) := (z-\beta)^{m} Q(z)} is holomorphic at \recordmath{\beta}. Then \recordmath{Q(z)} admits a Laurent expansion
+\[\recorddisplay{
+Q(z) = \sum_{j = -m}^{\infty} Q_{j} (z- \beta)^{j},
+}\]
+in some neighborhood of \recordmath{\beta} excluding \recordmath{\beta}, where each coefficient \recordmath{Q_j} is a bounded linear operator, that is, it belongs to \recordmath{\mathcal{L}(\mathcal{H})}. Explicitly,
+\begin{equation}
+\recorddisplay{
+\label{eq22}
+Q(z) = \frac{Q_{-m}}{(z- \beta)^{m}} + \cdots + \frac{Q_{-1}}{(z- \beta)} + Q_{0} + Q_{1}(z- \beta) + Q_{2}(z- \beta)^{2} + \cdots ,
+}
+\end{equation}
+where the fractional part is called the \textit{principal part of the Laurent expansion}, \recordmath{Q_{-m}} is called the \textit{leading principal coefficient}, and \recordmath{Q_{-1}} is called the \textit{residue operator}. The coefficients of the expansion \eqref{eq22} are easily derived using the Taylor expansion of the following function, which is holomorphic at \recordmath{\beta}:
+\[\recorddisplay{
+\tilde{Q}(z) := (z- \beta)^{m} Q(z) = \sum_{j = -m}^{\infty} Q_{j} (z- \beta)^{m+j}.
+}\]
+After the substitution \recordmath{i = m + j}, we obtain
+\begin{equation}
+\recorddisplay{
+\label{eq24}
+\tilde{Q}(z) = \sum_{i = 0}^{\infty} Q_{-m+i} (z- \beta)^{i}.
+}
+\end{equation}
+The Taylor expansion of \recordmath{\tilde{Q}} around \recordmath{\beta} is
+\begin{equation}
+\recorddisplay{
+\label{eq26}
+\tilde{Q}(z) = \sum_{i = 0}^{\infty} \frac{1}{i!} \tilde{Q}^{(i)}(\beta) (z- \beta)^{i}
+}
+\end{equation}
+\[\recorddisplay{
+= \sum_{i = 0}^{\infty} \frac{1}{i!} \left[(z- \beta)^{m} Q(z)\right]^{(i)}(\beta) (z- \beta)^{i}.
+}\]
+From \eqref{eq24} and \eqref{eq26}, we obtain
+\begin{equation}
+\recorddisplay{
+\label{eq28}
+Q_{-m+i} = \frac{1}{i!} \tilde{Q}^{(i)}(\beta)
+= \frac{1}{i!} \left[(z- \beta)^{m} Q(z)\right]^{(i)}(\beta),
+\quad i = 0, 1, 2, \ldots .
+}
+\end{equation}
+
+\textbf{1.2.} Unlike scalar functions, for which all zeros and poles are characterized solely by their orders, operator-valued functions exhibit a more intricate structure: zeros are characterized by finite-dimensional spaces of vector functions, called root functions, whereas poles are characterized by finite-dimensional spaces of pole cancellation functions. For this purpose, we use the following definitions of a root function and related concepts, which are consistent with the corresponding definitions in \cite{GS, B1, BLu, GT}.
+
+\begin{defi}\label{definition22}
+Let \recordmath{Q : \mathcal{D}(Q) \rightarrow \mathcal{L}(\mathcal{H})} be an operator-valued function holomorphic on \recordmath{\mathcal{D}(Q)}. Suppose that the vector function \recordmath{\boldsymbol{\varphi}(z)} satisfies the following conditions at some point \recordmath{\alpha \in \mathbb{C}}:
+\begin{enumerate}[(a)]
+\item \recordmath{\boldsymbol{\varphi}(\alpha) \ne 0};
+\item \recordmath{(Q(z)\boldsymbol{\varphi}(z))^{(l)} \to 0} as \recordmath{z \to \alpha}, for \recordmath{0 \le l \le m-1}, where \recordmath{l, m-1 \in \mathbb{N} \cup \{0\}}.
+\end{enumerate}
+Then \recordmath{\boldsymbol{\varphi}(z)} is called a \textit{root function} of \recordmath{Q(z)} of order at least \recordmath{m} at the critical point (or zero) \recordmath{\alpha}. If \recordmath{m} is the maximal number for which condition~(b) holds, then \recordmath{\boldsymbol{\varphi}(z)} is said to be a root function of \textit{exact order} (or \textit{exact partial multiplicity}) \recordmath{m} at \recordmath{\alpha}.
+
+The vector \recordmath{\boldsymbol{\varphi}(\alpha)} is called an \textit{eigenvector corresponding to the eigenvalue} \recordmath{\alpha}. If \recordmath{\boldsymbol{\varphi}(z)} is a root function of maximal order \recordmath{m} among all root functions with the same eigenvector \recordmath{\boldsymbol{\varphi}(\alpha)}, then \recordmath{\boldsymbol{\varphi}(z)} is called a \textit{canonical root function} associated with \recordmath{\boldsymbol{\varphi}(\alpha)}. The sum of the orders of all linearly independent canonical root functions at \recordmath{\alpha} is called the (total) multiplicity of the zero at \recordmath{\alpha}.
+
+The maximal order among all canonical root functions at \recordmath{\alpha} is called the \textit{order of the zero} at \recordmath{\alpha}.
+\end{defi}
+
+Pole cancellation functions are closely related to root functions. They were introduced and extensively studied in the investigation of an important subclass of operator-valued functions, namely generalized Nevanlinna functions; see, for example, \cite{DLS, BLu}.
+\begin{defi}\label{definition24}
+Let \recordmath{Q : \mathcal{D}(Q) \rightarrow \mathcal{L}(\mathcal{H})} be an operator-valued function holomorphic on \recordmath{\mathcal{D}(Q)}. Suppose that the vector functions \recordmath{\boldsymbol{\hat{\varphi}}(z)} and \recordmath{\boldsymbol{\psi}(z)} satisfy the following conditions at a pole \recordmath{\beta \in \mathbb{C}} of \recordmath{Q}:
+\begin{enumerate}[(a)]
+\item \recordmath{\boldsymbol{\hat{\varphi}}(z) := Q(z)\boldsymbol{\psi}(z) \to c := \boldsymbol{\hat{\varphi}}(\beta) \ne 0}, \recordmath{c \ne \infty}, as \recordmath{z \to \beta};
+\item \recordmath{\boldsymbol{\psi}^{(l)}(z) \to 0} as \recordmath{z \to \beta}, for \recordmath{0 \le l \le m-1}, where \recordmath{l, m-1 \in \mathbb{N} \cup \{0\}}.
+\end{enumerate}
+The functions \recordmath{\boldsymbol{\hat{\varphi}}(z)} and \recordmath{\boldsymbol{\psi}(z)} are called a \textit{pole function} and a \textit{pole cancellation function}, respectively, of \recordmath{Q(z)} at \recordmath{\beta} of order at least \recordmath{m}. If \recordmath{m} is the maximal number for which condition~(b) holds for a given vector \recordmath{\boldsymbol{\hat{\varphi}}(\beta)}, then \recordmath{\boldsymbol{\hat{\varphi}}(z)} and \recordmath{\boldsymbol{\psi}(z)} are called the \textit{pole function} and the \textit{pole cancellation function}, respectively, of \recordmath{Q(z)} at \recordmath{\beta} of \textit{exact order} \recordmath{m}.
+
+If \recordmath{\boldsymbol{\psi}(z)} is a pole cancellation function of maximal order \recordmath{m} among all pole cancellation functions associated with the same limit \recordmath{\boldsymbol{\hat{\varphi}}(\beta)}, then \recordmath{\boldsymbol{\psi}(z)} is called the \textit{canonical pole cancellation function} associated with the vector \recordmath{\boldsymbol{\hat{\varphi}}(\beta)}. The sum of the orders of all linearly independent canonical pole cancellation functions at \recordmath{\beta} is called the (total) multiplicity of the pole at \recordmath{\beta}.
+
+The maximal order among all canonical pole cancellation functions at \recordmath{\beta} coincides with the \textit{order of the pole} at \recordmath{\beta}.
+\end{defi}
+
+By definition, \recordmath{\beta = \infty} \textit{is a pole} (respectively, a \textit{zero}) of \recordmath{Q} if and only if \recordmath{0} is a pole (respectively, a zero) of \recordmath{G(\zeta) := Q(1/\zeta)}. Hence, all of the preceding definitions and considerations extend naturally to the pole \recordmath{\beta = \infty} of \recordmath{Q} via the function \recordmath{G(\zeta)} at \recordmath{\zeta = 0}.
+
+If an operator-valued function \recordmath{Q(z)} is boundedly invertible on some domain, that is, regular, and if \recordmath{\boldsymbol{\psi}(z)} is a pole cancellation function of \recordmath{Q} at the pole \recordmath{\beta} of order \recordmath{k}, then
+\begin{equation}
+\recorddisplay{
+\label{eq210}
+\boldsymbol{\hat{\varphi}}(z) := Q(z)\boldsymbol{\psi}(z)
+}
+\end{equation}
+is a root function of \recordmath{\hat{Q}(z) := Q(z)^{-1}} at the zero \recordmath{\beta} of the same order \recordmath{k}. In this way, all of the above definitions for a pole \recordmath{\beta} of \recordmath{Q} can be applied to a zero \recordmath{\beta} of \recordmath{Q^{-1}}.
+
+Therefore, if \recordmath{Q(z)} is a regular operator-valued function, there is a one-to-one correspondence between root functions \recordmath{\boldsymbol{\hat{\varphi}}(z)} of \recordmath{Q^{-1}(z)} and pole cancellation functions \recordmath{\boldsymbol{\psi}(z)} of \recordmath{Q(z)} at \recordmath{\beta}.
+
+Recall that pole cancellation functions were studied in a subclass of operator-valued functions, namely the generalized Nevanlinna class; see, for example, \cite{Lu3}. Since generalized Nevanlinna functions admit integral and operator representations, such representations have been employed in the construction of root and pole cancellation functions. In particular, pole cancellation functions have been characterized in terms of the Jordan vectors of the representing operators or relations of those generalized Nevanlinna functions. Subsequently, root and pole cancellation functions were used in the study of generalized zeros and poles of generalized Nevanlinna functions; see \cite{BLu}.
+
+In this paper, we deal with the general class of operator-valued functions. Therefore, we cannot use operator or integral representations and must rely on other methods. Instead, we use Laurent and Taylor expansions.
+
+Assume that \recordmath{\beta \in \mathbb{C}} is an ordinary pole of a regular operator-valued function \recordmath{Q}. Then \recordmath{Q} admits the Laurent expansion \eqref{eq22} at \recordmath{\beta}. The following question naturally arises: how can one find a canonical system of pole cancellation functions of \recordmath{Q} and the corresponding root functions at the zero \recordmath{\beta} of \recordmath{Q^{-1}} in terms of the operators appearing in the Laurent expansion \eqref{eq22}? In other words, for \recordmath{k \le m}, we seek to construct a pole cancellation function of order \recordmath{k} and the corresponding root function of \recordmath{Q^{-1}}, provided that these functions of the given order \recordmath{k} exist. To this end, we first establish a characterization of pole cancellation functions of \recordmath{Q} at a pole \recordmath{\beta}; see Theorem~\ref{theorem42}, Corollary~\ref{corollary44}, and Proposition~\ref{proposition46}.
+
+This type of material, which enables concrete applications, is best understood through examples. For this reason, we conclude by illustrating the theoretical results with an explicit example.
+\section{Construction of pole cancellation functions}\label{s4} 
+\begin{thm}\label{theorem42}
+Let \recordmath{Q : \mathcal{D}(Q) \rightarrow \mathcal{L}(\mathcal{H})} be an operator-valued function holomorphic on \recordmath{\mathcal{D}(Q)}, and let \recordmath{\beta \in \mathbb{C}} be a pole of \recordmath{Q(z)} of order \recordmath{m \in \mathbb{N}}.
+
+If a function \recordmath{\boldsymbol{\psi}(z)} is a pole cancellation function of \recordmath{Q(z)} at \recordmath{\beta} of order \recordmath{k \in \mathbb{N}}, \recordmath{k < m}, written in the form 
+\begin{equation}
+\recorddisplay{\label{eq42}
+\boldsymbol{\psi}(z) = \sum_{i=k}^{m+k-1} (z - \beta)^{i} \boldsymbol{\psi}_{i} +  O(z - \beta)^{m+k}, \quad \boldsymbol{\psi}_{k}\neq 0, 
+}
+\end{equation}
+then it satisfies the conditions
+\begin{equation}
+\recorddisplay{\label{eq44}
+\sum_{i=k}^{m-s} Q_{-s-i} \boldsymbol{\psi}_{i} = 0, \quad s = m-k, m-k-1, \dots, 1,
+}
+\end{equation}
+\begin{equation}
+\recorddisplay{\label{eq46}
+\sum_{i=k}^{m} Q_{-i} \boldsymbol{\psi}_{i} \neq 0.
+}
+\end{equation}
+
+Recall that \recordmath{O(z - \beta)^{t} \in \mathcal{H}}, \recordmath{t>0}, denotes a function satisfying, for some \recordmath{M>0},
+\[\recorddisplay{
+|O(z - \beta)^{t}| \leq M |z - \beta|^{t} \quad \text{as} \quad z \to \beta.
+}\]
+
+Conversely, if the function \recordmath{\boldsymbol{\psi}(z)} given by \eqref{eq42} satisfies conditions \eqref{eq44} and \eqref{eq46}, then \recordmath{\boldsymbol{\psi}(z)} is a pole cancellation function of \recordmath{Q(z)} at \recordmath{\beta} of order \recordmath{l, k\le l \le m}.
+\end{thm}
+
+\begin{proof}
+Assume that \recordmath{\beta \in \mathcal{D}(Q)} is a pole of \recordmath{Q(z)} of order \recordmath{m \in \mathbb{N}}, and that \recordmath{\boldsymbol{\psi}(z)} given by \eqref{eq42} is a pole cancellation function of \recordmath{Q} at \recordmath{\beta} of order \recordmath{k < m}. According to \eqref{eq22} and \eqref{eq42}, in some neighborhood of \recordmath{\beta} excluding \recordmath{\beta}, we have
+\[\recorddisplay{
+\boldsymbol{\hat{\varphi}}(z) := Q(z) \boldsymbol{\psi}(z) =
+}\]
+\[\recorddisplay{
+= \left( \sum_{j=1}^{m} \frac{Q_{-j}}{(z-\beta)^j} + Q_{0}(z) \right) 
+\left( \sum_{i=k}^{m+k-1} (z - \beta)^{i} \boldsymbol{\psi}_{i} + O(z - \beta)^{m+k} \right) =
+}\]
+\[\recorddisplay{
+= \sum_{j=1}^{m} \sum_{i=k}^{m+k-1} \frac{Q_{-j} \boldsymbol{\psi}_{i}}{(z-\beta)^{j-i}} + O(z - \beta)^{k}.
+}\]
+
+After the substitution \recordmath{n = i - j}, we obtain
+\[\recorddisplay{
+\boldsymbol{\hat{\varphi}}(z) = \sum_{n=-m+k}^{-1} \left( \sum_{i=k}^{n+m} Q_{n-i} \boldsymbol{\psi}_{i} \right) (z - \beta)^{n} 
++ \sum_{n=0}^{k-1} \left( \sum_{i=k}^{n+m} Q_{n-i} \boldsymbol{\psi}_{i} \right) (z - \beta)^{n} + O(z - \beta)^{k}.
+}\]
+
+After the substitution \recordmath{s = -n} in the first sum, we have
+\begin{equation}
+\recorddisplay{\label{eq48}
+\boldsymbol{\hat{\varphi}}(z) = \sum_{s=m-k}^{1} \left( \sum_{i=k}^{m-s} Q_{-s-i} \boldsymbol{\psi}_{i} \right) \frac{1}{(z - \beta)^{s}}
++ \sum_{n=0}^{k-1} \left( \sum_{i=k}^{n+m} Q_{n-i} \boldsymbol{\psi}_{i} \right) (z - \beta)^{n} + O(z - \beta)^{k}.
+}
+\end{equation}
+
+Since \recordmath{\boldsymbol{\psi}(z)} is a pole cancellation function by assumption, \recordmath{\boldsymbol{\hat{\varphi}}(z)} is holomorphic in a neighborhood of \recordmath{\beta} with \recordmath{\boldsymbol{\hat{\varphi}}(\beta) \neq 0}. Therefore,
+\begin{equation}
+\recorddisplay{\label{eq410}
+\boldsymbol{\hat{\varphi}}(z) = \boldsymbol{\hat{\varphi}}(\beta) + (z-\beta)\boldsymbol{\hat{\varphi}}'(\beta) + \cdots + \frac{1}{(k-1)!}(z-\beta)^{k-1} \boldsymbol{\hat{\varphi}}^{(k-1)}(\beta) + O(z-\beta)^{k}.
+}
+\end{equation}
+
+Comparing \eqref{eq48} with \eqref{eq410} implies that the fractional part of \eqref{eq48} must vanish, and the constant term \recordmath{\boldsymbol{\hat{\varphi}}(\beta) \neq 0}. Hence, for \recordmath{k < m}, the conditions \eqref{eq44} and \eqref{eq46} must hold. 
+
+Conversely, assume that the function \recordmath{\boldsymbol{\psi}(z)} given by \eqref{eq42} satisfies condition \eqref{eq44}. Then the right-hand side of \eqref{eq48} is holomorphic in a neighborhood of \recordmath{\beta}. By definition, the function \recordmath{\boldsymbol{\psi}(z)} is therefore a pole cancellation function of \recordmath{Q} at \recordmath{\beta}.
+
+Moreover, by assumption, the function \recordmath{\boldsymbol{\psi}(z)} satisfies condition \eqref{eq46}. Hence, 
+\[\recorddisplay{
+\boldsymbol{\hat{\varphi}}(\beta) = \sum_{i=k}^{m} Q_{-i} \boldsymbol{\psi}_{i} \neq 0.
+}\]
+This means that for at least one \recordmath{l}, such that \recordmath{k \le l \le m}, the vector \recordmath{\boldsymbol{\psi}_{l} \neq 0 }. By definition, the function \recordmath{\boldsymbol{\psi}(z)} given by (\ref{eq42}) is of order \recordmath{l}.  
+
+This completes the proof of the theorem.
+\end{proof} 
+
+\begin{cor}\label{corollary44} Let \recordmath{Q : \mathcal{D}(Q) \rightarrow \mathcal{L}(\mathcal{H})} be an operator-valued function holomorphic on \recordmath{\mathcal{D}(Q)}, and let \recordmath{\beta \in \mathbb{C}} be a pole of \recordmath{Q(z)} of order \recordmath{m \in \mathbb{N}}.
+
+The function \recordmath{\boldsymbol{\psi}(z)} given by \eqref{eq42} is a pole cancellation function of \recordmath{Q(z)} at \recordmath{\beta} of order \recordmath{k = m}
+if and only if it satisfies
+\begin{equation}
+\recorddisplay{\label{eq412}
+Q_{-m} \boldsymbol{\psi}_{m} \neq 0.
+}
+\end{equation}
+\end{cor}
+
+\begin{proof}
+If \recordmath{k = m}, then the fractional part of the product \recordmath{\boldsymbol{\hat{\varphi}}(z) := Q(z)\boldsymbol{\psi}(z)} does not exist. Therefore, the first sum in \eqref{eq48} does not appear, i.e., condition \eqref{eq44} is not applicable. Clearly, condition \eqref{eq46} reduces to \eqref{eq412}.
+\end{proof}
+
+\begin{propo}\label{proposition46}
+Let \recordmath{Q: \mathcal{D}(Q) \rightarrow \mathcal{L}(\mathcal{H})} be an regular operator-valued function holomorphic on \recordmath{\mathcal{D}(Q)}, and let \recordmath{\beta \in \mathbb{C}} be a pole of \recordmath{Q(z)} of order \recordmath{m \in \mathbb{N}}. Let the function \recordmath{\boldsymbol{\psi}(z)} be a pole cancellation function of 
+\recordmath{Q(z)} at \recordmath{\beta} of order \recordmath{k \in \mathbb{N}, k\le m}, given in the form 
+(\ref{eq42}). Then the corresponding root function of \recordmath{Q^{-1}(z)} at the zero \recordmath{\beta} is given by 
+\begin{equation}
+\recorddisplay{\label{eq414} 
+\boldsymbol{\hat{\varphi}}(z)=\boldsymbol{\hat{\varphi}}_{0}+(z-\beta)\boldsymbol{\hat{\varphi}}_{1}+...+(z-\beta)^{k-1}\boldsymbol{\hat{\varphi}}_{k-1}+O(z-\beta)^{k},
+}
+\end{equation}
+where the vectors
+\[\recorddisplay{
+\boldsymbol{\hat{\varphi}}_{0},\boldsymbol{\hat{\varphi}}_{1},...,\boldsymbol{\hat{\varphi}}_{k-1},
+}\]
+are given by
+\begin{equation}
+\recorddisplay{\label{eq416} 
+\boldsymbol{\hat{\varphi}}_{n}= \sum_{i=k}^{n+m}Q_{n-i}\psi_{i}, \quad n=0, 1,...,k-1.
+}
+\end{equation}
+\end{propo}
+\begin{proof} By assumption, the function \recordmath{\boldsymbol{\psi}(z)} is a pole cancellation function. Therefore, the first sum in \eqref{eq48} vanishes. The statement then follows directly from the second sum in \eqref{eq48}.
+\end{proof} 
+
+The coefficients \recordmath{\boldsymbol{\hat{\varphi}}_{0}, \boldsymbol{\hat{\varphi}}_{1}, \ldots, \boldsymbol{\hat{\varphi}}_{k-1}} of the root function (\ref{eq414}) will be called \textit{generalized Jordan vectors}. Recall that, in the special case where the operator-valued function \recordmath{Q(z)} is a matrix polynomial, the corresponding vectors are called generalized eigenvectors or Jordan vectors; see \cite[p. 24]{GLR}, \cite{B5}.
+
+\begin{rem}\label{remark48}
+If the function \recordmath{\boldsymbol{\psi}(z)} is a pole cancellation function of \recordmath{Q(z)} at \recordmath{\beta} of order \recordmath{k \in \mathbb{N}}, \recordmath{k < m}, then the coefficients \recordmath{\boldsymbol{\psi}_{k}, \ldots, \boldsymbol{\psi}_{m}} must satisfy conditions (\ref{eq44}) and (\ref{eq46}). These conditions will therefore be used to determine the coefficients \recordmath{\boldsymbol{\psi}_{k}, \ldots, \boldsymbol{\psi}_{m}}. Subsequently, formula \eqref{eq416} will be applied to obtain the generalized Jordan vectors of the corresponding root function \recordmath{\boldsymbol{\hat{\varphi}}(z)}.
+
+According to the converse part of Theorem \ref{theorem42}, solving equations (\ref{eq44}) and (\ref{eq46}) does not guarantee that a pole cancellation function of exact order \recordmath{k} is obtained. Only if one can select a solution satisfying \recordmath{\boldsymbol{\psi}_{k} \neq 0} does one obtain a pole cancellation function of exact order \recordmath{k}.
+
+In the case \recordmath{k = m}, condition \eqref{eq412} will be used to determine \recordmath{\boldsymbol{\psi}_{m}\neq 0}.
+\end{rem}
+
+The following example illustrates the above theoretical considerations.
+\begin{exm}
+\label{example414}
+Find a canonical set of pole cancellation functions at the pole \recordmath{\beta = 1} of the matrix-valued function
+\[
+Q(z)=\left( {\begin{array}{*{20}c}
+\frac{1}{(z-1)^{2}} &  1 & z+1\\
+1 &  z^{2} & z\\
+z+1 &  z & \frac{1}{z-1}\\
+\end{array} } \right).
+\]
+Also find the corresponding set of generalized Jordan vectors at the zero \recordmath{\beta = 1} of \recordmath{Q^{-1}}.
+\end{exm}
+
+Observe that the pole cancellation function \recordmath{\boldsymbol{\psi}(z)} cannot be of order \recordmath{k > m}, since in that case condition (a) in Definition \ref{definition24} would not be satisfied. This is why, in conditions (\ref{eq44}), (\ref{eq46}), (\ref{eq412}), and formula (\ref{eq416}), only the coefficients of the principal part of the Laurent expansion of \recordmath{Q(z)} around the pole \recordmath{\beta = 1} are used.
+
+We determine the coefficients of the Laurent expansion by first finding the Taylor expansion (\ref{eq26}) of the function
+\[
+\tilde{Q}(z):=(z-1)^{2}Q(z)=\left( {\begin{array}{*{20}c}
+1 & (z-1)^{2} & (z-1)^{2}(z+1)\\
+(z-1)^{2} &  (z-1)^{2}z^{2} & (z-1)^{2}z\\
+(z-1)^{2}(z+1) &  (z-1)^{2}z & (z-1)\\
+\end{array} } \right)
+\]
+and then using the identity
+\begin{equation}
+\recorddisplay{\label{eq418}
+Q(z)=\frac{1}{(z-1)^{2}}\tilde{Q}(z),
+}
+\end{equation}
+as explained in the Introduction. In this particular case, the first equation of identity (\ref{eq28}) takes the form
+\begin{equation}
+\recorddisplay{\label{eq420}
+Q_{j}=\frac{1}{(j+2)!}\tilde{Q}^{(j+2)}(1), \quad j=-2,-1,0,1,2.
+}
+\end{equation}
+The principal part has only two coefficients, namely \recordmath{Q_{j}} for \recordmath{j=-2,-1}. Therefore, we need only  \recordmath{\tilde{Q}(1)} and \recordmath{\tilde{Q}^{(1)}(1)}.
+\[
+\tilde{Q}^{(1)}(z)=\left( {\begin{array}{*{20}c}
+0 & 2(z-1) & (z-1)(3z+1)\\
+2(z-1) &  2z(z-1)(2z-1) & (z-1)(3z-1)\\
+(z-1)(3z+1) &  (z-1)(3z-1) & 1\\
+\end{array} } \right).
+\]
+According (\ref{eq420}), we have
+\[
+Q_{-2}=\left( {\begin{array}{*{20}c}
+1 & 0 & 0\\
+0 &  0 & 0\\
+0 &  0 & 0\\
+\end{array} } \right), \quad
+Q_{-1}=\left( {\begin{array}{*{20}c}
+0 & 0 & 0\\
+0 &  0 & 0\\
+0 &  0 & 1\\
+\end{array} } \right).
+\]
+Let us first find a pole cancellation function of order \recordmath{k = 1}. Since \recordmath{m = 2}, condition (\ref{eq44}) yields \recordmath{s = m - k = 1}. Therefore, the sum in (\ref{eq44}) reduces to
+\begin{equation}\label{eq422}
+Q_{-2}\boldsymbol{\psi}_{1}=0 \Leftrightarrow \left( {\begin{array}{*{20}c}
+1 & 0 & 0\\
+0 &  0 & 0\\
+0 &  0 &0\\
+\end{array} } \right)\left( {\begin{array}{*{20}c}
+\psi_{1}^{1} \\
+\psi_{2}^{1} \\
+\psi_{3}^{1}\\
+\end{array} } \right)=\left( {\begin{array}{*{20}c}
+0 \\
+0 \\
+0\\
+\end{array} } \right). 
+\end{equation}
+\[
+\Rightarrow\boldsymbol{\psi}_{1}=\left( {\begin{array}{*{20}c}
+0 \\
+\psi_{2}^{1} \\
+\psi_{3}^{1}\\
+\end{array} } \right), \quad \psi_{2}^{1}, \psi_{3}^{1} \in \mathbb{C}.
+\]
+Conditions (\ref{eq46}) yields
+\[
+Q_{-1}\boldsymbol{\psi}_{1}+ Q_{-2}\boldsymbol{\psi}_{2}= \left( {\begin{array}{*{20}c}
+0 & 0 & 0\\
+0 &  0 & 0\\
+0 &  0 & 1\\
+\end{array} } \right)\left( {\begin{array}{*{20}c}
+0 \\
+\psi_{2}^{1} \\
+\psi_{3}^{1}\\
+\end{array} } \right)+\left( {\begin{array}{*{20}c}
+1 & 0 & 0\\
+0 &  0 & 0\\
+0 &  0 & 0\\
+\end{array} } \right)\left( {\begin{array}{*{20}c}
+\psi_{1}^{2} \\
+\psi_{2}^{2} \\
+\psi_{3}^{2}\\
+\end{array} } \right) \neq 0.
+\]
+This condition is satisfied whenever 
+\begin{equation}\label{eq424}
+\left( {\begin{array}{*{20}c}
+\psi_{1}^{2} \\
+0 \\
+\psi_{3}^{1}\\
+\end{array} } \right) \neq 0.
+\end{equation}
+Therefore, a pole cancellation function of order \recordmath{k=1} or \recordmath{k=2} is given by
+\[
+\boldsymbol{\psi}(z)=\left( {\begin{array}{*{20}c}
+0 \\
+\psi_{2}^{1} \\
+\psi_{3}^{1}\\
+\end{array} } \right)(z-1)+\left( {\begin{array}{*{20}c}
+\psi_{1}^{2} \\
+\psi_{2}^{2} \\
+\psi_{3}^{2}\\
+\end{array} } \right) (z-1)^{2}+O(z-1)^{3},
+\]
+provided that the condition (\ref{eq424}) is satisfied. 
+
+Evidently, if 
+\[\recorddisplay{
+\psi_{3}^{1} \neq 0 \vee \left( \psi_{2}^{1} \neq 0 \wedge \psi_{1}^{2} \neq 0\right) 
+}\]
+the function \recordmath{\boldsymbol{\psi}(z)} is a pole cancellation function of first order.
+
+It remains to determine the corresponding root function \recordmath{\boldsymbol{\hat{\varphi}}(z)} at the zero \recordmath{\beta=1} of \recordmath{Q^{-1}(z)}. This root function must be of first order and therefore consists only of the eigenvector \recordmath{\boldsymbol{\hat{\varphi}}_{0}}, which is computed from (\ref{eq416}) for \recordmath{m=2}, \recordmath{k=1}, and \recordmath{n=0}. Hence,
+\[\recorddisplay{
+\boldsymbol{\hat{\varphi}}(z)=\boldsymbol{\hat{\varphi}}_{0}=Q_{-1}\boldsymbol{\psi}_{1}+Q_{-2}\boldsymbol{\psi}_{2}=
+}\] 
+\[
+=\left( {\begin{array}{*{20}c}
+0 & 0 & 0\\
+0 &  0 & 0\\
+0 &  0 & 1\\
+\end{array} } \right)\left( {\begin{array}{*{20}c}
+0 \\
+\psi_{2}^{1} \\
+\psi_{3}^{1}\\
+\end{array} } \right)+\left( {\begin{array}{*{20}c}
+1 & 0 & 0\\
+0 &  0 & 0\\
+0 &  0 & 0\\
+\end{array} } \right)\left( {\begin{array}{*{20}c}
+\psi_{1}^{2} \\
+\psi_{2}^{2} \\
+\psi_{3}^{2}\\
+\end{array} } \right)=\left( {\begin{array}{*{20}c}
+\psi_{1}^{2} \\
+0 \\
+\psi_{3}^{1}\\
+\end{array} } \right),
+\]
+provided that conditions (\ref{eq424}) is satisfied.
+
+Since the task is to find a canonical set of pole cancellation functions of \recordmath{Q} at \recordmath{\beta} and the corresponding root functions of \recordmath{Q^{-1}}, we now determine these functions for \recordmath{k=m=2}. According to (\ref{eq42}), we have
+\begin{equation}
+\recorddisplay{\label{eq426}
+\boldsymbol{\psi}(z) =(z - 1)^{2} \boldsymbol{\psi}_{2} + (z - 1)^{3} \boldsymbol{\psi}_{3}+ O(z - 1)^{4}, \quad \boldsymbol{\psi}_{2}\neq 0.
+}
+\end{equation}
+
+Since \recordmath{k=m}, according to Corollary \ref{corollary44}, conditions (\ref{eq44}) and (\ref{eq46}) reduce to condition (\ref{eq412}) alone,
+\[\recorddisplay{
+Q_{-2}\boldsymbol{\psi}_{2}\neq 0.
+}\]
+\[
+\Rightarrow \left( {\begin{array}{*{20}c}
+1 & 0 & 0\\
+0 &  0 & 0\\
+0 &  0 & 0\\
+\end{array} } \right)\left( {\begin{array}{*{20}c}
+\psi_{1}^{2} \\
+\psi_{2}^{2}\\
+\psi_{3}^{2}\\
+\end{array} } \right) \neq 0.\Rightarrow \psi_{1}^{2} \neq 0.
+\]
+According to Corollary \ref{corollary44}, every function of the form (\ref{eq426}) with \recordmath{\psi_{1}^{2} \neq 0}, and with the vector \recordmath{\boldsymbol{\psi}_{3}} chosen arbitrarily, is a pole cancellation function of order \recordmath{k=2}.
+
+Since \recordmath{\boldsymbol{\psi}(z)} is a pole cancellation function of order \recordmath{k=2}, the corresponding root function \recordmath{\boldsymbol{\hat{\varphi}}(z)} of \recordmath{Q^{-1}} is also of order \recordmath{k=2}. According to (\ref{eq416}),
+\[
+\boldsymbol{\hat{\varphi}}_{0}=Q_{-2}\psi_{2}=\left( {\begin{array}{*{20}c}
+\psi_{1}^{2} \\
+0\\
+0\\
+\end{array} } \right),
+\]
+\[
+\boldsymbol{\hat{\varphi}}_{1}=Q_{-1}\psi_{2}+Q_{-2}\psi_{3}=\left( {\begin{array}{*{20}c}
+0 \\
+0 \\
+\psi_{3}^{2}\\
+\end{array} } \right)+ \left( {\begin{array}{*{20}c}
+\psi_{1}^{3} \\
+0 \\
+0\\
+\end{array} } \right)=\left( {\begin{array}{*{20}c}
+\psi_{1}^{3}  \\
+0 \\
+\psi_{3}^{2}\\
+\end{array} } \right).
+\] 
+This implies that the root function at the zero \recordmath{\beta=1} of the function \recordmath{Q^{-1}(z)} is
+\[
+\boldsymbol{\hat{\varphi}}(z)=\left( {\begin{array}{*{20}c}
+\psi_{1}^{2} \\
+0\\
+0\\
+\end{array} } \right)+\left( {\begin{array}{*{20}c}
+\psi_{1}^{3} \\
+0 \\
+\psi_{3}^{2}\\
+\end{array} } \right)(z-1), \quad \psi_{1}^{2}\neq 0.
+\] 
+\hfill \recordmath{\square}
+%\textbf{Compliance with Ethical Standards Statements:}
+
+%\textbf{Conflict of Interest:} The author declares that there is no conflict of interest. 
+
+%\textbf{Funding:} No funding was received to assist with the preparation of this manuscript.
+
+%\textbf{Ethical Conduct:}  This research is original. The manuscript is being submitted only to your journal. All previous results used in this paper are appropriately cited. 
+
+%\textbf{Data Availability Statements:} 
+
+%This research is purely mathematical. The data supporting this paper consist solely of mathematical statements, which are openly available in the cited references. There are no other data involved besides mathematical statements.
+
+%\subsection*{Acknowledgment}
+%This research is dedicated to my dear mentor, late Prof. Heinz Langer.
+
+
+\begin{thebibliography}{99}
+
+%\bibitem {A} R. Arens, Operational calculus of linear relations, Pacific J. Math., 11 (1961), 9-23. 
+
+%\bibitem {AG} N.I. Akhiezer, I.M. Glazman, Theory of Linear Operators in Hilbert Space, Dover Publications, Inc. New York, 1993. 
+
+%\bibitem {BeLu}J. Behrndt, A. Luger, An analytic characterization of the eigenvalues of self-adjoint extensions, J. Funct. Anal. 242 (2007) 607--640.
+
+%\bibitem {BDHS} J. Behrndt, V. A. Derkach, S. Hassi, and H. de Snoo, A realization theorem for generalized Nevanlinna families, Operators and Matrices 5 (2011), no. 4, 679–706.
+
+%\bibitem {BHS} J. Behrndt, S. Hassi, H. de Snoo, Boundary Value Problems, Weyl Functions, and Differential Operators, Open access eBook, https://doi.org/10.1007/978-3-030-36714-5
+
+%\bibitem{Bog} J. Bognar, Indefinite Inner Product Spaces, Springer-Verlag, Berlin, Heidelberg, New York, 1974. 
+
+\bibitem {B1} M. Borogovac, Multiplicities of nonsimple zeros of meromorphic matrix functions of the class \recordmath{N_{\kappa}^{n\times n}}, Math. Nachr. 153 (1991) 69-77.
+
+%\bibitem {B2} M. Borogovac, Inverse of generalized Nevanlinna function that is holomorphic at Infinity, North-Western European Journal of Mathematics, 6 (2020), 19-43.
+
+%\bibitem {B3} M. Borogovac, Reducibility of Self-Adjoint Linear Relations and Application to Generalized Nevanlinna Functions, Ukr. Math. J. (2022), https://doi.org/10.1007/s11253-022-02118-x
+
+%\bibitem {B4} M. Borogovac, Green's boundary relation model in a Krein space
+%\\
+%DOI: 10.13140/RG.2.2.27236.14722
+\bibitem {B5} M. Borogovac, An approach to root functions of matrix polynomials with applications in differential equations and meromorphic matrix functions.~\textit{Adv. Oper. Theory}~\textbf{10}, 43 (2025). https://doi.org/10.1007/s43036-025-00432-2
+
+%\bibitem {B6} M. Borogovac, Root functions of a meromorphic matrix function and applications,
+arXiv:2505.06812v2 [math.CV], https://arxiv.org/pdf/2505.06812v2.
+%\bibitem {BL} M. Borogovac, H. Langer, A characterization of generalized zeros of negative type of matrix functions of the class $N_{\kappa }^{nxn}$, Oper. Theory Adv. Appl. 28, 17-26 (1988). 
+
+\bibitem {BLu} M. Borogovac, A. Luger, Analytic characterizations of Jordan Chains by pole cancellation functions of higher order, J. Funct. Anal. (2014), http://dx.doi.org/10.1016/j.jfa.2014.09.025 
+
+%\bibitem {D1} V. A. Derkach, On generalized resolvents of Hermitian relations in Krein spaces, Journal of Math. Sci, Vol. 97, No. 5, 1999.
+
+%\bibitem {D2} V. A. Derkach, Boundary Triplets, Weyl Functions, and the Krein Formula, In book: Operator Theory, Chapter 10, pp.183-218 (2014); DOI: 10.1007/978-3-0348-0667-1\textunderscore 32 
+
+%\bibitem {DM1} V. A. Derkach, M. M. Malamud, Generalized Resolvents and the Boundary Value Problems for Hermitian Operators with Gaps, J. Funct. Anal. 95 (1991) 1-95.
+
+%\bibitem {DHMS1} V. A. Derkach, S. Hassi, M.M. Malamud, and H.S.V. de Snoo, Boundary relations and their Weyl families, Trans. Amer. Math. Soc., 358 (2006), 5351–5400.
+
+%\bibitem {DM2} V. A. Derkach, M. M. Malamud, The extension theory of hermitian operators and the moment problem, J. Math. Sciences, 73 (1995), 141–242.
+
+%\bibitem {DL} K. Daho and H. Langer. Matrix functions of the class $N_{\kappa }^{nxn}$. Math. Nachr. 120:275\textbraceleft 294, 1985.
+
+\bibitem {DLS} A. Dijksma, H. Langer and H. S. V. de Snoo, Eigenvalues and pole functions of Hamiltonian systems with eigenvalue depending boundary conditions, Math. Nachr. 161 (1993) 107-154. 
+
+\bibitem {GS} I. Gohberg, E. Sigal, An operator generalization of the logarithmic residue theorem and the theorem of the Rouche, Math USSR Sbornik, Vol. 13 (1971) Ni. 4.
+
+\bibitem {GLR} I. Gohberg, P. Lancaster, L Rodman, Matrix Polynomials, New York: Academic Press 1982.
+
+\bibitem {GT} S. G\"{u}ttel, F. Tisseur, The nonlinear eigenvalue problem, Acta
+Numer. 26 (2017), 1–94
+
+
+%\bibitem {HL} S. Hassi, A. Luger, Generalized zeros and poles $N_{\kappa}$-functions: on the underlying spectral structure, Methods of Functional Analysis and Topology Vol. 12 (2006), no. 2, pp. 131-150.
+
+%\bibitem {HSW} S. Hassi, H.S.V. de Snoo, and H. Woracek: Some interpolation problems of Nevanlinna Pick type, Oper. Theory Adv. Appl.106 (1998), 201-216.
+
+%\bibitem {IKL} I. S. Iohvidov, M. G. Krein, H. Langer, Introduction to the Spectral Theory of Operators in Spaces with an Indefinite Metric, Akademie-Verlag, Berlin, 1982.
+
+%\bibitem {KL1} M. G. Krein and H. Langer, \"{U}ber die verallgemeinerten Resolventen und charakteristische Funktion eines isometrischen Operators im Raume $\Pi_{\kappa}$ ,” in: Colloquia Math. Soc. Janos Boyai, 5, Hilbert Space Operators and Operator Algebras, North-Holland, Amsterdam-London (1972), pp. 353–399.
+
+%\bibitem {KL2} M. G. Krein and H. Langer, \"{U}ber die $Q$-Funktion eines $\pi $-hermiteschen Operators im Raume $\Pi_{\kappa }$, Acta Sci. Math. 34, 190-230 (1973). 
+
+%\bibitem {KL3} M. G. Krein and H. Langer, \"{U}ber einige Fortsetzungsprobleme, die eng mit der Theorie hermitescher Operatoren im Raume $\Pi_{\kappa }$ zusammenhangen, I. Einige Funktionenklassen und ihre Darstellungen, Math. Nachr. 77, 187-236 (1977). 
+
+%\bibitem {L} H. Langer, Spectral functions of definitizable operators in Krein spaces, In: Functional Analysis, Proceedings, Dubrovnik 1981, Lecture Notes Math. (984) Springer-Verlag, Berlin and New York, 1982.
+
+%\bibitem {LaLu} H. Langer and A. Luger, A class of 2x2-matrix functions, Glasnik Matematicki, 35(55) 149-160, (2000)
+
+%\bibitem {LT} H. Langer and B. Textorius, On generalized resolvents and Q-functions of symmetric linear relations (subspaces) in Hilbert spaces, Pacific Journal of Mat., Vol 72, No. 1, (1997)
+
+%\bibitem {Lu1} A. Luger, About generalized zeros of non-regular, generalized Nevanlinna functions, Inetgr. Equ. Oper. Theory 41 (2001) 1-14.
+
+%\bibitem {Lu2} A. Luger, A factorization of regular generalized Nevanlinna functions, Inetgr. Equ. Oper. Theory 43 (2002) 326-345.
+
+\bibitem {Lu3} A. Luger, Generalized Nevanlinna Functions: Operator Representations, Asymptotic Behavior, In book: Operator Theory, Chapter 15, pp.345-371 (2014); DOI: 10.1007/978-3-0348-0667-1\textunderscore 35 
+
+\bibitem{Lu4} A. Luger, A characterization of regular generalized Nevanlinna functions, Integr. rqu. oper. theory. 43 (2002) 326-345.
+
+
+%\bibitem{Lu5} A. Luger, A characterization of generalized poles of generalized Nevanlinna functions, Math. Nachr. 279, 891-910 (2006). 
+
+%\bibitem {Langehop} C. E. Langehop, Linear Algebra and its Applications, Volume 16, Issue 3,~1977, Pages 267-284, DOI https://doi.org/10.1016/0024-3795(77)90009-X
+
+% \bibitem{N} C. Neuner, Generalized Tichmarsh-Weyl functions and super singular perturbations, Ph. D. Thesis, Stockholm University, 2015, http://su.diva-portal.org/smash/get/diva2:784627/FULLTEXT01.pdf . 
+
+%\bibitem {S} P. Sorjonen, On linear relations in an indefinite nner product space, Annales Academiae Scientiarum Fennica, Series A. I. Mathematica, Vol.4, 1978/1979, 169-192 
+
+\end{thebibliography}
+
+
+
+\vspace{.5cm}
+\begin{footnotesize}
+%%	\noindent
+%	\begin{tabular}{l}
+%(Received: October 23, 2025)\\
+%(Revised: December 2, 2025)\\
+%\\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\
+ % broj \\  zavisi od broja vrsta na desnoj strani
+%\end{tabular}
+%	\hfill
+	\begin{tabular}{l}
+Muhamed Borogovac\\
+Boston Mutual Life\\
+Actuarial Department\\
+120 Royall St. Canton, MA 02021, USA\\
+e-mail: {muhamed.borogovac@gmail.com }\\
+\end{tabular}
+\end{footnotesize}
+\label{LastPage}
+\end{document}
+
+Dear Editor,
+
+Having worked for many years as an actuary (a mathematician in business) in the actuarial department of a major insurance company, I have developed a particular appreciation for scientific works that offer not only theoretical insights but also practical applications of theoretical research.
+
+This paper exemplifies such work. Its theoretical result in functional analysis can be applied to solving nonlinear systems of differential equations. It presents a procedure for finding eigenvectors and a generalization of Jordan vectors for operator-valued functions, such as rational matrix functions. Through examples, we demonstrate how to use the main result to find eigenvectors and generalized Jordan vectors of a rational matrix function, and we also solve a specific system of nonlinear differential equations.
+

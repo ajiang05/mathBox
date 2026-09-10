@@ -1,0 +1,12 @@
+{
+  "id": "2607.00123",
+  "title": "Operators on Orlicz sequence spaces and $\\Delta_2$-fundamentality",
+  "authors": "David E. Edmunds, Jan Krej\\v{c}\\'i, Zden\\v{e}k Mihula and Lubo\\v{s} Pick",
+  "categories": "math.FA",
+  "license": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+  "update_date": "2026-07-02",
+  "main_file_candidates": [
+    "orlicz-sequence-spaces.tex"
+  ],
+  "compiled_main_file": "orlicz-sequence-spaces.tex"
+}

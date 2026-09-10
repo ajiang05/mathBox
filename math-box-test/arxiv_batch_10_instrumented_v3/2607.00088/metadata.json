@@ -1,0 +1,12 @@
+{
+  "id": "2607.00088",
+  "title": "Central isogenies and conjugacy classes in reductive groups",
+  "authors": "Sean Cotner",
+  "categories": "math.RT math.AG math.NT",
+  "license": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+  "update_date": "2026-07-02",
+  "main_file_candidates": [
+    "non-etale.tex"
+  ],
+  "compiled_main_file": "non-etale.tex"
+}

@@ -1,0 +1,10 @@
+{
+  "main_file": "main.tex",
+  "inline": 195,
+  "display": 30,
+  "equation": 12,
+  "deferred": 1,
+  "protected": 27,
+  "moving_arguments_skipped": 7,
+  "frontmatter_skipped": 0
+}

@@ -1,8 +1,8 @@
 """Create an instrumented copy of a LaTeX paper for math-box labels.
 
-Phase one supports inline math and single-block display math. Multi-line
-alignment environments are reported but left unchanged until their individual
-rows can be measured without changing the document layout.
+Supports inline math, single-block display math, and row/cell measurement for
+the common ``align`` and ``multline`` environment families. More specialized
+multi-line environments remain deferred.
 
 Example:
     python instrument_latex.py \
@@ -60,15 +60,23 @@ VERBATIM_ENVIRONMENTS = ("verbatim", "verbatim*", "lstlisting", "minted")
 # Phase one recognizes these environments but deliberately leaves them alone.
 # They need row-aware measurement because &, \\, and equation alignment cannot
 # safely be placed inside the current single save box.
+ROW_INSTRUMENTED_ENVIRONMENTS = ("align", "align*", "multline", "multline*")
 DEFERRED_ENVIRONMENTS = (
-    "align", "align*", "alignat", "alignat*", "flalign", "flalign*",
-    "gather", "gather*", "multline", "multline*", "eqnarray", "eqnarray*",
+    "alignat", "alignat*", "flalign", "flalign*",
+    "gather", "gather*", "eqnarray", "eqnarray*",
 )
 EQUATION_ENVIRONMENTS = ("equation", "equation*", "displaymath")
 
 # These commands have special expansion rules. Inserting \recordmath into their
 # arguments can break packages such as hyperref.
 PROTECTED_COMMANDS = (r"\texorpdfstring",)
+# These arguments are identifiers, even when they contain math delimiters.
+REFERENCE_COMMAND = re.compile(
+    r"\\(?:label|ref|eqref|pageref|autoref|nameref|cref|Cref|cpageref|Cpageref)\b\*?"
+)
+MOVING_COMMAND = re.compile(
+    r"\\(?:part|chapter|section|subsection|subsubsection|paragraph|subparagraph|caption)\b\*?"
+)
 
 
 def escaped(text: str, index: int) -> bool:
@@ -108,6 +116,106 @@ def has_alignment_tokens(body: str) -> bool:
     return "&" in uncommented or re.search(r"(?<!\\)\\\\", uncommented) is not None
 
 
+def split_math_tokens(source: str, token: str) -> list[str]:
+    r"""Split on top-level alignment tokens, ignoring comments and braces."""
+    parts: list[str] = []
+    start = 0
+    index = 0
+    depth = 0
+    environments: list[str] = []
+    while index < len(source):
+        if source[index] == "%" and not escaped(source, index):
+            newline = source.find("\n", index)
+            index = len(source) if newline < 0 else newline + 1
+            continue
+        environment = re.match(r"\\(begin|end)\s*\{([^{}]+)\}", source[index:])
+        if environment and not escaped(source, index):
+            action, name = environment.groups()
+            if action == "begin":
+                environments.append(name)
+            elif environments and environments[-1] == name:
+                environments.pop()
+            index += environment.end()
+            continue
+        if source[index] == "{" and not escaped(source, index):
+            depth += 1
+        elif source[index] == "}" and not escaped(source, index):
+            depth = max(0, depth - 1)
+        elif depth == 0 and not environments and source.startswith(token, index) and not escaped(source, index):
+            parts.append(source[start:index])
+            parts.append(token)
+            index += len(token)
+            start = index
+            continue
+        index += 1
+    parts.append(source[start:])
+    return parts
+
+
+def wrap_display_fragment(fragment: str) -> tuple[str, bool]:
+    """Wrap a nonempty display-math fragment while preserving whitespace."""
+    leading_length = len(fragment) - len(fragment.lstrip())
+    trailing_length = len(fragment) - len(fragment.rstrip())
+    leading = fragment[:leading_length]
+    content_end = len(fragment) - trailing_length if trailing_length else len(fragment)
+    content = fragment[leading_length:content_end]
+    trailing = fragment[content_end:]
+    if not content or content.startswith("%"):
+        return fragment, False
+    # These directives must remain visible to the surrounding AMS environment;
+    # executing them inside the recorder's savebox would alter equation numbers.
+    directive_pattern = re.compile(
+        r"\\(?:nonumber|notag)\b"
+        r"|\\tag\*?\s*\{(?:[^{}]|\{[^{}]*\})*\}"
+    )
+    directives = directive_pattern.findall(content)
+    # Removing a directive on its own line must not create a blank paragraph
+    # inside an AMS alignment.
+    content = directive_pattern.sub("", content)
+    content = content.rstrip()
+    # Put the closing brace on its own line so a final TeX comment cannot hide it.
+    return (
+        leading + r"\recorddisplay{" + content + "\n}"
+        + "".join(directives) + trailing,
+        True,
+    )
+
+
+def instrument_multiline_environment(body: str, environment: str) -> tuple[str, int]:
+    r"""Instrument visible rows/cells without consuming ``&`` or ``\\``."""
+    output: list[str] = []
+    recorded = 0
+    for row_part in split_math_tokens(body, r"\\"):
+        if row_part == r"\\":
+            output.append(row_part)
+            continue
+        # AMS inter-row text is an alignment directive, not boxed math.
+        prefix = ""
+        while True:
+            directive = re.match(r"\s*\\(?:intertext|shortintertext)\b", row_part)
+            if directive is None:
+                break
+            end = braced_command_end(row_part, directive.end(), 1)
+            if end is None:
+                break
+            prefix += row_part[:end]
+            row_part = row_part[end:]
+        output.append(prefix)
+        if environment.startswith("align"):
+            for cell_part in split_math_tokens(row_part, "&"):
+                if cell_part == "&":
+                    output.append(cell_part)
+                else:
+                    wrapped, changed = wrap_display_fragment(cell_part)
+                    output.append(wrapped)
+                    recorded += int(changed)
+        else:
+            wrapped, changed = wrap_display_fragment(row_part)
+            output.append(wrapped)
+            recorded += int(changed)
+    return "".join(output), recorded
+
+
 def braced_command_end(source: str, start: int, arguments: int) -> int | None:
     """Return the end offset of balanced braced command arguments.
 
@@ -134,6 +242,36 @@ def braced_command_end(source: str, start: int, arguments: int) -> int | None:
     return position
 
 
+def moving_command_end(source: str, start: int) -> int | None:
+    """Consume a title/caption, including its optional short form."""
+    position = start
+    while position < len(source) and source[position].isspace():
+        position += 1
+    if position < len(source) and source[position] == "[":
+        position += 1
+        depth = 0
+        while position < len(source):
+            char = source[position]
+            if char == "%" and not escaped(source, position):
+                newline = source.find("\n", position)
+                if newline < 0:
+                    return None
+                position = newline + 1
+                continue
+            if not escaped(source, position):
+                if char == "{":
+                    depth += 1
+                elif char == "}":
+                    depth -= 1
+                elif char == "]" and depth == 0:
+                    position += 1
+                    break
+            position += 1
+        else:
+            return None
+    return braced_command_end(source, position, 1)
+
+
 def wrap_math(source: str) -> tuple[str, dict[str, int]]:
     """Instrument supported math found in a LaTeX document-body fragment.
 
@@ -144,6 +282,7 @@ def wrap_math(source: str) -> tuple[str, dict[str, int]]:
     counts = {
         "inline": 0, "display": 0, "equation": 0,
         "deferred": 0, "protected": 0,
+        "moving_arguments_skipped": 0,
     }
     output: list[str] = []
     index = 0
@@ -156,6 +295,24 @@ def wrap_math(source: str) -> tuple[str, dict[str, int]]:
             output.append(source[index:end])
             index = end
             continue
+
+        moving = MOVING_COMMAND.match(source, index)
+        if moving and not escaped(source, index):
+            end = moving_command_end(source, moving.end())
+            if end is not None:
+                output.append(source[index:end])
+                counts["moving_arguments_skipped"] += 1
+                index = end
+                continue
+
+        reference = REFERENCE_COMMAND.match(source, index)
+        if reference and not escaped(source, index):
+            end = braced_command_end(source, reference.end(), 1)
+            if end is not None:
+                output.append(source[index:end])
+                counts["protected"] += 1
+                index = end
+                continue
 
         protected = False
         for command in PROTECTED_COMMANDS:
@@ -171,7 +328,12 @@ def wrap_math(source: str) -> tuple[str, dict[str, int]]:
             continue
 
         matched_environment = False
-        for environment in VERBATIM_ENVIRONMENTS + DEFERRED_ENVIRONMENTS + EQUATION_ENVIRONMENTS:
+        for environment in (
+            VERBATIM_ENVIRONMENTS
+            + ROW_INSTRUMENTED_ENVIRONMENTS
+            + DEFERRED_ENVIRONMENTS
+            + EQUATION_ENVIRONMENTS
+        ):
             begin = rf"\begin{{{environment}}}"
             if not source.startswith(begin, index):
                 continue
@@ -183,7 +345,11 @@ def wrap_math(source: str) -> tuple[str, dict[str, int]]:
             end = end_start + len(end_token)
             body = source[index + len(begin):end_start]
 
-            if environment in EQUATION_ENVIRONMENTS and not has_alignment_tokens(body):
+            if environment in ROW_INSTRUMENTED_ENVIRONMENTS:
+                transformed_body, recorded = instrument_multiline_environment(body, environment)
+                output.extend((begin, transformed_body, end_token))
+                counts["equation"] += recorded
+            elif environment in EQUATION_ENVIRONMENTS and not has_alignment_tokens(body):
                 output.extend((begin, "\n\\recorddisplay{", body, "}\n", end_token))
                 counts["equation"] += 1
             else:

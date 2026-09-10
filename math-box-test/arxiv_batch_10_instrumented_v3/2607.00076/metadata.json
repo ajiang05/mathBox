@@ -1,0 +1,12 @@
+{
+  "id": "2607.00076",
+  "title": "Localization, Factorization and Dualities for Elliptic Kernels",
+  "authors": "Alessio Fontanarossa, Fabrizio Nieri and Antonio Pittelli",
+  "categories": "hep-th math-ph math.MP",
+  "license": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+  "update_date": "2026-07-02",
+  "main_file_candidates": [
+    "cyl_t2_arxiv_v1.tex"
+  ],
+  "compiled_main_file": "cyl_t2_arxiv_v1.tex"
+}

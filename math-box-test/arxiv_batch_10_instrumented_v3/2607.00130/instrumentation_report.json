@@ -1,0 +1,10 @@
+{
+  "main_file": "arxiv_version.tex",
+  "inline": 3231,
+  "display": 65,
+  "equation": 10,
+  "deferred": 11,
+  "protected": 266,
+  "moving_arguments_skipped": 35,
+  "frontmatter_skipped": 2
+}
