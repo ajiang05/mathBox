@@ -1,0 +1,113 @@
+\begin{thebibliography}{13}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\doi}[1]{doi:\href{https://doi.org/#1}{#1}}
+\providecommand{\MRnumber}[1]{\href{https://mathscinet.ams.org/mathscinet-getitem?mr=#1}{MR#1}}
+\providecommand{\Zbl}[1]{Zbl \href{https://zbmath.org/?q=an:#1}{#1}}
+
+\bibitem[Bez and Sugimoto(2017)]{BS2017}
+Neal Bez and Mitsuru Sugimoto.
+\newblock Optimal constants and extremisers for some smoothing estimates.
+\newblock \emph{Journal d'Analyse Math\'{e}matique}, 131\penalty0 (1):\penalty0
+  159--187, 2017.
+\newblock \doi{10.1007/s11854-017-0005-8}.
+\newblock \MRnumber{3631453}.
+
+\bibitem[{\relax DLMF}()]{DLMF}
+{\relax DLMF}.
+\newblock {NIST Digital Library of Mathematical Functions}.
+\newblock Release 1.2.7 of 2026-06-15.
+\newblock URL \url{https://dlmf.nist.gov/}.
+\newblock F.~W.~J. Olver, A.~B. {Olde Daalhuis}, D.~W. Lozier, B.~I. Schneider,
+  R.~F. Boisvert, C.~W. Clark, B.~R. Miller, B.~V. Saunders, H.~S. Cohl, and
+  M.~A. McClain, eds.
+
+\bibitem[Gradshteyn and Ryzhik(2014)]{GR2014}
+I.~S. Gradshteyn and I.~M. Ryzhik.
+\newblock \emph{{Table of Integrals, Series, and Products}}.
+\newblock Elsevier, Boston, 8th edition, 2014.
+\newblock ISBN 978-0-12-384933-5.
+\newblock \doi{10.1016/c2010-0-64839-5}.
+\newblock \MRnumber{3307944}.
+
+\bibitem[Kato and Yajima(1989)]{KY1989}
+Tosio Kato and Kenji Yajima.
+\newblock Some examples of smooth operators and the associated smoothing
+  effect.
+\newblock \emph{Reviews in Mathematical Physics}, 1\penalty0 (4):\penalty0
+  481--496, 1989.
+\newblock \doi{10.1142/s0129055x89000171}.
+\newblock \MRnumber{1061120}.
+
+\bibitem[Krasikov(2014)]{Kra2014}
+Ilia Krasikov.
+\newblock Approximations for the {B}essel and {A}iry functions with an explicit
+  error term.
+\newblock \emph{LMS Journal of Computation and Mathematics}, 17\penalty0
+  (1):\penalty0 209--225, 2014.
+\newblock \doi{10.1112/s1461157013000351}.
+\newblock \MRnumber{3230865}.
+
+\bibitem[Landau(2000)]{Lan2000}
+L.~J. Landau.
+\newblock Bessel functions: monotonicity and bounds.
+\newblock \emph{Journal of the London Mathematical Society}, 61\penalty0
+  (1):\penalty0 197--215, 2000.
+\newblock \doi{10.1112/s0024610799008352}.
+\newblock \MRnumber{1745392}.
+
+\bibitem[Nicholson(1910)]{Nic1910}
+J.~W. Nicholson.
+\newblock The asymptotic expansions of {B}essel functions.
+\newblock \emph{The London, Edinburgh, and Dublin Philosophical Magazine and
+  Journal of Science}, 19\penalty0 (110):\penalty0 228--249, 1910.
+\newblock \doi{10.1080/14786440208636796}.
+
+\bibitem[Suzuki(2025{\natexlab{a}})]{Suz2025}
+Soichiro Suzuki.
+\newblock Optimal constants of smoothing estimates for the {Dirac} equation in
+  arbitrary dimensions.
+\newblock \emph{preprint}, 2025{\natexlab{a}}.
+\newblock \doi{10.48550/arXiv.2501.00949}.
+
+\bibitem[Suzuki(2025{\natexlab{b}})]{Suz2025_2}
+Soichiro Suzuki.
+\newblock Identities and inequalities for integral transforms involving squares
+  of the {Bessel} functions.
+\newblock \emph{preprint}, 2025{\natexlab{b}}.
+\newblock \doi{10.48550/arXiv.2511.00137}.
+
+\bibitem[Szeg\H{o}(1933)]{Sze1933}
+G\'{a}bor Szeg\H{o}.
+\newblock Asymptotische {E}ntwicklungen der {J}acobischen {P}olynome.
+\newblock \emph{Schriften der Königsberger gelehrten Gesellschaft:
+  Naturwissenschaftliche Klasse}, 10:\penalty0 35--112, 1933.
+\newblock \Zbl{0007.20304}.
+
+\bibitem[Szeg\H{o}(1975)]{Sze1975}
+G\'{a}bor Szeg\H{o}.
+\newblock \emph{Orthogonal polynomials}.
+\newblock American Mathematical Society Colloquium Publications, Vol. XXIII.
+  American Mathematical Society, Providence, RI, fourth edition, 1975.
+\newblock ISBN 978-0-8218-1023-1.
+\newblock \doi{10.1090/coll/023}.
+\newblock \MRnumber{0372517}.
+
+\bibitem[Walther(2002)]{Wal2002}
+Bj\"{o}rn~G. Walther.
+\newblock Regularity, decay, and best constants for dispersive equations.
+\newblock \emph{Journal of Functional Analysis}, 189\penalty0 (2):\penalty0
+  325--335, 2002.
+\newblock \doi{10.1006/jfan.2001.3863}.
+\newblock \MRnumber{1891852}.
+
+\bibitem[Watson(1944)]{Wat1944}
+G.~N. Watson.
+\newblock \emph{A treatise on the theory of {Bessel} functions}.
+\newblock Cambridge University Press, 2nd edition, 1944.
+\newblock ISBN 9780521483919.
+\newblock \MRnumber{0010746}.
+
+\end{thebibliography}
+
+

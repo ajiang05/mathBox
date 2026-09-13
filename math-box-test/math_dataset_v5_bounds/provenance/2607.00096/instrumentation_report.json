@@ -1,0 +1,12 @@
+{
+  "main_file": "main.tex",
+  "recorder": "pdf-breakable-v1",
+  "inline": 206,
+  "display": 0,
+  "equation": 46,
+  "deferred": 2,
+  "protected": 22,
+  "moving_arguments_skipped": 9,
+  "empty_math_skipped": 0,
+  "frontmatter_skipped": 1
+}

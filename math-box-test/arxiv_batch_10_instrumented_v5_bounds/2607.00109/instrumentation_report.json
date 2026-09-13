@@ -1,0 +1,12 @@
+{
+  "main_file": "order-interpolation_ineq.tex",
+  "recorder": "pdf-breakable-v1",
+  "inline": 100,
+  "display": 0,
+  "equation": 48,
+  "deferred": 6,
+  "protected": 51,
+  "moving_arguments_skipped": 5,
+  "empty_math_skipped": 0,
+  "frontmatter_skipped": 7
+}

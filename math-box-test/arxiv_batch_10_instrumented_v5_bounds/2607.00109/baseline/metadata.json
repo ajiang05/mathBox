@@ -1,0 +1,12 @@
+{
+  "id": "2607.00109",
+  "title": "An order-interpolation inequality for Bessel functions",
+  "authors": "Soichiro Suzuki",
+  "categories": "math.CA",
+  "license": "http://creativecommons.org/licenses/by/4.0/",
+  "update_date": "2026-07-02",
+  "main_file_candidates": [
+    "order-interpolation_ineq.tex"
+  ],
+  "compiled_main_file": "order-interpolation_ineq.tex"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "2607.00067",
+  "title": "When is the Ring of Integer-Valued Polynomials over a Group Ring a Pr\\\"ufer domain?",
+  "authors": "Jean-Luc Chabert",
+  "categories": "math.AC",
+  "license": "http://creativecommons.org/licenses/by/4.0/",
+  "update_date": "2026-07-02",
+  "main_file_candidates": [
+    "Prufer_and_group_rings.tex"
+  ],
+  "compiled_main_file": "Prufer_and_group_rings.tex"
+}

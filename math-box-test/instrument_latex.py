@@ -19,37 +19,44 @@ from pathlib import Path
 
 
 # LaTeX definitions inserted into the preamble of every instrumented paper.
-# They measure a math box in TeX scaled points and write its final physical
-# page and position to mathcoords.csv.
+# Invisible backend annotations measure normally typeset math after line breaking.
+# extract_mathcoords.py converts their final PDF rectangles into the coordinate CSV.
 RECORDER = r"""
 % mathBox automatic coordinate recorder
-\usepackage{zref-savepos}
-\usepackage{zref-abspage}
-\newsavebox{\mathboxrecordbox}
-\newwrite\mathcoords
-\immediate\openout\mathcoords=mathcoords.csv
-\immediate\write\mathcoords{id,page,x,y,width,height,depth}
+\newwrite\mathrecords
+\immediate\openout\mathrecords=mathrecords.csv
+\immediate\write\mathrecords{expression_id,kind}
 \newcounter{mathrecordid}
+% Marked-content points identify painted rules without changing their rendering.
+\AtBeginDocument{\special{pdf:put @catalog << /MathBoxPaintVersion 1 >>}}
 \makeatletter
-\zref@addprop{savepos}{abspage}
-\newcommand{\recordmath}[1]{%
-  \ifmeasuring@ #1%
-  \else
-    \stepcounter{mathrecordid}%
-    \sbox{\mathboxrecordbox}{$#1$}%
-    \edef\mathrecordlabel{math-record-\themathrecordid}%
-    \leavevmode\zsavepos{\mathrecordlabel}%
-    \immediate\write\mathcoords{%
-      \themathrecordid,
-      \zref@extractdefault{\mathrecordlabel}{abspage}{0},
-      \zposx{\mathrecordlabel},\zposy{\mathrecordlabel},
-      \number\wd\mathboxrecordbox,\number\ht\mathboxrecordbox,
-      \number\dp\mathboxrecordbox}%
-    \usebox{\mathboxrecordbox}%
-  \fi}
+\@ifundefined{ifmeasuring@}{\newif\ifmeasuring@}{}
+\newcommand{\mathboxbegin}[1]{%
+  \stepcounter{mathrecordid}%
+  \immediate\write\mathrecords{\themathrecordid,#1}%
+  \special{pdf:bann << /Type /Annot /Subtype /Link /Border [0 0 0]
+    /MathBoxID \themathrecordid /F 2
+    /A << /S /URI /URI (urn:mathbox:\themathrecordid) >> >>}}
+\newcommand{\mathboxinlineplain}[1]{$#1$}
+\newcommand{\mathboxinline}[1]{%
+  $\mathboxbegin{inline}%
+  \special{pdf:literal direct /MathBoxBegin\themathrecordid\space MP}%
+  #1\special{pdf:literal direct /MathBoxEnd\themathrecordid\space MP}%
+  \special{pdf:eann}$}
+\newcommand{\mathboxdisplay}[1]{%
+  \mathboxbegin{display}%
+  \special{pdf:literal direct /MathBoxBegin\themathrecordid\space MP}%
+  #1\special{pdf:literal direct /MathBoxEnd\themathrecordid\space MP}%
+  \special{pdf:eann}}
+% Close conditionals before expanding nested alignments such as cases.
+\newcommand{\recordmath}{%
+  \ifmeasuring@\expandafter\mathboxinlineplain
+  \else\expandafter\mathboxinline\fi}
+\newcommand{\recorddisplay}{%
+  \ifmeasuring@\expandafter\@firstofone
+  \else\expandafter\mathboxdisplay\fi}
 \makeatother
-\newcommand{\recorddisplay}[1]{\recordmath{\displaystyle #1}}
-\AtEndDocument{\immediate\closeout\mathcoords}
+\AtEndDocument{\immediate\closeout\mathrecords}
 % end mathBox automatic coordinate recorder
 """
 
@@ -104,6 +111,11 @@ def find_unescaped(text: str, token: str, start: int) -> int:
     while position >= 0 and escaped(text, position):
         position = text.find(token, position + len(token))
     return position
+
+
+def empty_math(body: str) -> bool:
+    """Whitespace and comments have no visible math; preserve them verbatim."""
+    return not re.sub(r"(?<!\\)%[^\n]*", "", body).strip()
 
 
 def has_alignment_tokens(body: str) -> bool:
@@ -185,10 +197,18 @@ def instrument_multiline_environment(body: str, environment: str) -> tuple[str, 
     r"""Instrument visible rows/cells without consuming ``&`` or ``\\``."""
     output: list[str] = []
     recorded = 0
+    after_break = False
     for row_part in split_math_tokens(body, r"\\"):
         if row_part == r"\\":
             output.append(row_part)
+            after_break = True
             continue
+        if after_break:
+            # The star and optional spacing belong to \\, not to the next cell.
+            spacing = re.match(r"\*?(?:\s*\[[^\]]*\])?", row_part)
+            output.append(spacing.group())
+            row_part = row_part[spacing.end():]
+            after_break = False
         # AMS inter-row text is an alignment directive, not boxed math.
         prefix = ""
         while True:
@@ -283,6 +303,7 @@ def wrap_math(source: str) -> tuple[str, dict[str, int]]:
         "inline": 0, "display": 0, "equation": 0,
         "deferred": 0, "protected": 0,
         "moving_arguments_skipped": 0,
+        "empty_math_skipped": 0,
     }
     output: list[str] = []
     index = 0
@@ -345,7 +366,10 @@ def wrap_math(source: str) -> tuple[str, dict[str, int]]:
             end = end_start + len(end_token)
             body = source[index + len(begin):end_start]
 
-            if environment in ROW_INSTRUMENTED_ENVIRONMENTS:
+            if environment not in VERBATIM_ENVIRONMENTS and empty_math(body):
+                output.append(source[index:end])
+                counts["empty_math_skipped"] += 1
+            elif environment in ROW_INSTRUMENTED_ENVIRONMENTS:
                 transformed_body, recorded = instrument_multiline_environment(body, environment)
                 output.extend((begin, transformed_body, end_token))
                 counts["equation"] += recorded
@@ -368,8 +392,11 @@ def wrap_math(source: str) -> tuple[str, dict[str, int]]:
             end = find_unescaped(source, "$$", index + 2)
             if end >= 0:
                 body = source[index + 2:end]
-                if not has_alignment_tokens(body):
-                    output.extend(("\\[\\recorddisplay{", body, "}\\]"))
+                if empty_math(body):
+                    output.append(source[index:end + 2])
+                    counts["empty_math_skipped"] += 1
+                elif not has_alignment_tokens(body):
+                    output.extend(("$$\\recorddisplay{", body, "}$$"))
                     counts["display"] += 1
                 else:
                     output.append(source[index:end + 2])
@@ -381,7 +408,10 @@ def wrap_math(source: str) -> tuple[str, dict[str, int]]:
             end = find_unescaped(source, r"\]", index + 2)
             if end >= 0:
                 body = source[index + 2:end]
-                if not has_alignment_tokens(body):
+                if empty_math(body):
+                    output.append(source[index:end + 2])
+                    counts["empty_math_skipped"] += 1
+                elif not has_alignment_tokens(body):
                     output.extend((r"\[\recorddisplay{", body, r"}\]"))
                     counts["display"] += 1
                 else:
@@ -393,16 +423,26 @@ def wrap_math(source: str) -> tuple[str, dict[str, int]]:
         if source.startswith(r"\(", index) and not escaped(source, index):
             end = find_unescaped(source, r"\)", index + 2)
             if end >= 0:
-                output.extend(("\\recordmath{", source[index + 2:end], "}"))
-                counts["inline"] += 1
+                body = source[index + 2:end]
+                if empty_math(body):
+                    output.append(source[index:end + 2])
+                    counts["empty_math_skipped"] += 1
+                else:
+                    output.extend(("\\recordmath{", body, "}"))
+                    counts["inline"] += 1
                 index = end + 2
                 continue
 
         if source[index] == "$" and not escaped(source, index):
             end = find_unescaped(source, "$", index + 1)
             if end >= 0:
-                output.extend(("\\recordmath{", source[index + 1:end], "}"))
-                counts["inline"] += 1
+                body = source[index + 1:end]
+                if empty_math(body):
+                    output.append(source[index:end + 1])
+                    counts["empty_math_skipped"] += 1
+                else:
+                    output.extend(("\\recordmath{", body, "}"))
+                    counts["inline"] += 1
                 index = end + 1
                 continue
 
@@ -480,7 +520,7 @@ def main() -> None:
     instrumented, counts = instrument_document(original)
     destination_main.write_text(instrumented, encoding="utf-8")
 
-    report = {"main_file": str(args.main), **counts}
+    report = {"main_file": str(args.main), "recorder": "pdf-breakable-v1", **counts}
     (args.destination / "instrumentation_report.json").write_text(
         json.dumps(report, indent=2) + "\n", encoding="utf-8"
     )

@@ -1,0 +1,12 @@
+{
+  "main_file": "non-etale.tex",
+  "recorder": "pdf-breakable-v1",
+  "inline": 2760,
+  "display": 58,
+  "equation": 16,
+  "deferred": 16,
+  "protected": 319,
+  "moving_arguments_skipped": 23,
+  "empty_math_skipped": 0,
+  "frontmatter_skipped": 5
+}

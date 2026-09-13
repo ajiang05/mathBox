@@ -1,0 +1,12 @@
+{
+  "id": "2607.00097",
+  "title": "Construction of Pole Cancellation Functions at Ordinary Poles of Operator-Valued Functions",
+  "authors": "Muhamed Borogovac",
+  "categories": "math.CV math.FA",
+  "license": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+  "update_date": "2026-07-28",
+  "main_file_candidates": [
+    "PCF.tex"
+  ],
+  "compiled_main_file": "PCF.tex"
+}

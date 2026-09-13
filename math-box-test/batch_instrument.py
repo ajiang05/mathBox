@@ -11,6 +11,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+from extract_mathcoords import compare_layout, extract_coordinates
+
 
 SCRIPT_DIRECTORY = Path(__file__).resolve().parent
 
@@ -81,8 +83,24 @@ def process_paper(paper: Path, destination: Path, dpi: int) -> dict[str, str]:
 
         pdf = output / f"{main_file.stem}.pdf"
         coordinates = output / "mathcoords.csv"
-        if not pdf.is_file() or not coordinates.is_file():
-            raise RuntimeError("compilation did not produce the PDF and mathcoords.csv")
+        if not pdf.is_file():
+            raise RuntimeError("compilation did not produce the PDF")
+
+        print(f"[{name}] Checking original layout and extracting line fragments", flush=True)
+        baseline = output / "baseline"
+        shutil.copytree(paper, baseline)
+        run_command(["tectonic", "--outdir", ".", str(main_file)], cwd=baseline)
+        try:
+            layout = compare_layout(baseline / pdf.name, pdf)
+            fragments = extract_coordinates(pdf, output / "mathrecords.csv", coordinates)
+        except ValueError as error:
+            (output / "layout_report.json").write_text(
+                json.dumps({"passed": False, "error": str(error)}, indent=2) + "\n"
+            )
+            raise
+        (output / "layout_report.json").write_text(
+            json.dumps({"passed": True, "layout": layout, **fragments}, indent=2) + "\n"
+        )
 
         print(f"[{name}] Rendering audit images", flush=True)
         run_command([
@@ -97,7 +115,7 @@ def process_paper(paper: Path, destination: Path, dpi: int) -> dict[str, str]:
         ])
         entry.update(status="ok", main_file=str(main_file), output=str(output))
         print(f"[{name}] Complete", flush=True)
-    except (ValueError, RuntimeError) as error:
+    except (OSError, ValueError, RuntimeError) as error:
         entry["error"] = str(error)
         print(f"[{name}] FAILED: {error}", file=sys.stderr, flush=True)
     return entry

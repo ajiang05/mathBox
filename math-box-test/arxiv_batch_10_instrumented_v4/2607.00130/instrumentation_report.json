@@ -1,0 +1,12 @@
+{
+  "main_file": "arxiv_version.tex",
+  "recorder": "pdf-breakable-v1",
+  "inline": 3230,
+  "display": 65,
+  "equation": 10,
+  "deferred": 11,
+  "protected": 266,
+  "moving_arguments_skipped": 35,
+  "empty_math_skipped": 1,
+  "frontmatter_skipped": 2
+}

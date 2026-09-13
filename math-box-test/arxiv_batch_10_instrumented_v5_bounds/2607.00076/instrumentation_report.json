@@ -1,0 +1,12 @@
+{
+  "main_file": "cyl_t2_arxiv_v1.tex",
+  "recorder": "pdf-breakable-v1",
+  "inline": 697,
+  "display": 8,
+  "equation": 469,
+  "deferred": 13,
+  "protected": 183,
+  "moving_arguments_skipped": 35,
+  "empty_math_skipped": 0,
+  "frontmatter_skipped": 0
+}

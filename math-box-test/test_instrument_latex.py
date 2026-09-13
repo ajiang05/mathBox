@@ -52,9 +52,24 @@ class WrapMathTests(unittest.TestCase):
         transformed, counts = wrap_math(r"\[x^2\] $$y^2$$")
         self.assertEqual(
             transformed,
-            r"\[\recorddisplay{x^2}\] \[\recorddisplay{y^2}\]",
+            r"\[\recorddisplay{x^2}\] $$\recorddisplay{y^2}$$",
         )
         self.assertEqual(counts["display"], 2)
+
+    def test_empty_math_is_preserved_without_recording(self) -> None:
+        for source in ("$ $", r"\( \)", "$$ $$", r"\[ \]",
+                       "\\begin{equation}% comment\n \\end{equation}"):
+            with self.subTest(source=source):
+                transformed, counts = wrap_math(source)
+                self.assertEqual(transformed, source)
+                self.assertEqual(counts["empty_math_skipped"], 1)
+                self.assertEqual(counts["inline"] + counts["display"] + counts["equation"], 0)
+
+    def test_alignment_break_spacing_is_preserved(self) -> None:
+        for spacing in ("[2mm]", "*[2mm]", "*", " [2mm]"):
+            source = r"\begin{align}a&=b\\" + spacing + r"c&=d\end{align}"
+            transformed, _ = wrap_math(source)
+            self.assertIn(r"\\" + spacing + r"\recorddisplay{c", transformed)
 
     def test_comments_are_unchanged(self) -> None:
         transformed, counts = wrap_math("% $not math$\n$x$")

@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "status": "pilot",
+  "coverage": "Pilot annotations are incomplete: headings, captions, front matter and unsupported constructs may contain unlabelled math. A page without annotations is not a confirmed negative. Alignment cells remain separate boxes.",
+  "dpi": 150,
+  "source_batch": "arxiv_batch_10_instrumented_v5_bounds",
+  "papers": [
+    {
+      "paper_id": "2607.00067",
+      "pages": 3,
+      "boxes": 111,
+      "instrumentation": {
+        "main_file": "Prufer_and_group_rings.tex",
+        "recorder": "pdf-breakable-v1",
+        "inline": 152,
+        "display": 11,
+        "equation": 0,
+        "deferred": 0,
+        "protected": 7,
+        "moving_arguments_skipped": 4,
+        "empty_math_skipped": 0,
+        "frontmatter_skipped": 0
+      }
+    },
+    {
+      "paper_id": "2607.00076",
+      "pages": 59,
+      "boxes": 1180,
+      "instrumentation": {
+        "main_file": "cyl_t2_arxiv_v1.tex",
+        "recorder": "pdf-breakable-v1",
+        "inline": 697,
+        "display": 8,
+        "equation": 469,
+        "deferred": 13,
+        "protected": 183,
+        "moving_arguments_skipped": 35,
+        "empty_math_skipped": 0,
+        "frontmatter_skipped": 0
+      }
+    },
+    {
+      "paper_id": "2607.00088",
+      "pages": 33,
+      "boxes": 2855,
+      "instrumentation": {
+        "main_file": "non-etale.tex",
+        "recorder": "pdf-breakable-v1",
+        "inline": 2760,
+        "display": 58,
+        "equation": 16,
+        "deferred": 16,
+        "protected": 319,
+        "moving_arguments_skipped": 23,
+        "empty_math_skipped": 0,
+        "frontmatter_skipped": 5
+      }
+    },
+    {
+      "paper_id": "2607.00094",
+      "pages": 26,
+      "boxes": 945,
+      "instrumentation": {
+        "main_file": "Preprint.tex",
+        "recorder": "pdf-breakable-v1",
+        "inline": 827,
+        "display": 77,
+        "equation": 132,
+        "deferred": 11,
+        "protected": 201,
+        "moving_arguments_skipped": 13,
+        "empty_math_skipped": 0,
+        "frontmatter_skipped": 0
+      }
+    },
+    {
+      "paper_id": "2607.00096",
+      "pages": 6,
+      "boxes": 264,
+      "instrumentation": {
+        "main_file": "main.tex",
+        "recorder": "pdf-breakable-v1",
+        "inline": 206,
+        "display": 0,
+        "equation": 46,
+        "deferred": 2,
+        "protected": 22,
+        "moving_arguments_skipped": 9,
+        "empty_math_skipped": 0,
+        "frontmatter_skipped": 1
+      }
+    },
+    {
+      "paper_id": "2607.00097",
+      "pages": 10,
+      "boxes": 289,
+      "instrumentation": {
+        "main_file": "PCF.tex",
+        "recorder": "pdf-breakable-v1",
+        "inline": 259,
+        "display": 13,
+        "equation": 16,
+        "deferred": 14,
+        "protected": 72,
+        "moving_arguments_skipped": 2,
+        "empty_math_skipped": 0,
+        "frontmatter_skipped": 13
+      }
+    },
+    {
+      "paper_id": "2607.00109",
+      "pages": 7,
+      "boxes": 149,
+      "instrumentation": {
+        "main_file": "order-interpolation_ineq.tex",
+        "recorder": "pdf-breakable-v1",
+        "inline": 100,
+        "display": 0,
+        "equation": 48,
+        "deferred": 6,
+        "protected": 51,
+        "moving_arguments_skipped": 5,
+        "empty_math_skipped": 0,
+        "frontmatter_skipped": 7
+      }
+    }
+  ],
+  "skip_failed_papers": true,
+  "excluded_papers": [
+    {
+      "paper_id": "2607.00123",
+      "stage": "batch",
+      "reason": "layout/content changed on pages [3, 6, 7, 11, 15]"
+    },
+    {
+      "paper_id": "2607.00130",
+      "stage": "batch",
+      "reason": "expression 1650: page-spanning paint scope is unsupported"
+    },
+    {
+      "paper_id": "2607.00132",
+      "stage": "batch",
+      "reason": "layout/content changed on pages [2, 3, 4, 5]"
+    }
+  ],
+  "attempted_paper_count": 10,
+  "included_paper_count": 7,
+  "excluded_paper_count": 3,
+  "paper_count": 7,
+  "page_count": 144,
+  "annotation_count": 5793
+}

@@ -1,0 +1,12 @@
+{
+  "id": "2607.00094",
+  "title": "Convergence of a minimizing movement scheme for contact-angle mean curvature flow in a smooth bounded domain",
+  "authors": "Tokuhiro Eto, Jiwoong Jang",
+  "categories": "math.AP",
+  "license": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+  "update_date": "2026-07-20",
+  "main_file_candidates": [
+    "Preprint.tex"
+  ],
+  "compiled_main_file": "Preprint.tex"
+}

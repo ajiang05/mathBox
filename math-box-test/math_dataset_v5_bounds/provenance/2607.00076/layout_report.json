@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "layout": {
+    "pages": 59,
+    "comparison_dpi": 150,
+    "pixel_identical": false,
+    "max_glyph_drift_bp": 0.007415771484375,
+    "max_changed_channel_fraction": 1.9295139370629306e-05,
+    "max_mean_channel_difference": 0.0008296909929370602,
+    "passed": true
+  },
+  "expressions": 1174,
+  "fragments": 1180,
+  "multi_fragment_expressions": 6,
+  "paint_bounds_version": 1,
+  "paint_expanded_fragments": 21
+}

@@ -1,0 +1,4 @@
+{
+  "passed": false,
+  "error": "expression 1650: page-spanning paint scope is unsupported"
+}

@@ -1,0 +1,137 @@
+\begin{thebibliography}{10}
+
+\bibitem{Almgren93}
+F.~Almgren, J.~E. Taylor, and L.~Wang.
+\newblock Curvature-driven flows: a variational approach.
+\newblock {\em SIAM J. Control Optim.}, 31(2):387--438, 1993.
+
+\bibitem{B99}
+G.~Barles.
+\newblock Nonlinear {Neumann} boundary conditions for quasilinear degenerate elliptic equations and applications.
+\newblock {\em J. Differ. Equations}, 154(1):191--224, 1999.
+
+\bibitem{BS91}
+G.~Barles and P.~E. Souganidis.
+\newblock Convergence of approximation schemes for fully nonlinear second order equations.
+\newblock {\em Asymptotic Anal.}, 4(3):271--283, 1991.
+
+\bibitem{BK18}
+G.~Bellettini and S.~Y. Kholmatov.
+\newblock Minimizing movements for mean curvature flow of droplets with prescribed contact angle.
+\newblock {\em Journal de Math. Pures et Appl.}, 117:1--58, 2018.
+
+\bibitem{BH07}
+S.~M. Buckley and D.~A. Herron.
+\newblock Uniform domains and capacity.
+\newblock {\em Isr. J. Math.}, 158:129--157, 2007.
+
+\bibitem{C03}
+F.~Cao.
+\newblock {\em Geometric curve evolution and image processing}, volume 1805 of {\em Lect. Notes Math.}
+\newblock Berlin: Springer, 2003.
+
+\bibitem{Chambolle04}
+A.~Chambolle.
+\newblock An algorithm for mean curvature motion.
+\newblock {\em Interfaces Free Bound.}, 6(2):195--218, 2004.
+
+\bibitem{CDM24}
+A.~Chambolle, D.~De~Gennaro, and M.~Morini.
+\newblock Minimizing movements for anisotropic and inhomogeneous mean curvature flows.
+\newblock {\em Adv. Calc. Var.}, 17(4):1095--1129, 2024.
+
+\bibitem{CDGM26}
+A.~Chambolle, D.~De~Gennaro, and M.~Morini.
+\newblock Discrete-to-continuum crystalline curvature flows.
+\newblock {\em Analysis \& PDE}, 19(4):783--822, 2026.
+
+\bibitem{EG24}
+T.~Eto and Y.~Giga.
+\newblock On a minimizing movement scheme for mean curvature flow with prescribed contact angle in a curved domain and its computation.
+\newblock {\em Annali di Matematica Pura ed Applicata (1923-)}, 203:1195--1221, 2024.
+
+\bibitem{EG25}
+T.~Eto and Y.~Giga.
+\newblock A convergence result for a minimizing movement scheme for mean curvature flow with prescribed contact angle in a curved domain.
+\newblock {\em Advances in Mathematical Sciences and Applications}, 34(1):115--147, 2025.
+
+\bibitem{EGI12-1}
+T.~Eto, Y.~Giga, and K.~Ishii.
+\newblock An area minimizing scheme for anisotropic mean curvature flow.
+\newblock {\em Proc. Japan Acad., Ser. A}, 88(1):7--10, 2012.
+
+\bibitem{EGI12-2}
+T.~Eto, Y.~Giga, and K.~Ishii.
+\newblock An area-minimizing scheme for anisotropic mean-curvature flow.
+\newblock {\em Adv. Differ. Equ.}, 17(11-12):1031--1084, 2012.
+
+\bibitem{EG15}
+L.~C. Evans and R.~F. Gariepy.
+\newblock {\em Measure theory and fine properties of functions}.
+\newblock Textb. Math. Boca Raton, FL: CRC Press, revised ed. edition, 2015.
+
+\bibitem{GGP14}
+M.-H. Giga, Y.~Giga, and N.~Po{\v{z}}{\'a}r.
+\newblock Periodic total variation flow of non-divergence type in {{\(\mathbb R^n\)}}.
+\newblock {\em J. Math. Pures Appl. (9)}, 102(1):203--233, 2014.
+
+\bibitem{G06}
+Y.~Giga.
+\newblock {\em Surface evolution equations. {A} level set approach}, volume~99 of {\em Monogr. Math., Basel}.
+\newblock Basel: Birkh{\"a}user, 2006.
+
+\bibitem{GOS99}
+Y.~Giga, M.~Ohnuma, and M.-H. Sato.
+\newblock On the strong maximum principle and the large time behavior of generalized mean curvature flow with the neumann boundary condition.
+\newblock {\em J. Differential Equations}, 154(1):107--131, 1999.
+
+\bibitem{GT83}
+D.~Gilbarg and N.~S. Trudinger.
+\newblock {\em Elliptic partial differential equations of second order. 2nd ed}, volume 224 of {\em Grundlehren Math. Wiss.}
+\newblock Springer, Cham, 1983.
+
+\bibitem{IS04}
+H.~Ishii and M.-H. Sato.
+\newblock Nonlinear oblique derivative problems for singular degenerate parabolic equations on a general domain.
+\newblock {\em Nonlinear Anal., Theory Methods Appl., Ser. A, Theory Methods}, 57(7-8):1077--1098, 2004.
+
+\bibitem{J23}
+J.~Jang.
+\newblock Capillary-type boundary value problems of mean curvature flow with force and transport terms on a bounded domain.
+\newblock {\em Calc. Var. Partial Differential Equations}, 62, 2023.
+
+\bibitem{JKMT22}
+J.~Jang, D.~Kwon, H.~Mitake, and H.~V. Tran.
+\newblock Level-set forced mean curvature flow with the neumann boundary condition.
+\newblock {\em Journal de Math. Pures et Appl.}, 168:143--167, 2022.
+
+\bibitem{K25-2}
+S.~Kholmatov.
+\newblock Minimizing movements for forced anisotropic curvature flow of droplets.
+\newblock {\em Interfaces Free Bound.}, 27(3):349--402, 2025.
+
+\bibitem{Kholmatov25}
+S.~Y. Kholmatov.
+\newblock Consistency of minimizing movements with smooth mean curvature flow of droplets with prescribed contact angle in {{\(\mathbb{R}^3\)}}.
+\newblock {\em Calc. Var. Partial Differ. Equ.}, 64(7):29, 2025.
+\newblock Id/No 211.
+
+\bibitem{LS95}
+S.~Luckhaus and T.~Sturzenhecker.
+\newblock Implicit time discretization for the mean curvature flow equation.
+\newblock {\em Calc. Var. Partial Differential Equations}, 3(2):253--271, 1995.
+
+\bibitem{Modica87}
+L.~Modica.
+\newblock Gradient theory of phase transitions with boundary contact energy.
+\newblock {\em Ann. Inst. Henri Poincar{\'e}, Anal. Non Lin{\'e}aire}, 4:487--512, 1987.
+
+\bibitem{PW84}
+M.~H. Protter and H.~F. Weinberger.
+\newblock {\em Maximum Principles in Differential Equations}.
+\newblock Springer-Verlag, New York, 1984.
+\newblock Corrected reprint of the 1967 original.
+
+\end{thebibliography}
+
+

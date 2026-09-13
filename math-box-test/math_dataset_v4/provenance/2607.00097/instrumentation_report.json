@@ -1,0 +1,12 @@
+{
+  "main_file": "PCF.tex",
+  "recorder": "pdf-breakable-v1",
+  "inline": 259,
+  "display": 13,
+  "equation": 16,
+  "deferred": 14,
+  "protected": 72,
+  "moving_arguments_skipped": 2,
+  "empty_math_skipped": 0,
+  "frontmatter_skipped": 13
+}

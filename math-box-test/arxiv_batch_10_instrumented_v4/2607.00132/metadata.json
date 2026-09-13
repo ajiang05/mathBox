@@ -1,0 +1,12 @@
+{
+  "id": "2607.00132",
+  "title": "On a moment determinacy conjecture of Bertoin and Yor",
+  "authors": "Martin Minchev",
+  "categories": "math.PR",
+  "license": "http://creativecommons.org/licenses/by/4.0/",
+  "update_date": "2026-07-02",
+  "main_file_candidates": [
+    "main.tex"
+  ],
+  "compiled_main_file": "main.tex"
+}

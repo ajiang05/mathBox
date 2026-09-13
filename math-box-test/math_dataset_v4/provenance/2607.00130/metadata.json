@@ -1,0 +1,12 @@
+{
+  "id": "2607.00130",
+  "title": "Generalized Nikulin surfaces and irreducible symplectic fourfolds",
+  "authors": "Chiara Camere, Alice Garbagnati, Grzegorz Kapustka, Micha{\\l} Kapustka",
+  "categories": "math.AG",
+  "license": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+  "update_date": "2026-07-02",
+  "main_file_candidates": [
+    "arxiv_version.tex"
+  ],
+  "compiled_main_file": "arxiv_version.tex"
+}

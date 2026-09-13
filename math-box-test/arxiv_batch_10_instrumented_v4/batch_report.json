@@ -1,0 +1,67 @@
+{
+  "source": "arxiv_batch_10",
+  "destination": "arxiv_batch_10_instrumented_v4",
+  "total": 10,
+  "succeeded": 8,
+  "failed": 2,
+  "papers": [
+    {
+      "paper": "2607.00067",
+      "status": "ok",
+      "main_file": "Prufer_and_group_rings.tex",
+      "output": "arxiv_batch_10_instrumented_v4/2607.00067"
+    },
+    {
+      "paper": "2607.00076",
+      "status": "ok",
+      "main_file": "cyl_t2_arxiv_v1.tex",
+      "output": "arxiv_batch_10_instrumented_v4/2607.00076"
+    },
+    {
+      "paper": "2607.00088",
+      "status": "ok",
+      "main_file": "non-etale.tex",
+      "output": "arxiv_batch_10_instrumented_v4/2607.00088"
+    },
+    {
+      "paper": "2607.00094",
+      "status": "ok",
+      "main_file": "Preprint.tex",
+      "output": "arxiv_batch_10_instrumented_v4/2607.00094"
+    },
+    {
+      "paper": "2607.00096",
+      "status": "ok",
+      "main_file": "main.tex",
+      "output": "arxiv_batch_10_instrumented_v4/2607.00096"
+    },
+    {
+      "paper": "2607.00097",
+      "status": "ok",
+      "main_file": "PCF.tex",
+      "output": "arxiv_batch_10_instrumented_v4/2607.00097"
+    },
+    {
+      "paper": "2607.00109",
+      "status": "ok",
+      "main_file": "order-interpolation_ineq.tex",
+      "output": "arxiv_batch_10_instrumented_v4/2607.00109"
+    },
+    {
+      "paper": "2607.00123",
+      "status": "failed",
+      "error": "layout/content changed on pages [3, 6, 7, 11, 15]"
+    },
+    {
+      "paper": "2607.00130",
+      "status": "ok",
+      "main_file": "arxiv_version.tex",
+      "output": "arxiv_batch_10_instrumented_v4/2607.00130"
+    },
+    {
+      "paper": "2607.00132",
+      "status": "failed",
+      "error": "layout/content changed on pages [2, 3, 4, 5]"
+    }
+  ]
+}
